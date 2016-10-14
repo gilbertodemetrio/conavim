@@ -1,4 +1,4 @@
-package mx.conavim.modelo;
+package mx.conavim.control;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,13 +10,13 @@ import java.sql.SQLException;
 
 public class Conexion {
 	
-	   static String bd = "prueba";
-	   static String user = "gil";
+	   static String bd = "conavim";
+	   static String user = "postgres";
 	   //static String user = "postgres";
-	   static String password = "gilberto_1993";
+	   static String password = "ardillatiko";
 	   //static String password = "";
-	   static String url = "jdbc:postgresql://node21778-conavim.jl.serv.net.mx/"+bd;
-	   //static String url = "jdbc:postgresql://148.215.24.212:5432/"+bd;
+	   //static String url = "jdbc:postgresql://node21778-conavim.jl.serv.net.mx/"+bd;
+	   static String url = "jdbc:postgresql://localhost:5432/"+bd;
 	   
 	   Connection connection = null;
 	   
@@ -30,7 +30,7 @@ public class Conexion {
 		         connection = DriverManager.getConnection(url,user,password);
 		 
 		         if (connection!=null){
-		            System.out.println("Conexión a base de datos "+bd+" OK\n");
+		            //System.out.println("Conexión a base de datos "+bd+" OK\n");
 		         }
 		      }
 		      catch(SQLException e){

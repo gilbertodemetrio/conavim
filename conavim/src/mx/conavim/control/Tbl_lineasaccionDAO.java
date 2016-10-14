@@ -1,4 +1,4 @@
-package mx.conavim.control.consultaDAO;
+package mx.conavim.control;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,7 +11,7 @@ import java.util.List;
 
 
 
-import mx.conavim.control.Conexion;
+
 import mx.conavim.modelo.tbl_lineasaccion;
 
 public class Tbl_lineasaccionDAO {
