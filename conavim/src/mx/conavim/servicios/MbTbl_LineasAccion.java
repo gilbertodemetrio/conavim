@@ -55,14 +55,19 @@ public class MbTbl_LineasAccion {
 		llenarLineas();
 	}
 	public void llenarLineas(){
-		System.out.println("ejecutando metodo llenar lineas");
+		System.out.println("ejecutando metodo llenar lineas para estrategia-->"+estrategia);
 			lineasaccion.clear();
 			for(tbl_lineasaccion val:temp){
 			//System.out.println("----->"+val.getId_estrategia());
 				if(val.getId_estrategia() == estrategia){
-					System.out.println("sacando nuevas listas----->"+val.getId_estrategia());
+					//System.out.println("sacando nuevas listas----->"+val.getId_estrategia()+"--nombre-->"+val.getNombre_linea());
 					lineasaccion.add(val);
 				}
+				
+			}
+			
+			for(tbl_lineasaccion val:lineasaccion){
+				System.out.println("sacando nuevas listas----->"+val.getId_estrategia()+"--nombre-->"+val.getNombre_linea());
 			}
 	}
 	
