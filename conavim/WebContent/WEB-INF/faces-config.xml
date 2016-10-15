@@ -9,5 +9,10 @@
 		<managed-bean-class>mx.conavim.control.Prueba</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>mbTbl_LineasAccion</managed-bean-name>
+		<managed-bean-class>mx.conavim.servicios.MbTbl_LineasAccion</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
 
 </faces-config>
