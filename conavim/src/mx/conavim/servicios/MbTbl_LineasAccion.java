@@ -42,7 +42,7 @@ public class MbTbl_LineasAccion {
 	@PostConstruct
 	public void init() {
 		lineasacc=new Tbl_lineasaccionDAO();
-		lineasaccion=lineasacc.getLineasAccion();
+		temp=lineasacc.getLineasAccion();
 //		//Iterator<tbl_lineasaccion> i = lineasaccion.iterator();
 //		for(tbl_lineasaccion val:temp){
 //			System.out.println("----->"+val.getId_estrategia());
@@ -52,12 +52,15 @@ public class MbTbl_LineasAccion {
 //			}
 //		}
 //		
+		llenarLineas();
 	}
 	public void llenarLineas(){
+		System.out.println("ejecutando metodo llenar lineas");
+			lineasaccion.clear();
 			for(tbl_lineasaccion val:temp){
 			//System.out.println("----->"+val.getId_estrategia());
 				if(val.getId_estrategia() == estrategia){
-					//System.out.println("----->"+val.getId_estrategia());
+					System.out.println("sacando nuevas listas----->"+val.getId_estrategia());
 					lineasaccion.add(val);
 				}
 			}
@@ -69,7 +72,9 @@ public class MbTbl_LineasAccion {
 	public void onTabChange(TabChangeEvent event) {
 		
         FacesMessage msg = new FacesMessage(event.getTab().getTitle());
-        System.out.println("accediedo a metodo-->"+msg.toString());
+        String est = (msg.getDetail()).replace("Estrategia ", "");
+        estrategia = Integer.parseInt(est);
+        System.out.println("accediedo a metodo-->"+estrategia);
         //estrategia=Integer.parseInt(msg.toString());
         llenarLineas();
        FacesContext.getCurrentInstance().addMessage(null, msg);
