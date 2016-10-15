@@ -73,14 +73,14 @@
 			<h:panelGroup id="nomObjetivos" layout="block">
 				
 				<h:form id="form">						
-						
+						<p:growl id="msgs" showDetail="true" />
 					    <p:tabView>
 					        <p:tab title="Objetivo 1" >
 					            <h:panelGrid columns="1" cellpadding="10">					                
 					                <h:outputText value="1. Fomentar la armonización de contenidos legislativos e impulsar la transformación cultural para contribuir a la no violencia contra las mujeres." />
 					            </h:panelGrid>
 					    		<p:tabView >
-					    			<p:ajax event="tabChange" listener="#{mbTbl_LineasAccion.onTabChange()}" update=":form"/>
+					    			<p:ajax event="tabChange" listener="#{mbTbl_LineasAccion.onTabChange}" update=":form:msgs"/>
 					    			<p:tab id="uno" title="Estrategia 1" >
 					    				<h:outputText value="1.1 Promover la armonización de la legislación nacional con tratados y convenciones internacionales, eliminando disposiciones discriminatorias en contra de las mujeres."/>
 					    				<h:panelGroup layout="block">					    					
