@@ -10,11 +10,19 @@
 	<f:view>
 		
 		<h:form>
-			
+			---#{mbTbl_LineasAccion.lineasaccion.size()}---
+			---#{mbTbl_LineasAccion.lineasaccion.get(0).nombre_linea}---
+			---#{mbTbl_LineasAccion.lineasaccion.get(1).nombre_linea}---
+			---#{mbTbl_LineasAccion.lineasaccion.get(2).nombre_linea}---
+			---#{mbTbl_LineasAccion.lineasaccion.get(3).nombre_linea}---
+			---#{mbTbl_LineasAccion.lineasaccion.get(4).nombre_linea}---
+			---#{mbTbl_LineasAccion.lineasaccion.get(5).nombre_linea}---
 					<p:tabView >
+					
 							<c:forEach items="#{mbTbl_LineasAccion.lineasaccion}" var="linea">
+							
 							    <p:tab title="#{linea.nombre_linea}" >
-							    	<h:outputLabel value="otro" />
+							    	<h:outputLabel value="#{linea.descripcion}" />
 								</p:tab>
 							</c:forEach>
 <!-- 								<h:panelGrid columns="2"> -->
