@@ -69,10 +69,10 @@ public class MbTbl_LineasAccion {
 	public void onTabChange(TabChangeEvent event) {
 		
         FacesMessage msg = new FacesMessage(event.getTab().getTitle());
-        System.out.println("accediedo a metodo-->"+msg);
+        System.out.println("accediedo a metodo-->"+msg.toString());
         //estrategia=Integer.parseInt(msg.toString());
         llenarLineas();
-        //        FacesContext.getCurrentInstance().addMessage(null, msg);
+       FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 	
 	
