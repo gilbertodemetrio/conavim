@@ -7,6 +7,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"	
 	template="layout/templateformato.xhtml"
 	xmlns:p="http://primefaces.org/ui"	
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	>
 	
 	<ui:define name="head">
@@ -74,18 +75,25 @@
 				
 				<h:form id="form">						
 						<p:growl id="msgs" showDetail="true" />
-					    <p:tabView>
+					    <p:tabView id="objetivos">
 					        <p:tab title="Objetivo 1" >
 					            <h:panelGrid columns="1" cellpadding="10">					                
 					                <h:outputText value="1. Fomentar la armonización de contenidos legislativos e impulsar la transformación cultural para contribuir a la no violencia contra las mujeres." />
 					            </h:panelGrid>
-					    		<p:tabView >
-					    			<p:ajax event="tabChange" listener="#{mbTbl_LineasAccion.onTabChange}" update=":form:msgs"/>
-					    			<p:tab id="uno" title="Estrategia 1" >
+					    		<p:tabView id="estrategias">
+					    			<p:ajax event="tabChange" listener="#{mbTbl_LineasAccion.onTabChange}" update=":form:objetivos:estrategias:j_idt135"/>
+					    			<p:tab title="Estrategia 1" >
 					    				<h:outputText value="1.1 Promover la armonización de la legislación nacional con tratados y convenciones internacionales, eliminando disposiciones discriminatorias en contra de las mujeres."/>
-					    				<h:panelGroup layout="block">					    					
-					    					<ui:include src="layout/lineasaccion.xhtml"/>					    					
-					    				</h:panelGroup>
+					    				<p:tabView id="lineas" >
+											<c:forEach items="#{mbTbl_LineasAccion.lineasaccion}" var="linea">
+											    <p:tab title="#{linea.nombre_linea}" >
+											    	<h:outputLabel value="otro" />
+												</p:tab>
+											</c:forEach>
+										</p:tabView>
+<!-- 					    				<h:panelGroup layout="block">					    					 -->
+<!-- 					    					<ui:include src="layout/lineasaccion.xhtml"/>					    					 -->
+<!-- 					    				</h:panelGroup> -->
 					    			</p:tab>
 					    			<p:tab  title="Estrategia 2">
 					    				<h:outputText value="1.2 Promover la cultura de la no violencia contra las mujeres para fomentar la igualdad de género."/>
