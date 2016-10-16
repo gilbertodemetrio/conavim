@@ -8,14 +8,13 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	>	
 
-<!-- 		id="formEstrategias#{mbTbl_LineasAccion.iddina}" -->
-<!-- update=":form:objetivos:formEstrategias#{mbTbl_LineasAccion.iddina2}" -->
-		<h:form id="formEstrategias#{mbTbl_LineasAccion.objetivo}">								
-					<p:tabView id="estra" value="#{mbTbl_LineasAccion.estrategias}" var="estrategia">
-						<p:ajax event="tabChange" listener="#{mbTbl_LineasAccion.onTabChangeLineas}" update=":form:objetivos:formEstrategias#{mbTbl_LineasAccion.objetivo}"/>
-				        <p:tab title="#{estrategia.nombre_estrategia}">
+		<h:form id="formEstrategias">								
+					<p:tabView id="estar" value="#{mbTbl_LineasAccion.estrategias}" var="estrategia">
+						<p:ajax event="tabChange" listener="#{mbTbl_LineasAccion.onTabChangeLineas}" update=":form:objetivos:formEstrategias:estar"/>
+				        <p:tab titletip="#{estrategia.id_estrategia}" title="#{estrategia.nombre_estrategia}">
 				            <h:panelGrid columns="1" cellpadding="5">
 				                <h:outputText value="#{estrategia.descripcion}"/>
+				                
 				            </h:panelGrid>
 				            <h:panelGroup  layout="block">					    					
 					    			<ui:include src="lineasaccion.xhtml"/>

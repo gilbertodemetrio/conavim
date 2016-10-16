@@ -17,10 +17,7 @@
 	</ui:define>		
 	
 	<ui:define name="body">
-	<ui:include src="logOut.xhtml"></ui:include>
 	
-	<br/>
-	<br/>
 	<h:panelGroup layout="block">
 		<h:outputText value="Captura de Formato" />
 	 </h:panelGroup>
@@ -33,32 +30,41 @@
 					<p:growl id="msgs" showDetail="true" />					
 					    <p:tabView id="objetivos">
 					    	<p:ajax event="tabChange" listener="#{mbTbl_LineasAccion.onTabChangeEstrategias}" update=":form:objetivos"/>
-					        <p:tab title="Objetivo 1" >
+					        <p:tab title="Objetivo 1">
 					            <h:panelGroup  layout="block">					    					
-					    				<ui:include src="layout/estrategias.xhtml">
-					    				</ui:include>
+					    				<c:if test="#{mbTbl_LineasAccion.objetivo==1}" >
+ 					    				<ui:include src="layout/estrategias.xhtml"/> 					
+									</c:if>
 					    		</h:panelGroup>					    			        
 					        </p:tab>
 					        
 					        
 					        <p:tab title="Objetivo 2">
-					            <h:panelGroup  layout="block">					    					
-<!-- 					    				<ui:include src="layout/estrategias.xhtml"/> -->
+					            <h:panelGroup  layout="block">	
+					            	<c:if test="#{mbTbl_LineasAccion.objetivo==2}" >
+ 					    				<ui:include src="layout/estrategias.xhtml"/> 					
+									</c:if>
 					    		</h:panelGroup>	
 					        </p:tab>
 					        <p:tab title="Objetivo 3">
 					           <h:panelGroup  layout="block">					    					
-<!-- 					    				<ui:include src="layout/estrategias.xhtml"/> -->
+									<c:if test="#{mbTbl_LineasAccion.objetivo==3}" >
+ 					    				<ui:include src="layout/estrategias.xhtml"/> 					
+									</c:if>
 					    		</h:panelGroup>	
 					        </p:tab>
 					        <p:tab title="Objetivo 4">
 					            <h:panelGroup  layout="block">					    					
-<!-- 					    				<ui:include src="layout/estrategias.xhtml"/> -->
+									<c:if test="#{mbTbl_LineasAccion.objetivo==4}" >
+ 					    				<ui:include src="layout/estrategias.xhtml"/> 					
+									</c:if>
 					    		</h:panelGroup>	
 					        </p:tab>
 					        <p:tab title="Objetivo 5">
 					            <h:panelGroup  layout="block">					    					
-<!-- 					    				<ui:include src="layout/estrategias.xhtml"/> -->
+									<c:if test="#{mbTbl_LineasAccion.objetivo==5}" >
+ 					    				<ui:include src="layout/estrategias.xhtml"/> 					
+									</c:if>
 					    		</h:panelGroup>	
 					        </p:tab>
 					    </p:tabView>

@@ -5,7 +5,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"				
-	
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	layout="block">		
 			
 		<h:form id="formLineas#{mbTbl_LineasAccion.estrategia}">								
@@ -14,6 +14,9 @@
 				            <h:panelGrid columns="1" cellpadding="5">
 				                <h:outputText value="#{linea.descripcion}"/>
 				            </h:panelGrid>
+				            <h:panelGroup>
+				            	<ui:include src="preguntas.xhtml"/>
+				            </h:panelGroup>
 				        </p:tab>
 				    </p:tabView>		
 		</h:form>	

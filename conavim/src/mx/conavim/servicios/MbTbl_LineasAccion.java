@@ -40,20 +40,7 @@ public class MbTbl_LineasAccion {
 	
 	
 	
-	public int getIddina2() {
-//		if(this.iddina>30){
-//			this.iddina=0;
-//		}
-		
-		this.iddina2=this.iddina-1;
-		return iddina2;
-	}
 
-	public int getIddina() {
-		
-		iddina+=1;
-		return iddina;
-	}
 
 	public int getObjetivo() {
 		return objetivo;
@@ -109,8 +96,8 @@ public class MbTbl_LineasAccion {
 		tempLineas=consultas.getLineasAccion();
 		productos = consultas.getProductos();
 		tempEstrategias = consultas.getEstrategias();
-		llenarEstrategias();
-		llenarLineas();
+		llenarEstrategias(1);
+		llenarLineas(1);
 	}
 	public List<Tbl_Estrategia> getEstrategias() {
 		return estrategias;
@@ -124,49 +111,57 @@ public class MbTbl_LineasAccion {
 
 
 
-	public void llenarLineas(){
+	public void llenarLineas(int estrategia){
 		System.out.println("ejecutando metodo llenar lineas para estrategia-->"+estrategia);
 			lineasaccion.clear();
 			for(tbl_lineasaccion val:tempLineas){
-			//System.out.println("----->"+val.getId_estrategia());
+				
+				
 				if(val.getId_estrategia() == estrategia){
-					//System.out.println("sacando nuevas listas----->"+val.getId_estrategia()+"--nombre-->"+val.getNombre_linea());
+//					val.setNombre_linea(val.getNombre_linea());
+//					val.setNombre_linea(val.getDescripcion());
+					//System.out.println("sacando nuevas listas----->"+val.getId_estrategia()+"--nombre-->"+val.getDescripcion());
 					lineasaccion.add(val);
 				}
 				
 			}
 			
 //			for(tbl_lineasaccion val:lineasaccion){
-//				System.out.println("sacando nuevas listas----->"+val.getId_estrategia()+"--nombre-->"+val.getNombre_linea());
+//				System.out.println("sacando nuevas Estrategi----->"+val.getId_estrategia()+"--nombre-->"+val.getNombre_linea()+"----descripcion---->"+val.getDescripcion());
 //			}
 	}
 	
-	public void llenarEstrategias(){
+	public void llenarEstrategias(int objetivo){
 		System.out.println("ejecutando metodo llenar estrategias para objetivo-->"+objetivo);
 			estrategias.clear();
 			for(Tbl_Estrategia val:tempEstrategias){
 			//System.out.println("----->"+val.getId_estrategia());
 				if(val.getId_objetivo() == objetivo){
-					//System.out.println("sacando nuevas listas----->"+val.getId_estrategia()+"--nombre-->"+val.getNombre_linea());
+					//System.out.println("sacando nuevas listas----->"+val.getId_estrategia()+"--nombre-->"+val.getDescripcion());
 					estrategias.add(val);
+					
 				}
 				
 			}
+			int ob = estrategias.get(0).getId_estrategia();
+			llenarLineas(ob);
 			
 //			for(tbl_lineasaccion val:lineasaccion){
-//				System.out.println("sacando nuevas listas----->"+val.getId_estrategia()+"--nombre-->"+val.getNombre_linea());
+//				System.out.println("sacando nuevas listas Estrategias----->"+val.getId_estrategia()+"--nombre-->"+val.getNombre_linea()+"--->descripcion"+val.getDescripcion());
 //			}
 	}
 	
 	public void onTabChangeLineas(TabChangeEvent event) {
 		
-        FacesMessage msg = new FacesMessage(event.getTab().getTitle());
-        String est = (msg.getDetail()).replace("Estrategia ", "");
+        //FacesMessage msg = new FacesMessage(event.getTab().getTitle());
+        FacesMessage msg = new FacesMessage(event.getTab().getTitletip());        
+        String est = (msg.getDetail());
+        //System.out.println("valor recibido-->"+est);
         estrategia = Integer.parseInt(est);
-        System.out.println("accediedo a metodo-->"+estrategia);
-        //estrategia=Integer.parseInt(msg.toString());
-        llenarLineas();
-       FacesContext.getCurrentInstance().addMessage(null, msg);
+        System.out.println("Estrategia-->"+estrategia);
+//        //estrategia=Integer.parseInt(msg.toString());
+        llenarLineas(estrategia);
+//       FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 	
 	public void onTabChangeEstrategias(TabChangeEvent event) {
@@ -174,10 +169,11 @@ public class MbTbl_LineasAccion {
         FacesMessage msg = new FacesMessage(event.getTab().getTitle());
         String est = (msg.getDetail()).replace("Objetivo ", "");
         objetivo = Integer.parseInt(est);
-        System.out.println("accediedo a metodo-->"+objetivo);
+        System.out.println("Objetivo-->"+objetivo);
         //estrategia=Integer.parseInt(msg.toString());
-        llenarEstrategias();
+        llenarEstrategias(objetivo);
        FacesContext.getCurrentInstance().addMessage(null, msg);
+       this.estrategia=1;
     }
 	
 	
