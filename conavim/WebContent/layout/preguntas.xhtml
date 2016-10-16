@@ -71,11 +71,14 @@
 				        </p:selectOneMenu>				        
 					</h:panelGroup>
 					
- 					
+ 					<h:panelGroup layout="block">
+						<h:outputLabel value="--"/>
+					</h:panelGroup>
 					
 					<h:panelGroup layout="block">
 						<h:panelGrid columns="3" style="margin-bottom:10px" cellpadding="5">
 					        <p:outputLabel for="console" value="7. Meta programada para la línea de acción" />
+					        
 					        <p:selectOneRadio id="console" value="#{radioView.console}">
 					            <f:selectItem itemLabel="Aplica" itemValue="Aplica" />
 					            <f:selectItem itemLabel="No Aplica" itemValue="No Aplica" />					            
@@ -133,16 +136,142 @@
 						<br/>
 						<h:inputText value="#"/>
 					</h:panelGroup>
-					
-					<h:panelGroup layout="block">
-						<h:outputLabel value="15. Observaciones"/>
-						<br/>
-						<h:inputText value="#"/>
-					</h:panelGroup>
-					
-					<h:panelGroup layout="block">
-					
-					</h:panelGroup>
+										
+				</h:panelGrid>
+				
+				<h:panelGrid columns="1">
+						<h:panelGroup layout="block">
+							<h:outputLabel value="15. Observaciones"/>
+							<br/>
+							<p:inputTextarea rows="5" cols="30" counter="display" maxlength="10" counterTemplate="{0} characters remaining." autoResize="false" />
+    						<h:outputText id="display" />	
+						</h:panelGroup>
+						
+						<h:panelGroup layout="block">
+							<h:outputLabel value="16. ¿Otras instituciones colaboraron con ustedes para el cumplimiento de la línea de acción?"/>
+							<br/>						
+    						<p:inputTextarea rows="5" cols="30" counter="display" maxlength="10" counterTemplate="{0} characters remaining." autoResize="false" />
+    						<h:outputText id="display1" />	
+						</h:panelGroup>
+						
+						<h:panelGroup layout="block">
+							<h:outputLabel value="17. Presupuesto destinado a estas actividades o línea de acción"/>
+							<br/>
+							<h:inputText value="#"/>
+						</h:panelGroup>
+						
+						<h:panelGroup layout="block">
+							<h:outputLabel value="18. Tipo de actividad:"/>
+							<p:selectManyCheckbox id="basic" value="#{checkboxView.selectedConsoles}">
+						        <f:selectItem itemLabel="PAIMEF-INDESOL" itemValue="PAIMEF-INDESOL" />
+						        <f:selectItem itemLabel="TRANSVERSALIDAD-INMUJERES" itemValue="TRANSVERSALIDAD-INMUJERES" />						        
+						    </p:selectManyCheckbox>
+						    <h:outputLabel value="Otro: "/>
+						    <h:inputText value="#"/>
+						</h:panelGroup>
+						
+						<h:panelGroup layout="block">
+							<h:outputLabel value="19. Número de Servicios otorgados mediante estas actividades o acciones"/>
+							<br/>
+							<h:inputText value="#"/>
+						</h:panelGroup>
+						
+						<h:panelGroup layout="block">
+							<h:outputLabel value="20. Número de personas beneficiadas con estas actividades o acciones (sólo registrar beneficiarias/os de 18 años y más y para el periodo correspondiente)"/>
+							<h:panelGrid columns="2">
+								<h:outputLabel value="Mujeres"/>
+								<h:outputLabel value="Hombres"/>
+							</h:panelGrid>
+							<h:panelGrid columns="4">
+									<h:panelGroup layout="block">
+										<h:outputLabel value="20.1. Población beneficiaria total (1)"/>
+		<!-- 								<br/> -->
+										<h:inputText value="#"/>
+									</h:panelGroup>
+									
+									<h:panelGroup layout="block">	
+										<h:outputLabel value="20.1. Población beneficiaria total (1)"/>
+		<!-- 								<br/> -->
+										<h:inputText value="#"/>
+									</h:panelGroup>
+									
+									<h:panelGroup layout="block">
+										<h:outputLabel value="20.3. Población beneficiaria total (1)"/>
+		<!-- 								<br/> -->
+										<h:inputText value="#"/>	
+									</h:panelGroup>
+									
+									<h:panelGroup layout="block">
+										<h:outputLabel value="20.4. Población beneficiaria total (1)"/>
+		<!-- 								<br/> -->
+										<h:inputText value="#"/>
+									</h:panelGroup>									
+							</h:panelGrid>							
+						</h:panelGroup>
+							
+							<h:panelGroup layout="block"> 
+								<h:outputText value="21. Niñas, niños y adolescentes beneficiadas(os) (sólo registrar para el periodo correspondiente)"/>
+								<br/>
+								<h:panelGrid columns="2">
+									<h:outputLabel value="Mujeres"/>
+									<h:outputLabel value="Hombres"/>	
+								</h:panelGrid>
+								<h:panelGrid columns="4">
+									<h:outputLabel value="De 0 meses hasta 11 años con 11 meses de edad (un día antes de cumplir los 12 años )"/>
+									<h:outputLabel value="De 12 años cumplidos hasta 17 años con 11 meses de edad (un día antes de cumplir los 18 años )"/>
+									<h:outputLabel value="De 0 meses hasta 11 años con 11 meses de edad (un día antes de cumplir los 12 años )"/>
+									<h:outputLabel value="De 12 años cumplidos hasta 17 años con 11 meses de edad (un día antes de cumplir los 18 años )"/>
+									
+									<h:panelGrid columns="2">
+										<h:outputText value="21.1. Población total"/>
+											<br/>
+										<h:inputText value=""/>
+									</h:panelGrid>
+									<h:panelGrid columns="2">
+										<h:outputText value="21.2 Población indígena"/>
+											<br/>
+										<h:inputText value=""/>
+									</h:panelGrid>
+									
+									<h:panelGrid columns="2">
+										<h:outputText value="21.3. Población total"/>
+											<br/>
+										<h:inputText value=""/>
+									</h:panelGrid>
+									<h:panelGrid columns="2">
+										<h:outputText value="21.4 Población indígena"/>
+											<br/>
+										<h:inputText value=""/>
+									</h:panelGrid>
+									
+									<h:panelGrid columns="2">
+										<h:outputText value="21.5. Población total"/>
+											<br/>
+										<h:inputText value=""/>
+									</h:panelGrid>
+									<h:panelGrid columns="2">
+										<h:outputText value="21.6 Población indígena"/>
+											<br/>
+										<h:inputText value=""/>
+									</h:panelGrid>
+									
+									<h:panelGrid columns="2">
+										<h:outputText value="21.7. Población total"/>
+										<br/>
+										<h:inputText value=""/>
+									</h:panelGrid>
+									<h:panelGrid columns="2">
+										<h:outputText value="21.8 Población indígena"/>
+										<br/>
+										<h:inputText value=""/>
+									</h:panelGrid>
+								</h:panelGrid>
+							</h:panelGroup>
+						
+						
+						<h:panelGroup layout="block">
+						
+						</h:panelGroup>
 				</h:panelGrid>					
 			</h:form>							
 		
