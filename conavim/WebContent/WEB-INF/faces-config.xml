@@ -14,6 +14,7 @@
 		<managed-bean-class>mx.conavim.servicios.MbTbl_LineasAccion</managed-bean-class>
 		<managed-bean-scope>view</managed-bean-scope>
 	</managed-bean>
+	
 	<managed-bean>
 		<managed-bean-name>logout</managed-bean-name>
 		<managed-bean-class>mx.conavim.servicios.Session</managed-bean-class>

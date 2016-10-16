@@ -40,6 +40,7 @@ public class tblRespuestas {
 	private String status;
 	
 	
+	
 	public String getId_respuesta() {
 		return id_respuesta;
 	}

@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 
 public class Session {
 	
+	
 	public static void close()
 	{
 		try
