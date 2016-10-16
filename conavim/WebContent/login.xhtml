@@ -3,29 +3,43 @@
       xmlns:h="http://java.sun.com/jsf/html">
     <h:head>
         <title>Login Form</title>
+        <style type="text/css">
+        .fondo{background: linear-gradient(to right, white , #A4A4A4);}
+        .caja-login{width: 500px; margin: 0 auto; height: 250px; margin-top: 50px;}
+        .button-white{background: #848484;dispaly: inline-block;width: 25%;font-size: 16px;height: 50px;color: #fff;text-decoration: none;border: none;border-radius: 4px !important;font-family: sans-serif;}
+    	.form-control{width:100%;height:50px;border:none;padding:5px 7px 5px 15px;background:#fff;color:#666;border:2px solid #D8D8D8;border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;background-color: #fff !important;}
+		.login-form {width: 350px;padding: 40px 30px;background: rgba(229,229,229,50.7);border-radius: 4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;margin: 50px auto;font-family: sans-serif;}
+        </style>
     </h:head>
-    <h:body>
-        <h2>Hello, please log in:</h2>
+    <h:body class="fondo">
+    <div class="caja-login">
+     <div class="login-form">
+       <h2 style="text-align: center;">Conavim</h2>
         <form method="post" action="j_security_check">
-            <table columns="2" role="presentation"> 
+       
+            <table columns="2" role="presentation" style="margin: 0 auto;position: relative;top: 25px;"> 
                 <tr>
                     <td><h:outputLabel for="j_username" 
-                                       value="Please type your user name:"/></td>
+                                       value="User name:" style="font-family: sans-serif;"/></td>
                     <td><h:inputText id="j_username" autocomplete="off" 
-                                     size="20" /></td>
+                                     size="20" class="form-control"/></td>
                 </tr>
                 <tr>
                     <td><h:outputLabel for="j_password" 
-                                       value="Please type your password:"/></td>
+                                       value="Password:" style="font-family: sans-serif;"/></td>
                     <td><h:inputSecret id="j_password" autocomplete="off" 
-                                       size="20"/></td>
+                                       size="20" class="form-control"/></td>
                 </tr>
             </table>
-            <p>
-                <h:commandButton type="submit" value="Submit"/>
-
-                <h:commandButton type="reset" value="Reset"/>
-            </p>
+            
+                <div style="width: 500px;">
+                <div style="position: relative;top: 84px;left: 30px;"><h:commandButton type="submit" value="Submit" class="button-white"/></div>
+				
+                <div style="position: relative;top: 34px;left: 196px;"><h:commandButton type="reset" value="Reset" class="button-white"/></div>
+                </div>
+            
         </form>
+        </div>
+        </div>
     </h:body>
 </html>
