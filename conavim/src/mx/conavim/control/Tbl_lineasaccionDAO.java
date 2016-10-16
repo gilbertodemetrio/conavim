@@ -6,18 +6,46 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-
-
-
-
+import mx.conavim.modelo.Tbl_Estrategia;
+import mx.conavim.modelo.Tbl_Producto;
 import mx.conavim.modelo.tbl_lineasaccion;
 
 public class Tbl_lineasaccionDAO {
 	
 	
 	
+	public List<String> getProductos(){
+		//List<Tbl_Productos> productos = new ArrayList<Tbl_Productos>();
+		List<String> productos = new ArrayList<String>();
+		Conexion conex = new Conexion(); 
+		  ResultSet res = null;
+		  PreparedStatement consulta = null;
+		     
+		  try {
+		   consulta = conex.conectar().prepareStatement("SELECT nombre_producto FROM tbl_productos");
+		   res = consulta.executeQuery();
+		   while(res.next()){
+			productos.add(res.getString("nombre_producto"));
+		  }
+		          res.close();
+		          consulta.close();
+		          conex.desconectar();
+		    
+		  } catch (Exception e) {
+		   System.out.println("no se pudo consultar Producto\n"+e);
+		  }finally{
+			  try {
+				res.close();
+				consulta.close();
+		        conex.desconectar();
+			} catch (SQLException e) {				
+				e.printStackTrace();
+			}	         
+		  }
+		
+		
+		return productos;
+	}
 	
 	public List< tbl_lineasaccion> getLineasAccion() {
 		  List< tbl_lineasaccion> lineasaccion = new ArrayList< tbl_lineasaccion>();
@@ -57,7 +85,49 @@ public class Tbl_lineasaccionDAO {
 		  return lineasaccion;
 		 }
 		 
-		
+
+	public List<Tbl_Estrategia> getEstrategias() {
+		  List< Tbl_Estrategia> estrategias = new ArrayList<Tbl_Estrategia>();
+		  Conexion conex= new Conexion();
+		  ResultSet res = null;
+		  PreparedStatement consulta = null;
+		     
+		  try {
+		   consulta = conex.conectar().prepareStatement("SELECT * FROM tbl_estrategias");
+		   res = consulta.executeQuery();
+		   while(res.next()){
+			Tbl_Estrategia estrategia= new Tbl_Estrategia();
+			estrategia.setId_estrategia(res.getInt("id_estrategia"));
+			estrategia.setId_objetivo(res.getInt("id_objetivo"));
+			estrategia.setNombre_estrategia(res.getString("nombre_estrategia"));
+			estrategia.setDescripcion(res.getString("descripcion"));
+			estrategia.setStatus(res.getInt("status"));
+			
+			estrategias.add(estrategia);
+		  }
+		          res.close();
+		          consulta.close();
+		          conex.desconectar();
+		    
+		  } catch (Exception e) {
+		   System.out.println("no se pudo consultar Estrategias\n"+e);
+		  }finally{
+			  try {
+				res.close();
+				consulta.close();
+		        conex.desconectar();
+			} catch (SQLException e) {				
+				e.printStackTrace();
+			}	         
+		  }
+		  
+		  return estrategias;
+		 }
+	
+	
+	
+	
+	
 	
 
 }

@@ -1,0 +1,153 @@
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">   
+<f:view
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns="http://www.w3.org/1999/xhtml"		
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"				
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	layout="block">		
+<!-- 	<f:view> -->
+			
+				<h:form>
+					<h:panelGrid columns="2">
+						
+							<h:panelGroup layout="block">
+								<h:outputLabel value="1. Dependencia/ Entidad/ Sistema"/>
+								<br/>									
+								<h:inputText pt:placeholder="Ejemplo (INMUJERES)"/>
+							</h:panelGroup>
+							
+							<h:panelGroup layout="block">
+								<h:outputLabel value="2. Actividades para el Cumplimiento de la línea de acción"/>
+								<br/>							
+								<h:inputText  />
+							</h:panelGroup>					
+					
+					<h:panelGroup layout="block">
+						<h:outputLabel value="3. Tipo de actividad:"/>
+						
+						<p:selectManyCheckbox id="tipoactividad" value="#{checkboxView.selectedConsoles}">
+					        <f:selectItem itemLabel="Capacitaci&oacute;n" itemValue="capacitacion" />
+					        <f:selectItem itemLabel="Coordinaci&oacute;n" itemValue="coordinacion" />
+					        <f:selectItem itemLabel="Confinanciamiento" itemValue="confinamiento" />
+					        <f:selectItem itemLabel="Concertaci&oacute;n" itemValue="concertacion" />
+					        <f:selectItem itemLabel="Armonizaci&oacute;n" itemValue="armonizacion" />
+					    </p:selectManyCheckbox>
+					</h:panelGroup>
+					
+					<h:panelGroup layout="block">						
+						<h:outputLabel value="Otro: "/>
+					    <h:inputText value="" pt:placeholder="Especifique"/>
+					</h:panelGroup>
+					
+					<h:panelGroup layout="block">
+						<h:outputLabel value="4. Fecha de inicio de actividades"/>
+						<br/>
+						<p:outputLabel for="popup" value="Popup:" />
+        				<p:calendar id="popup" value="#{calendarView.date2}" />
+					</h:panelGroup>
+					
+					<h:panelGroup layout="block">
+						<h:outputLabel value="5. Fecha de termino de actividades"/>
+						<br/>
+						<p:outputLabel for="popup1" value="Popup:" />
+        				<p:calendar id="popup1" value="#{calendarView.date2}" />
+					</h:panelGroup>
+					
+					<h:panelGroup layout="block">
+						<h:outputLabel value="6. Productos generados y/o evidencias (documento probatorio, liga o hipervínculo)"/>
+						<br/>
+						<p:selectOneMenu id="car1" value="#" style="width:400px;">
+				            <f:selectItem itemLabel="Seleccione una Opcion" itemValue="" />
+				            <f:selectItems value="#{mbTbl_LineasAccion.productos}" />
+				        </p:selectOneMenu>
+				        <p:selectOneMenu id="console1" value="#{selectOneMenuView.console}" style="width:300px;">
+				            <f:selectItem itemLabel="Seleccione una Opcion" itemValue="" />
+				            <f:selectItem itemLabel="Tipo" itemValue="Xbox One" />
+				            <f:selectItem itemLabel="Documento Probatorio" itemValue="PS4" />
+				            <f:selectItem itemLabel="Liga o Hipervinculo" itemValue="Wii U" />
+				        </p:selectOneMenu>				        
+					</h:panelGroup>
+					
+ 					
+					
+					<h:panelGroup layout="block">
+						<h:panelGrid columns="3" style="margin-bottom:10px" cellpadding="5">
+					        <p:outputLabel for="console" value="7. Meta programada para la línea de acción" />
+					        <p:selectOneRadio id="console" value="#{radioView.console}">
+					            <f:selectItem itemLabel="Aplica" itemValue="Aplica" />
+					            <f:selectItem itemLabel="No Aplica" itemValue="No Aplica" />					            
+					        </p:selectOneRadio>
+					        <h:inputText/>
+					    </h:panelGrid>
+						
+					</h:panelGroup>
+					
+					<h:panelGroup layout="block">
+						<h:outputLabel value="8. Unidad de medida de la Meta"/>
+							<br/>
+						<h:inputText value="#"/>
+					</h:panelGroup>
+						
+					<h:panelGroup layout="block">
+						<h:outputLabel value="9. Periodicidad de la Meta programada para línea de acción"/>
+						<p:selectOneMenu id="console2" value="#{selectOneMenuView.console}" style="width:300px;">
+				            <f:selectItem itemLabel="Seleccione una Opcion" itemValue="" />
+				            <f:selectItem itemLabel="Mensual" itemValue="Mensual" />
+				            <f:selectItem itemLabel="Bimestral" itemValue="Bimestral" />
+				            <f:selectItem itemLabel="Trimestral" itemValue="Trimestral" />
+				            <f:selectItem itemLabel="Cuatrimestral" itemValue="Cuatrimestral" />
+				            <f:selectItem itemLabel="Semestral" itemValue="Semestral" />
+				            <f:selectItem itemLabel="Anual" itemValue="Anual" />
+				        </p:selectOneMenu>
+					</h:panelGroup>
+					
+					<h:panelGroup layout="block">
+						<h:outputLabel value="10. Meta Programada para línea de acción"/>
+						<br/>
+						<h:inputText value="#"/>
+					</h:panelGroup>
+					
+					<h:panelGroup layout="block">
+						<h:outputLabel value="11. Meta Programada para actividades"/>
+						<br/>
+						<h:inputText value="#"/>
+					</h:panelGroup>
+					
+					<h:panelGroup layout="block">
+						<h:outputLabel value="12. Periodicidad de la Meta programada para actividades"/>
+						<br/>
+						<h:inputText value="#"/>
+					</h:panelGroup>
+					
+					<h:panelGroup layout="block">
+						<h:outputLabel value="13. Avance (enero - diciembre)"/>
+						<br/>
+						<h:inputText value="#"/>
+					</h:panelGroup>
+					
+					<h:panelGroup layout="block">
+						<h:outputLabel value="14. Explicación de la variación y/o justificación en caso que el cumplimiento no sea satisfactorio (100%)"/>
+						<br/>
+						<h:inputText value="#"/>
+					</h:panelGroup>
+					
+					<h:panelGroup layout="block">
+						<h:outputLabel value="15. Observaciones"/>
+						<br/>
+						<h:inputText value="#"/>
+					</h:panelGroup>
+					
+					<h:panelGroup layout="block">
+					
+					</h:panelGroup>
+				</h:panelGrid>					
+			</h:form>							
+		
+		
+	
+<!-- 	</f:view> -->
+
+</f:view>	
