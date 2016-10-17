@@ -37,7 +37,7 @@
         <realm-name>file</realm-name>
         <form-login-config>
             <form-login-page>/secure/login.conavim</form-login-page>
-            <form-error-page>/error.conavim</form-error-page>
+            <form-error-page>/secure/error.conavim</form-error-page>
         </form-login-config>
     </login-config>
 
