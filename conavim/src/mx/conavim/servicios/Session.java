@@ -14,7 +14,7 @@ public class Session {
 			removeBeans();
 			getSession().invalidate();
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("secure/");
+			   .getExternalContext().redirect("login.conavim");
 	  	}catch(Exception ex)
 	  	{
 	  		ex.printStackTrace();

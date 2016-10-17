@@ -1,16 +1,21 @@
 package mx.conavim.modelo;
 
-public class Tbl_Informes {
+import java.io.Serializable;
+import java.sql.Date;
+
+public class Tbl_Informes implements Serializable{
 
 	private String id_informe;
 	private int secretaria;
 	private String anio;
-	private String peridodo;
-	private String fecha_captura;
-	private String fecha_modifi;
+	private String periodo;
+	private Date fecha_captura;
+	private Date fecha_modifi;
 	private String programa_presupe;
 	private String unidad_enlaceResp;
 	private int status;
+	private String nombreEntidad;
+	private String siglasEntidad;
 	
 	public Tbl_Informes()
 	{}
@@ -27,7 +32,7 @@ public class Tbl_Informes {
 		return secretaria;
 	}
 
-	public void setSecretaria(int secretaria) {
+	public void setSecretaria(int  secretaria) {
 		this.secretaria = secretaria;
 	}
 
@@ -39,27 +44,27 @@ public class Tbl_Informes {
 		this.anio = anio;
 	}
 
-	public String getPeridodo() {
-		return peridodo;
+	public String getPeriodo() {
+		return periodo;
 	}
 
-	public void setPeridodo(String peridodo) {
-		this.peridodo = peridodo;
+	public void setPeriodo(String periodo) {
+		this.periodo = periodo;
 	}
 
-	public String getFecha_captura() {
+	public Date getFecha_captura() {
 		return fecha_captura;
 	}
 
-	public void setFecha_captura(String fecha_captura) {
+	public void setFecha_captura(Date fecha_captura) {
 		this.fecha_captura = fecha_captura;
 	}
 
-	public String getFecha_modifi() {
+	public Date getFecha_modifi() {
 		return fecha_modifi;
 	}
 
-	public void setFecha_modifi(String fecha_modifi) {
+	public void setFecha_modifi(Date fecha_modifi) {
 		this.fecha_modifi = fecha_modifi;
 	}
 
@@ -85,6 +90,22 @@ public class Tbl_Informes {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public String getNombreEntidad() {
+		return nombreEntidad;
+	}
+
+	public void setNombreEntidad(String nombreEntidad) {
+		this.nombreEntidad = nombreEntidad;
+	}
+
+	public String getSiglasEntidad() {
+		return siglasEntidad;
+	}
+
+	public void setSiglasEntidad(String siglasEntidad) {
+		this.siglasEntidad = siglasEntidad;
 	}
 	
 }

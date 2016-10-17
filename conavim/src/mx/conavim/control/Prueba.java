@@ -1,7 +1,5 @@
 package mx.conavim.control;
 
-import org.primefaces.event.TabChangeEvent;
-
 public class Prueba {
 	private String mensaje="Esperando a conectar..";
 
@@ -15,10 +13,7 @@ public class Prueba {
 	}
 	
 	public void probarConexion(){
-		Conexion con = new Conexion();
-		con.conectar();
-		mensaje="Conexion Lograda!!!!!...";
-		System.out.println("Conexion lograda!!..");
+		
 		
 	}
 	

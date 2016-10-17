@@ -1,21 +1,106 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"	      
-      >
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-    <h:head>
-        <title>JSF 2.2</title>
-    </h:head>
-    <h:body>
-    	<h3>JSF 2.2 formulario - index.xhtml</h3>
-    	<h:form>
-    		<p:panelGrid columns="3" border="5px">
-    			<p:outputLabel value="ETIQUETA cambio" />
-    			<h:inputText value="#{prueba.mensaje}"></h:inputText>
-    	   		<h:commandButton value="Bienvenido" action="bienvenido"></h:commandButton>
-    		</p:panelGrid>
-    	   
-    	</h:form>
-    </h:body>
-</html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/layout/templateformato.xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<ui:define name="head">
+		Crear un informe
+	</ui:define>
+
+	<ui:define name="body">
+		<h:form id="IdAgrInforme">			
+          <p:commandButton value="Agregar Formato" actionListener="#{mbTbl_Informes.restValores}" 
+                update="idAgregarF" oncomplete="PF('dlg').show();"/>
+		    
+			<h:panelGroup id="idPGDatos" layout="block">
+				<h:panelGrid id="idPanelInforme">
+					<p:dataTable id="idTablInformes" var="informe" value="#{mbTbl_Informes.listaInformes}"
+						 widgetVar="tblInformes"
+						 rows="10"
+					     paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15">
+					   <p:column filterBy="#{informe.nombreEntidad}" headerText="Entidad">
+					        <h:outputText value="#{informe.nombreEntidad}" />
+					    </p:column>
+					    <p:column filterBy="#{informe.siglasEntidad}" headerText="Siglas">
+					        <h:outputText value="#{informe.siglasEntidad}"/>
+					    </p:column>
+					 
+					    <p:column filterBy="#{informe.anio}" headerText="A&ntilde;o">
+					        <h:outputText value="#{informe.anio}" />
+					    </p:column>
+					 
+					    <p:column filterBy="#{informe.periodo}" headerText="Periodo">
+
+			            <f:facet name="filter">            
+					    <p:selectOneMenu onchange="PF('tblInformes').filter()">
+							<f:selectItem itemLabel="Ene-Mar" itemValue="Ene-Mar" />
+							<f:selectItem itemLabel="Abr-Jun" itemValue="Abr-Jun" />
+							<f:selectItem itemLabel="Jul-Sep" itemValue="Jul-Sep" />
+							<f:selectItem itemLabel="Oct-Dic" itemValue="Oct-Dic" />
+						</p:selectOneMenu>						
+						</f:facet>
+					        <h:outputText value="#{informe.periodo}" />
+					    </p:column>
+					 
+					    <p:column filterBy="#{informe.fecha_captura}" headerText="Fecha de captura">
+					        <h:outputText value="#{informe.fecha_captura}" />
+					    </p:column>
+					    <p:column filterBy="#{informe.fecha_modifi}" headerText="Fecha de modificaci&oacute;n">
+					        <h:outputText value="#{informe.fecha_modifi}" />
+					    </p:column>
+					    <p:column >
+    	      				<h:commandButton value="Exportar Reporte" action="#{mbExportReport.exportPDF(informe.secretaria)}"/>    	      	
+					    </p:column>					    					    					    
+					</p:dataTable>				
+				</h:panelGrid>
+				<h:panelGrid id="idAgregarF">
+				<p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+				<p:dialog header="Formato de encabezado" widgetVar="dlg" resizable="false"
+				modal="true">
+					<h:panelGrid columns="1" cellpadding="3">
+						<h:outputText
+							value="Dependecia y Mecanismos para el Adelando de las Mujeres
+								que reportan informacion del PIPASEVM:" />
+						<p:outputLabel for="entidades" />
+						<p:selectOneMenu id="entidades"
+							value="#{mbTbl_Informes.informe.secretaria}">
+							<f:selectItem itemLabel="Select One" itemValue="" />
+							<f:selectItems value="#{mbTbl_Informes.listaEntidades}"
+								var="entidad" itemLabel="#{entidad.nombre_entidadsec}"
+								itemValue="#{entidad.id_secretaria}" />
+						</p:selectOneMenu>
+						<h:outputText
+							value="Nombre de la Unidad de Enlace Responsable del Reporte:" />
+						<h:inputText value="#{mbTbl_Informes.informe.unidad_enlaceResp}" />
+						<h:outputText value="Programa Presupuestario:" />
+						<h:inputText value="#{mbTbl_Informes.informe.programa_presupe}" />
+						<h:outputText value="Periodo" />
+						<p:outputLabel for="periodos" />
+						<p:selectOneMenu id="periodos"
+							value="#{mbTbl_Informes.informe.periodo}" style="width:125px">
+							<f:selectItem itemLabel="Ene-Mar" itemValue="Ene-Mar" />
+							<f:selectItem itemLabel="Abr-Jun" itemValue="Abr-Jun" />
+							<f:selectItem itemLabel="Jul-Sep" itemValue="Jul-Sep" />
+							<f:selectItem itemLabel="Oct-Dic" itemValue="Oct-Dic" />
+						</p:selectOneMenu>
+			            <f:facet name="footer">
+			            <p:commandButton value="Continuar" actionListener="#{mbTbl_Informes.insertInforme}" update="idPanelInforme" oncomplete="PF('dlg').hide();">
+			            </p:commandButton>
+			            <p:commandButton value="Cancelar" actionListener="#{mbTbl_Informes.restValores}" 
+			                update="idPGDatos" oncomplete="PF('dlg').hide();"/>			                
+			            </f:facet>  						
+					</h:panelGrid>
+				</p:dialog>				
+			  </h:panelGrid>			
+			</h:panelGroup>
+		</h:form>
+	</ui:define>
+</ui:composition>

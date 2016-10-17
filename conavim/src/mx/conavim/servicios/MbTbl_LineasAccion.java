@@ -97,7 +97,7 @@ public class MbTbl_LineasAccion {
 		productos = consultas.getProductos();
 		tempEstrategias = consultas.getEstrategias();
 		llenarEstrategias(1);
-		llenarLineas(1);
+		consultas.dispose();
 	}
 	public List<Tbl_Estrategia> getEstrategias() {
 		return estrategias;
@@ -112,7 +112,7 @@ public class MbTbl_LineasAccion {
 
 
 	public void llenarLineas(int estrategia){
-		System.out.println("ejecutando metodo llenar lineas para estrategia-->"+estrategia);
+	//	System.out.println("ejecutando metodo llenar lineas para estrategia-->"+estrategia);
 			lineasaccion.clear();
 			for(tbl_lineasaccion val:tempLineas){
 				
@@ -132,7 +132,7 @@ public class MbTbl_LineasAccion {
 	}
 	
 	public void llenarEstrategias(int objetivo){
-		System.out.println("ejecutando metodo llenar estrategias para objetivo-->"+objetivo);
+		//System.out.println("ejecutando metodo llenar estrategias para objetivo-->"+objetivo);
 			estrategias.clear();
 			for(Tbl_Estrategia val:tempEstrategias){
 			//System.out.println("----->"+val.getId_estrategia());
@@ -158,7 +158,7 @@ public class MbTbl_LineasAccion {
         String est = (msg.getDetail());
         //System.out.println("valor recibido-->"+est);
         estrategia = Integer.parseInt(est);
-        System.out.println("Estrategia-->"+estrategia);
+//        System.out.println("Estrategia-->"+estrategia);
 //        //estrategia=Integer.parseInt(msg.toString());
         llenarLineas(estrategia);
 //       FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -169,7 +169,7 @@ public class MbTbl_LineasAccion {
         FacesMessage msg = new FacesMessage(event.getTab().getTitle());
         String est = (msg.getDetail()).replace("Objetivo ", "");
         objetivo = Integer.parseInt(est);
-        System.out.println("Objetivo-->"+objetivo);
+//        System.out.println("Objetivo-->"+objetivo);
         //estrategia=Integer.parseInt(msg.toString());
         llenarEstrategias(objetivo);
        FacesContext.getCurrentInstance().addMessage(null, msg);

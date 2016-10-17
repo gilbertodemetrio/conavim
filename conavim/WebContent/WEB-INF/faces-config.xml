@@ -20,5 +20,27 @@
 		<managed-bean-class>mx.conavim.servicios.Session</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>mbExportReport</managed-bean-name>
+		<managed-bean-class>mx.conavim.servicios.MbExportReport</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
 
+	<managed-bean>
+		<managed-bean-name>mbTbl_Informes</managed-bean-name>
+		<managed-bean-class>mx.conavim.servicios.MbTbl_Informes</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	    <application>
+	  <action-listener>
+	    org.primefaces.application.DialogActionListener
+	  </action-listener>
+	  <navigation-handler>
+	    org.primefaces.application.DialogNavigationHandler
+	  </navigation-handler>
+	  <view-handler>
+	    org.primefaces.application.DialogViewHandler
+	  </view-handler>
+	</application>
 </faces-config>
