@@ -34,5 +34,15 @@ public class Session {
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("prueba");
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("mbTbl_LineasAccion");
 	}
+	public void backInicio(){
+
+			FacesContext context = FacesContext.getCurrentInstance();
+			try {
+				context.getExternalContext().redirect("index.conavim");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}	
+				
+	}
 
 }
