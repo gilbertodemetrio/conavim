@@ -16,3 +16,26 @@ table {
 	line-height: 1.42857143 !important;
 	color: #58666e !important;
 }
+
+.ui-widget-content{
+	border: 0px solid #a8a8a8 !important;
+	background: #ffffff;
+	color: #4f4f4f;
+	
+}
+.ui-tabs .ui-tabs-panel{
+	border-width: 0 !important;
+	padding: 1em 0em !important;
+	background: none !important;
+}
+.ui-tabs .ui-tabs-nav {
+    background: #fff !important;
+    background: #fff linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0)) !important;
+    background: #fff -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0))) !important;
+    background: #fff -moz-linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0)) !important;
+    filter: p
+    rogid:DXImageTransform.Microsoft.gradient(startColorstr=#DDFFFFFF, endColorstr=#00FFFFFF);
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+}
