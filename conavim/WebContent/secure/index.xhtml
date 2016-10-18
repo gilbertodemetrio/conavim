@@ -63,7 +63,7 @@
 					    </p:column>
 					    <p:column >
     	      				<h:commandButton value="Exportar Reporte" action="#{mbExportReport.exportPDF(informe.secretaria)}"/>
-    	      				<h:commandButton value="Editar" actionListener="#{mbTbl_Informes.redirectLineas}" action="#{mbTbl_LineasAccion.nuevaLinea(informe.secretaria)}"/>    	      	
+    	      				<h:commandButton value="Editar" actionListener="#{mbTbl_Informes.redirectLineas}"/>    	      	
 					    </p:column>					    					    					    
 					</p:dataTable>				
 				</h:panelGrid>
