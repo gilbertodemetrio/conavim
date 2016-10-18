@@ -80,11 +80,11 @@ public class MbTbl_Informes {
 		} 	
 		consultas.dispose();
 	}
-	public void redirectLineas()
+	public void redirectLineas(String id_informe)
 	{
 		FacesContext context = FacesContext.getCurrentInstance();
 		try {
-			context.getExternalContext().redirect("formato.conavim");
+			context.getExternalContext().redirect("formato.conavim?idInforme="+id_informe);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	
