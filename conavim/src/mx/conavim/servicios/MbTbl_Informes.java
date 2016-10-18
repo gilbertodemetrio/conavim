@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 
 import mx.conavim.control.ConsultasDAO;
 import mx.conavim.modelo.Tbl_EntidadSecre;
@@ -78,6 +79,15 @@ public class MbTbl_Informes {
 			
 		} 	
 		consultas.dispose();
+	}
+	public void redirectLineas()
+	{
+		FacesContext context = FacesContext.getCurrentInstance();
+		try {
+			context.getExternalContext().redirect("formato.conavim");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
 	}
 	public Tbl_Informes getInforme() {
 		return informe;

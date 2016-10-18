@@ -10,13 +10,18 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 	<ui:define name="head">
-		Crear un informe
+       <link rel="stylesheet" type="text/css" href="../stylesheets/style.css"/> 	
+			<ui:include src="/logOut.xhtml"></ui:include>
+			<br/><br/>
 	</ui:define>
 
 	<ui:define name="body">
 		<h:form id="IdAgrInforme">			
           <p:commandButton value="Agregar Formato" actionListener="#{mbTbl_Informes.restValores}" 
-                update="idAgregarF" oncomplete="PF('dlg').show();"/>
+                 oncomplete="PF('dlg').show();">
+                 <p:ajax update=":IdAgrInforme:idAgregarF" resetValues="true" /> 
+                 
+                </p:commandButton>
 		    
 			<h:panelGroup id="idPGDatos" layout="block">
 				<h:panelGrid id="idPanelInforme">
@@ -57,20 +62,21 @@
 					        <h:outputText value="#{informe.fecha_modifi}" />
 					    </p:column>
 					    <p:column >
-    	      				<h:commandButton value="Exportar Reporte" action="#{mbExportReport.exportPDF(informe.secretaria)}"/>    	      	
+    	      				<h:commandButton value="Exportar Reporte" action="#{mbExportReport.exportPDF(informe.secretaria)}"/>
+    	      				<h:commandButton value="Editar" actionListener="#{mbTbl_Informes.redirectLineas}" action="#{mbTbl_LineasAccion.nuevaLinea(informe.secretaria)}"/>    	      	
 					    </p:column>					    					    					    
 					</p:dataTable>				
 				</h:panelGrid>
 				<h:panelGrid id="idAgregarF">
-				<p:growl id="growl" sticky="true" showDetail="true" life="3000" />
-				<p:dialog header="Formato de encabezado" widgetVar="dlg" resizable="false"
+				<p:growl id="growl" sticky="true" showDetail="true" />
+				<p:dialog id="idDlgF" header="Formato de encabezado" widgetVar="dlg" 
 				modal="true">
 					<h:panelGrid columns="1" cellpadding="3">
 						<h:outputText
 							value="Dependecia y Mecanismos para el Adelando de las Mujeres
 								que reportan informacion del PIPASEVM:" />
 						<p:outputLabel for="entidades" />
-						<p:selectOneMenu id="entidades"
+						<p:selectOneMenu id="entidades" 
 							value="#{mbTbl_Informes.informe.secretaria}">
 							<f:selectItem itemLabel="Select One" itemValue="" />
 							<f:selectItems value="#{mbTbl_Informes.listaEntidades}"
@@ -79,23 +85,22 @@
 						</p:selectOneMenu>
 						<h:outputText
 							value="Nombre de la Unidad de Enlace Responsable del Reporte:" />
-						<h:inputText value="#{mbTbl_Informes.informe.unidad_enlaceResp}" />
+						<h:inputText value="#{mbTbl_Informes.informe.unidad_enlaceResp}"/>
 						<h:outputText value="Programa Presupuestario:" />
-						<h:inputText value="#{mbTbl_Informes.informe.programa_presupe}" />
+						<h:inputText value="#{mbTbl_Informes.informe.programa_presupe}"/>
 						<h:outputText value="Periodo" />
 						<p:outputLabel for="periodos" />
 						<p:selectOneMenu id="periodos"
-							value="#{mbTbl_Informes.informe.periodo}" style="width:125px">
+							value="#{mbTbl_Informes.informe.periodo}" style="width:125px" >
 							<f:selectItem itemLabel="Ene-Mar" itemValue="Ene-Mar" />
 							<f:selectItem itemLabel="Abr-Jun" itemValue="Abr-Jun" />
 							<f:selectItem itemLabel="Jul-Sep" itemValue="Jul-Sep" />
 							<f:selectItem itemLabel="Oct-Dic" itemValue="Oct-Dic" />
 						</p:selectOneMenu>
 			            <f:facet name="footer">
-			            <p:commandButton value="Continuar" actionListener="#{mbTbl_Informes.insertInforme}" update="idPanelInforme" oncomplete="PF('dlg').hide();">
+			            <p:commandButton value="Continuar" ajax="false" actionListener="#{mbTbl_Informes.insertInforme}" update="growl" oncomplete="if (!args.validationFailed) PF('dlg').hide();">
 			            </p:commandButton>
-			            <p:commandButton value="Cancelar" actionListener="#{mbTbl_Informes.restValores}" 
-			                update="idPGDatos" oncomplete="PF('dlg').hide();"/>			                
+			            <p:commandButton value="Cancelar" actionListener="#{mbTbl_Informes.restValores}" oncomplete="PF('dlg').hide();"/>			                
 			            </f:facet>  						
 					</h:panelGrid>
 				</p:dialog>				

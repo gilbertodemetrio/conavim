@@ -7,9 +7,12 @@
     <h:body>
     <h:form>
     <div style="float: right;">
+     <h:commandLink action="#{logout.backInicio}" style="text-decoration: none;">
+    <img src="/conavim/img/inicio.jpg" style="width: 35px;position: relative;top: 11px;"/>
+    </h:commandLink> 
     <h:commandLink action="#{logout.close}" style="text-decoration: none;">
     <h:outputText value="Cerrar Sesión" style="font-family: sans-serif;color: #666;"/><img src="/conavim/img/cerrar.jpg" style="width: 35px;position: relative;top: 11px;"/>
-    </h:commandLink>
+    </h:commandLink>   
     </div>
     <div style="float: left;">
     <a href="" style="text-decoration: none;"><span style="color: #666;font-size: 30px;font-family: sans-serif;position: relative; left: 172px;font-weight: bold;">SIS</span></a>
