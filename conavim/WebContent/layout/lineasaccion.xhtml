@@ -8,14 +8,14 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	layout="block">		
 			
-		<h:form id="formLineas#{mbTbl_LineasAccion.estrategia}">								
+											
 					<p:tabView value="#{mbTbl_LineasAccion.lineasaccion}" var="linea">
-				        <p:tab title="#{linea.nombre_linea}">
+						<p:ajax event="tabChange" listener="#{mbTbl_LineasAccion.onTabChangeLinea}"/>
+				        <p:tab titletip="#{linea.id_lineaaccion}" title="#{linea.nombre_linea}">
 				            <h:panelGrid columns="1" cellpadding="5">
-				                <h:outputText value="#{linea.descripcion}"/>
-				            </h:panelGrid>
-				            
+				                <h:outputText styleClass="titulo-estrategias-lineas" value="#{linea.descripcion}"/>
+				            </h:panelGrid>				            
 				        </p:tab>
 				    </p:tabView>		
-		</h:form>	
+
 </f:view>

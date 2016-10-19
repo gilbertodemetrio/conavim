@@ -8,12 +8,12 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	>	
 
-		<h:form id="formEstrategias">								
+
 					<p:tabView id="estar" value="#{mbTbl_LineasAccion.estrategias}" var="estrategia">
-						<p:ajax event="tabChange" listener="#{mbTbl_LineasAccion.onTabChangeLineas}" update=":form:objetivos:formEstrategias:estar"/>
-				        <p:tab titletip="#{estrategia.id_estrategia}" title="#{estrategia.nombre_estrategia}">
+						<p:ajax event="tabChange" listener="#{mbTbl_LineasAccion.onTabChangeEstrategia}" update=":formObjetivos:objetivos:estar"/>
+				        <p:tab  titletip="#{estrategia.id_estrategia}" title="#{estrategia.nombre_estrategia}">
 				            <h:panelGrid columns="1" cellpadding="5">
-				                <h:outputText value="#{estrategia.descripcion}"/>
+				                <h:outputText styleClass="titulo-estrategias-lineas" value="#{estrategia.descripcion}"/>
 				                
 				            </h:panelGrid>
 				            <h:panelGroup  layout="block">					    					
@@ -21,9 +21,11 @@
 					    	</h:panelGroup>
 				        </p:tab>
 				    </p:tabView>
+				    
 				    	<h:panelGroup>
 				            	<ui:include src="preguntas.xhtml"/>
-				            </h:panelGroup>		
-		</h:form>
-	
+				         </h:panelGroup>	
+				         				   
+
+
 </f:view>

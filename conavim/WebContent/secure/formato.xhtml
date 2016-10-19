@@ -11,9 +11,31 @@
 	>
 	
 	<ui:define name="head">
-	
-	
-		
+				<link rel="stylesheet" type="text/css" href="../stylesheets/style.css"/>
+				<script type="text/javascript">
+					function validacionPregunta6(seleccion){	
+						if(seleccion==='Documento Probatorio'){
+							document.getElementById("formObjetivos:objetivos:liga").style.display='none';
+							document.getElementById("formObjetivos:objetivos:archivo").style.display='block';
+						}else if(seleccion==='Liga o Hipervinculo'){
+							document.getElementById("formObjetivos:objetivos:liga").style.display='block';
+							document.getElementById("formObjetivos:objetivos:archivo").style.display='none';
+						}				
+					}
+					
+					function validacionPregunta7(seleccion){
+						//alert(seleccion);
+						if(seleccion==='No Aplica'){
+							document.getElementById('formObjetivos:objetivos:pregunta8').disabled = true;
+							PF('pregunta9').disable();
+							document.getElementById('formObjetivos:objetivos:pregunta10').disabled = true;
+						}else if(seleccion==='Aplica'){
+							document.getElementById('formObjetivos:objetivos:pregunta8').disabled = false;
+							PF('pregunta9').enable();
+							document.getElementById('formObjetivos:objetivos:pregunta10').disabled = false;
+						}
+					}					
+				</script>			
 	</ui:define>		
 	
 	<ui:define name="body">
@@ -26,31 +48,29 @@
 		<h:outputText value="Captura de Formato" />
 	 </h:panelGroup>
 	
-	<h:panelGroup id="todo" layout="block">
-		<h:panelGroup id="objet" layout="block">
-			<h:panelGroup id="nomObjetivos" layout="block">
-				
-				<h:form id="form">						
-					<p:growl id="msgs" showDetail="true" />					
-					    <p:tabView id="objetivos">
-					    	<p:ajax event="tabChange" listener="#{mbTbl_LineasAccion.onTabChangeEstrategias}" update=":form:objetivos"/>
+
+		<h:panelGroup layout="block">
+		<h:form id="formObjetivos">
+			<p:tabView id="objetivos">
+				<p:ajax event="tabChange" listener="#{mbTbl_LineasAccion.onTabChangeObjetivo}" update=":formObjetivos:objetivos"/>
 					        <p:tab title="Objetivo 1">
-					            <h:panelGroup  layout="block">					    					
-					    				<c:if test="#{mbTbl_LineasAccion.objetivo==1}" >
+					        	<h:outputText styleClass="titulo-objetivos" value="1. Fomentar la armonización de contenidos legislativos e impulsar la transformación cultural para contribuir a la no violencia contra las mujeres."/>
+					            <h:panelGroup  layout="block">						            				    			
+					    			<c:if test="#{mbTbl_LineasAccion.objetivo==1}" >
  					    				<ui:include src="/layout/estrategias.xhtml"/> 					
 									</c:if>
 					    		</h:panelGroup>					    			        
-					        </p:tab>
-					        
-					        
-					        <p:tab title="Objetivo 2">
+							</p:tab>
+							<p:tab title="Objetivo 2">
+								<h:outputText styleClass="titulo-objetivos" value="2. Garantizar la prevención integral para reducir los factores de riesgo de la violencia contra las mujeres y niñas"/>
 					            <h:panelGroup  layout="block">	
 					            	<c:if test="#{mbTbl_LineasAccion.objetivo==2}" >
  					    				<ui:include src="/layout/estrategias.xhtml"/> 					
 									</c:if>
 					    		</h:panelGroup>	
 					        </p:tab>
-					        <p:tab title="Objetivo 3">
+					        <p:tab title="Objetivo 3"> 
+					        	<h:outputText styleClass="titulo-objetivos" value="3. Garantizar el acceso a los servicios de atención integral a mujeres y niñas víctimas de violencia."/>
 					           <h:panelGroup  layout="block">					    					
 									<c:if test="#{mbTbl_LineasAccion.objetivo==3}" >
  					    				<ui:include src="/layout/estrategias.xhtml"/> 					
@@ -58,6 +78,7 @@
 					    		</h:panelGroup>	
 					        </p:tab>
 					        <p:tab title="Objetivo 4">
+					        	<h:outputText styleClass="titulo-objetivos" value="4. Asegurar el acceso a la justicia de las mujeres mediante la investigación efectiva, reparación del daño y la sanción."/>
 					            <h:panelGroup  layout="block">					    					
 									<c:if test="#{mbTbl_LineasAccion.objetivo==4}" >
  					    				<ui:include src="/layout/estrategias.xhtml"/> 					
@@ -65,20 +86,21 @@
 					    		</h:panelGroup>	
 					        </p:tab>
 					        <p:tab title="Objetivo 5">
+					        	<h:outputText styleClass="titulo-objetivos" value="5. Fortalecer la coordinación institucional en materia de prevención, atención, sanción y erradicación de la violencia contra las mujeres."/>
 					            <h:panelGroup  layout="block">					    					
 									<c:if test="#{mbTbl_LineasAccion.objetivo==5}" >
  					    				<ui:include src="/layout/estrategias.xhtml"/> 					
 									</c:if>
 					    		</h:panelGroup>	
 					        </p:tab>
-					    </p:tabView>
-				</h:form>
-			</h:panelGroup>
-
-		</h:panelGroup>
-		
-	</h:panelGroup>
-	
+					        
+			</p:tabView>
+			
+		</h:form>	
+<!-- 			<h:form> -->
+				 
+<!-- 			</h:form> -->
+		</h:panelGroup>		
 	</ui:define>
 	
 </ui:composition>

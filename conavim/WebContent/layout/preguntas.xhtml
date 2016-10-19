@@ -8,78 +8,74 @@
 	xmlns:p="http://primefaces.org/ui"				
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
 	layout="block">		
-<!-- 	<f:view> -->
-			
-				<h:form>
+					
+					<h:panelGroup layout="block" id="panelPreg">
 					<h:panelGrid columns="2">
 						
 							<h:panelGroup layout="block">
-								<h:outputLabel value="1. Dependencia/ Entidad/ Sistema"/>
+								<h:outputLabel styleClass="preguntas" value="1. Dependencia/ Entidad/ Sistema"/>
 								<br/>									
-								<h:inputText pt:placeholder="Ejemplo (INMUJERES)"/>
+								<h:inputText styleClass="input-text-preguntas" value="#{mbTbl_LineasAccion.otblRespuesta.dependentsist}" pt:placeholder="Ejemplo (INMUJERES)"/>
 							</h:panelGroup>
 							
 							<h:panelGroup layout="block">
-								<h:outputLabel value="2. Actividades para el Cumplimiento de la línea de acción"/>
+								<h:outputLabel styleClass="preguntas" value="2. Actividades para el Cumplimiento de la línea de acción"/>
 								<br/>							
-								<h:inputText  />
+								<h:inputText styleClass="input-text-preguntas" value="#{mbTbl_LineasAccion.otblRespuesta.activicumpla}"/>
 							</h:panelGroup>					
 					
 					<h:panelGroup layout="block">
-						<h:outputLabel value="3. Tipo de actividad:"/>
+						<h:outputLabel styleClass="preguntas" value="3. Tipo de actividad:"/>
 						
-						<p:selectManyCheckbox id="tipoactividad" value="#{checkboxView.selectedConsoles}">
-					        <f:selectItem itemLabel="Capacitaci&oacute;n" itemValue="capacitacion" />
-					        <f:selectItem itemLabel="Coordinaci&oacute;n" itemValue="coordinacion" />
-					        <f:selectItem itemLabel="Confinanciamiento" itemValue="confinamiento" />
-					        <f:selectItem itemLabel="Concertaci&oacute;n" itemValue="concertacion" />
-					        <f:selectItem itemLabel="Armonizaci&oacute;n" itemValue="armonizacion" />
+						<p:selectManyCheckbox id="tipoactividad" value="#{mbTbl_LineasAccion.otblRespuesta.seleCheckPregunta3}">
+					        <f:selectItem itemLabel="Capacitaci&oacute;n" itemValue="Capacitacion" />
+					        <f:selectItem itemLabel="Coordinaci&oacute;n" itemValue="Coordinacion" />
+					        <f:selectItem itemLabel="Confinanciamiento" itemValue="Confinamiento" />
+					        <f:selectItem itemLabel="Concertaci&oacute;n" itemValue="Concertacion" />
+					        <f:selectItem itemLabel="Armonizaci&oacute;n" itemValue="Armonizacion" />
 					    </p:selectManyCheckbox>
 					</h:panelGroup>
 					
 					<h:panelGroup layout="block">						
 						<h:outputLabel value="Otro: "/>
-					    <h:inputText value="" pt:placeholder="Especifique"/>
+					    <h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.tipoactivi}" pt:placeholder="Especifique"/>
 					</h:panelGroup>
 					
 					<h:panelGroup layout="block">
-						<h:outputLabel value="4. Fecha de inicio de actividades"/>
+						<h:outputLabel styleClass="preguntas" value="4. Fecha de inicio de actividades"/>
 						<br/>
-						<p:outputLabel for="popup" value="Popup:" />
-        				<p:calendar id="popup" value="#{calendarView.date2}" />
+        				<p:calendar id="mask" value="#{mbTbl_LineasAccion.otblRespuesta.fechainactv}" pattern="yyyy-MM-dd" />
 					</h:panelGroup>
 					
 					<h:panelGroup layout="block">
-						<h:outputLabel value="5. Fecha de termino de actividades"/>
-						<br/>
-						<p:outputLabel for="popup1" value="Popup:" />
-        				<p:calendar id="popup1" value="#{calendarView.date2}" />
+						<h:outputLabel styleClass="preguntas" value="5. Fecha de termino de actividades"/>
+						<br/>						
+						<p:calendar id="mask1" value="#{mbTbl_LineasAccion.otblRespuesta.fechatermactv}" pattern="yyyy-MM-dd" />
 					</h:panelGroup>
 					
 					<h:panelGroup layout="block">
-						<h:outputLabel value="6. Productos generados y/o evidencias (documento probatorio, liga o hipervínculo)"/>
+						<h:outputLabel styleClass="preguntas" value="6. Productos generados y/o evidencias (documento probatorio, liga o hipervínculo)"/>						
 						<br/>
-						<p:selectOneMenu id="car1" value="#" style="width:400px;">
-				            <f:selectItem itemLabel="Seleccione una Opcion" itemValue="" />
-				            <f:selectItems value="#{mbTbl_LineasAccion.productos}" />
+						<p:selectOneMenu id="producto" value="#{mbTbl_LineasAccion.otblRespuesta.producto}" style="width:400px;">
+				            <f:selectItem itemLabel="Seleccione una Opcion" itemValue="" />				            
+				            <f:selectItems value="#{mbTbl_LineasAccion.productos}" var="prod" itemLabel="#{prod}" itemValue="#{prod}"/>
 				        </p:selectOneMenu>
-				        <p:selectOneMenu id="console1" value="#{selectOneMenuView.console}" style="width:300px;">
-				            <f:selectItem itemLabel="Seleccione una Opcion" itemValue="" />
-				            <f:selectItem itemLabel="Tipo" itemValue="Xbox One" />
-				            <f:selectItem itemLabel="Documento Probatorio" itemValue="PS4" />
-				            <f:selectItem itemLabel="Liga o Hipervinculo" itemValue="Wii U" />
+				        <p:selectOneMenu id="pregunta6" onchange="validacionPregunta6(this.value)" value="#{mbTbl_LineasAccion.otblRespuesta.tipoproduct}" style="width:300px;">				        				          
+				            <f:selectItem  itemLabel="Tipo" itemDisabled="true"/>
+				            <f:selectItem   itemLabel="Documento Probatorio" itemValue="Documento Probatorio"/>
+				            <f:selectItem   itemLabel="Liga o Hipervinculo" itemValue="Liga o Hipervinculo"/>
 				        </p:selectOneMenu>				        
 					</h:panelGroup>
 					
- 					<h:panelGroup layout="block">
-						<h:outputLabel value="--"/>
+ 					<h:panelGroup >
+						<h:inputText id="liga"  value="#{mbTbl_LineasAccion.otblRespuesta.linkproducto}" style="display:none;"/>
+						<p:fileUpload id="archivo" style="display:none;" value="#{mbTbl_LineasAccion.otblRespuesta.linkproducto}" mode="simple" skinSimple="true"/>
 					</h:panelGroup>
 					
 					<h:panelGroup layout="block">
-						<h:panelGrid columns="3" style="margin-bottom:10px" cellpadding="5">
-					        <p:outputLabel for="console" value="7. Meta programada para la línea de acción" />
-					        
-					        <p:selectOneRadio id="console" value="#{radioView.console}">
+						<h:panelGrid columns="3" style="margin-bottom:10px" cellpadding="5" >
+					        <p:outputLabel for="pregunta7" styleClass="preguntas" value="7. Meta programada para la línea de acción" />					        
+					        <p:selectOneRadio onclick="validacionPregunta7(this.value)" id="pregunta7" value="#{mbTbl_LineasAccion.otblRespuesta.metaprgmdlinacc}">
 					            <f:selectItem itemLabel="Aplica" itemValue="Aplica" />
 					            <f:selectItem itemLabel="No Aplica" itemValue="No Aplica" />					            
 					        </p:selectOneRadio>
@@ -89,14 +85,14 @@
 					</h:panelGroup>
 					
 					<h:panelGroup layout="block">
-						<h:outputLabel value="8. Unidad de medida de la Meta"/>
+						<h:outputLabel styleClass="preguntas"  value="8. Unidad de medida de la Meta" />
 							<br/>
-						<h:inputText value="#"/>
+						<h:inputText styleClass="input-text-preguntas" id="pregunta8" value="#{mbTbl_LineasAccion.otblRespuesta.unidadmedinacc}"/>
 					</h:panelGroup>
 						
 					<h:panelGroup layout="block">
-						<h:outputLabel value="9. Periodicidad de la Meta programada para línea de acción"/>
-						<p:selectOneMenu id="console2" value="#{selectOneMenuView.console}" style="width:300px;">
+						<h:outputLabel styleClass="preguntas" value="9. Periodicidad de la Meta programada para línea de acción"/>
+						<p:selectOneMenu widgetVar="pregunta9" value="#{mbTbl_LineasAccion.otblRespuesta.periodometaprglinacc}" style="width:300px;">
 				            <f:selectItem itemLabel="Seleccione una Opcion" itemValue="" />
 				            <f:selectItem itemLabel="Mensual" itemValue="Mensual" />
 				            <f:selectItem itemLabel="Bimestral" itemValue="Bimestral" />
@@ -108,76 +104,76 @@
 					</h:panelGroup>
 					
 					<h:panelGroup layout="block">
-						<h:outputLabel value="10. Meta Programada para línea de acción"/>
+						<h:outputLabel styleClass="preguntas" value="10. Meta Programada para línea de acción"/>
 						<br/>
-						<h:inputText value="#"/>
+						<h:inputText styleClass="input-text-preguntas" id="pregunta10" value="#{mbTbl_LineasAccion.otblRespuesta.metaproglinacc}"/>
 					</h:panelGroup>
 					
 					<h:panelGroup layout="block">
-						<h:outputLabel value="11. Meta Programada para actividades"/>
+						<h:outputLabel styleClass="preguntas" value="11. Meta Programada para actividades"/>
 						<br/>
-						<h:inputText value="#"/>
+						<h:inputText styleClass="input-text-preguntas" value="#{mbTbl_LineasAccion.otblRespuesta.metaprogactv}"/>
 					</h:panelGroup>
 					
 					<h:panelGroup layout="block">
-						<h:outputLabel value="12. Periodicidad de la Meta programada para actividades"/>
+						<h:outputLabel styleClass="preguntas" value="12. Periodicidad de la Meta programada para actividades"/>
 						<br/>
-						<h:inputText value="#"/>
+						<h:inputText styleClass="input-text-preguntas" value="#{mbTbl_LineasAccion.otblRespuesta.periodometaprgactiv}"/>
 					</h:panelGroup>
 					
 					<h:panelGroup layout="block">
-						<h:outputLabel value="13. Avance (enero - diciembre)"/>
+						<h:outputLabel styleClass="preguntas" value="13. Avance (enero - diciembre)"/>
 						<br/>
-						<h:inputText value="#"/>
+						<h:inputText styleClass="input-text-preguntas" value="#{mbTbl_LineasAccion.otblRespuesta.avance}"/>
 					</h:panelGroup>
 					
 					<h:panelGroup layout="block">
-						<h:outputLabel value="14. Explicación de la variación y/o justificación en caso que el cumplimiento no sea satisfactorio (100%)"/>
+						<h:outputLabel styleClass="preguntas" value="14. Explicación de la variación y/o justificación en caso que el cumplimiento no sea satisfactorio (100%)"/>
 						<br/>
-						<h:inputText value="#"/>
+						<h:inputText styleClass="input-text-preguntas" value="#{mbTbl_LineasAccion.otblRespuesta.explicacionavance}"/>
 					</h:panelGroup>
 										
 				</h:panelGrid>
 				
 				<h:panelGrid columns="1">
 						<h:panelGroup layout="block">
-							<h:outputLabel value="15. Observaciones"/>
+							<h:outputLabel styleClass="preguntas"  value="15. Observaciones"/>
 							<br/>
-							<p:inputTextarea rows="5" cols="30" counter="display" maxlength="10" counterTemplate="{0} characters remaining." autoResize="false" />
-    						<h:outputText id="display" />	
+							<p:inputTextarea  style="width:85%;" value="#{mbTbl_LineasAccion.otblRespuesta.otrasinsticolaboran}" rows="5" cols="30"  maxlength="10" autoResize="false" />
+    						<h:outputText id="display"/>			
 						</h:panelGroup>
 						
 						<h:panelGroup layout="block">
-							<h:outputLabel value="16. ¿Otras instituciones colaboraron con ustedes para el cumplimiento de la línea de acción?"/>
+							<h:outputLabel styleClass="preguntas" value="16. ¿Otras instituciones colaboraron con ustedes para el cumplimiento de la línea de acción?"/>
 							<br/>						
-    						<p:inputTextarea rows="5" cols="30" counter="display" maxlength="10" counterTemplate="{0} characters remaining." autoResize="false" />
+    						<p:inputTextarea style="width:85%;" styleClass="input-text-preguntas" value="#{mbTbl_LineasAccion.otblRespuesta.otrasinsticolaboran}" rows="5" cols="30" maxlength="10" autoResize="false" />
     						<h:outputText id="display1" />	
 						</h:panelGroup>
 						
 						<h:panelGroup layout="block">
-							<h:outputLabel value="17. Presupuesto destinado a estas actividades o línea de acción"/>
+							<h:outputLabel styleClass="preguntas" value="17. Presupuesto destinado a estas actividades o línea de acción"/>
 							<br/>
-							<h:inputText value="#"/>
+							<h:inputText style="width:85%;" value="#{mbTbl_LineasAccion.otblRespuesta.presupuesto}"/>
 						</h:panelGroup>
 						
 						<h:panelGroup layout="block">
-							<h:outputLabel value="18. Tipo de actividad:"/>
-							<p:selectManyCheckbox id="basic" value="#{checkboxView.selectedConsoles}">
+							<h:outputLabel styleClass="preguntas" value="18. Tipo de actividad:"/>
+							<p:selectManyCheckbox id="basic" value="#{mbTbl_LineasAccion.otblRespuesta.fuentefinacia}">
 						        <f:selectItem itemLabel="PAIMEF-INDESOL" itemValue="PAIMEF-INDESOL" />
 						        <f:selectItem itemLabel="TRANSVERSALIDAD-INMUJERES" itemValue="TRANSVERSALIDAD-INMUJERES" />						        
 						    </p:selectManyCheckbox>
 						    <h:outputLabel value="Otro: "/>
-						    <h:inputText value="#"/>
+						    <h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.fuentefinacia2}"/>
 						</h:panelGroup>
 						
 						<h:panelGroup layout="block">
-							<h:outputLabel value="19. Número de Servicios otorgados mediante estas actividades o acciones"/>
+							<h:outputLabel styleClass="preguntas" value="19. Número de Servicios otorgados mediante estas actividades o acciones"/>
 							<br/>
-							<h:inputText value="#"/>
+							<h:inputText styleClass="input-text-preguntas" value="#{mbTbl_LineasAccion.otblRespuesta.noserviciootrg}"/>
 						</h:panelGroup>
 						
 						<h:panelGroup layout="block">
-							<h:outputLabel value="20. Número de personas beneficiadas con estas actividades o acciones (sólo registrar beneficiarias/os de 18 años y más y para el periodo correspondiente)"/>
+							<h:outputLabel styleClass="preguntas" value="20. Número de personas beneficiadas con estas actividades o acciones (sólo registrar beneficiarias/os de 18 años y más y para el periodo correspondiente)"/>
 							<h:panelGrid columns="2">
 								<h:outputLabel value="Mujeres"/>
 								<h:outputLabel value="Hombres"/>
@@ -186,31 +182,31 @@
 									<h:panelGroup layout="block">
 										<h:outputLabel value="20.1. Población beneficiaria total (1)"/>
 		<!-- 								<br/> -->
-										<h:inputText value="#"/>
+										<h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.totalpoblbenfm}"/>
 									</h:panelGroup>
 									
 									<h:panelGroup layout="block">	
 										<h:outputLabel value="20.1. Población beneficiaria total (1)"/>
 		<!-- 								<br/> -->
-										<h:inputText value="#"/>
+										<h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.poblabenfmujing}"/>
 									</h:panelGroup>
 									
 									<h:panelGroup layout="block">
 										<h:outputLabel value="20.3. Población beneficiaria total (1)"/>
 		<!-- 								<br/> -->
-										<h:inputText value="#"/>	
+										<h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.totalpoblbenfh}"/>	
 									</h:panelGroup>
 									
 									<h:panelGroup layout="block">
 										<h:outputLabel value="20.4. Población beneficiaria total (1)"/>
 		<!-- 								<br/> -->
-										<h:inputText value="#"/>
+										<h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.poblabenfhobing}"/>
 									</h:panelGroup>									
 							</h:panelGrid>							
 						</h:panelGroup>
 							
 							<h:panelGroup layout="block"> 
-								<h:outputText value="21. Niñas, niños y adolescentes beneficiadas(os) (sólo registrar para el periodo correspondiente)"/>
+								<h:outputText styleClass="preguntas" value="21. Niñas, niños y adolescentes beneficiadas(os) (sólo registrar para el periodo correspondiente)"/>
 								<br/>
 								<h:panelGrid columns="2">
 									<h:outputLabel value="Mujeres"/>
@@ -225,58 +221,55 @@
 									<h:panelGrid columns="2">
 										<h:outputText value="21.1. Población total"/>
 											<br/>
-										<h:inputText value=""/>
+										<h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.ninasbenifi0a12pobltot}"/>
 									</h:panelGrid>
 									<h:panelGrid columns="2">
 										<h:outputText value="21.2 Población indígena"/>
 											<br/>
-										<h:inputText value=""/>
+										<h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.ninasbenifi0a12poblindig}"/>
 									</h:panelGrid>
 									
 									<h:panelGrid columns="2">
 										<h:outputText value="21.3. Población total"/>
 											<br/>
-										<h:inputText value=""/>
+										<h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.ninasbenifi12a17pobltot}"/>
 									</h:panelGrid>
 									<h:panelGrid columns="2">
 										<h:outputText value="21.4 Población indígena"/>
 											<br/>
-										<h:inputText value=""/>
+										<h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.ninasbenifi12a17poblingdig}"/>
 									</h:panelGrid>
 									
 									<h:panelGrid columns="2">
 										<h:outputText value="21.5. Población total"/>
 											<br/>
-										<h:inputText value=""/>
+										<h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.ninosbenifi0a12pobltot}"/>
 									</h:panelGrid>
 									<h:panelGrid columns="2">
 										<h:outputText value="21.6 Población indígena"/>
 											<br/>
-										<h:inputText value=""/>
+										<h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.ninosbenifi0a12poblingid}"/>
 									</h:panelGrid>
 									
 									<h:panelGrid columns="2">
 										<h:outputText value="21.7. Población total"/>
 										<br/>
-										<h:inputText value=""/>
+										<h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.ninosbenifi12a17pobltot}"/>
 									</h:panelGrid>
 									<h:panelGrid columns="2">
 										<h:outputText value="21.8 Población indígena"/>
 										<br/>
-										<h:inputText value=""/>
+										<h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.ninpsbenifi12a17poblindig}"/>
 									</h:panelGrid>
 								</h:panelGrid>
-							</h:panelGroup>
-						
-						
-						<h:panelGroup layout="block">
-						
+							</h:panelGroup>												
+						<h:panelGroup layout="block">						
 						</h:panelGroup>
-				</h:panelGrid>					
-			</h:form>							
-		
-		
-	
-<!-- 	</f:view> -->
+				</h:panelGrid>	
+				
+				<p:commandButton  value="Insertar Registro"  action="#{mbTbl_LineasAccion.guardarLinea('')}">
+						<f:param name="idInforme" value="#{mbTbl_Informes.idInforme}"/>
+				</p:commandButton>														
+				</h:panelGroup>	
 
 </f:view>	

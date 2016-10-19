@@ -1,32 +1,39 @@
 package mx.conavim.modelo;
 
+
+
+import java.text.ParseException;
 import java.util.Date;
+
+
+
 
 public class TblRespuesta {
 	
 	private int id_respuesta;
-	private int id_informe;
+	private String id_informe;
 	private int id_lineaaccion;
-	private String dependentsist;
-	private String activicumpla;
-	private String tipoactivi;
+	private String dependentsist=null;
+	private String activicumpla=null;
+	private String tipoactivi=null;
 	private Date fechainactv;
 	private Date fechatermactv;
-	private String producto;
-	private String tipoproduct;
-	private String linkproducto;
-	private String metaprgmdlinacc;
-	private String unidadmedinacc;
-	private String periodometaprglinacc;
-	private String metaproglinacc;
-	private String metaprogactv;
-	private String periodometaprgactiv;
-	private String avance;
-	private String explicacionavance;
-	private String observaciones;
-	private String otrasinsticolaboran;
+	private String producto=null;
+	private String tipoproduct=null;
+	private String linkproducto=null;
+	private String metaprgmdlinacc=null;
+	private String unidadmedinacc=null;
+	private String periodometaprglinacc=null;
+	private String metaproglinacc=null;
+	private String metaprogactv=null;
+	private String periodometaprgactiv=null;
+	private String avance=null;
+	private String explicacionavance=null;
+	private String observaciones=null;
+	private String otrasinsticolaboran=null;
 	private int presupuesto;
-	private String fuentefinacia;
+	private String [] fuentefinacia=null;
+	private String fuentefinacia2=null;
 	private int noserviciootrg;
 	private int totalpoblbenfm;
 	private int poblabenfmujing;
@@ -42,16 +49,36 @@ public class TblRespuesta {
 	private int ninpsbenifi12a17poblindig;
 	private int status;
 	
+	//obtener seleccion manyCheckbox
+	private String[] seleCheckPregunta3=null;
+	
+
+	public String getFuentefinacia2() {
+		return fuentefinacia2;
+	}
+	public void setFuentefinacia2(String fuentefinacia2) {
+		this.fuentefinacia2 = fuentefinacia2;
+	}
+	
+	public String[] getSeleCheckPregunta3() {		
+		return seleCheckPregunta3;
+	}
+	public void setSeleCheckPregunta3(String[] seleCheckPregunta3) {
+		this.seleCheckPregunta3 = seleCheckPregunta3;
+	}
+	public TblRespuesta(){
+		//System.out.println("Accediendo a modelo Tbl Respuesta");
+	}
 	public int getId_respuesta() {
 		return id_respuesta;
 	}
 	public void setId_respuesta(int id_respuesta) {
 		this.id_respuesta = id_respuesta;
 	}
-	public int getId_informe() {
+	public String getId_informe() {
 		return id_informe;
 	}
-	public void setId_informe(int id_informe) {
+	public void setId_informe(String id_informe) {
 		this.id_informe = id_informe;
 	}
 	public int getId_lineaaccion() {
@@ -81,8 +108,8 @@ public class TblRespuesta {
 	public Date getFechainactv() {
 		return fechainactv;
 	}
-	public void setFechainactv(Date fechainactv) {
-		this.fechainactv = fechainactv;
+	public void setFechainactv(Date fechainactv) throws ParseException {
+		this.fechainactv=fechainactv;				
 	}
 	public Date getFechatermactv() {
 		return fechatermactv;
@@ -94,6 +121,7 @@ public class TblRespuesta {
 		return producto;
 	}
 	public void setProducto(String producto) {
+		//System.out.println("seteando producto->");
 		this.producto = producto;
 	}
 	public String getTipoproduct() {
@@ -174,10 +202,10 @@ public class TblRespuesta {
 	public void setPresupuesto(int presupuesto) {
 		this.presupuesto = presupuesto;
 	}
-	public String getFuentefinacia() {
+	public String[] getFuentefinacia() {
 		return fuentefinacia;
 	}
-	public void setFuentefinacia(String fuentefinacia) {
+	public void setFuentefinacia(String[] fuentefinacia) {
 		this.fuentefinacia = fuentefinacia;
 	}
 	public int getNoserviciootrg() {
