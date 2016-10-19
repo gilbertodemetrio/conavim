@@ -39,3 +39,20 @@ table {
     -webkit-border-radius: 0;
     border-radius: 0;
 }
+
+.preguntas{
+	font-weight: bold;
+	color: #263238;
+}
+.titulo-objetivos{
+	color: #263238;
+	font-size: 18px;
+}
+.titulo-estrategias-lineas{
+	color: #263238;
+	font-size: 14px;
+}
+
+.input-text-preguntas{
+	width: 400px;	
+}
