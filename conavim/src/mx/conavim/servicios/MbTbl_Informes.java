@@ -17,6 +17,18 @@ public class MbTbl_Informes {
 	ConsultasDAO consultas;
 	List<Tbl_Informes> listaInformes;
 	List<Tbl_EntidadSecre> listaEntidades;
+	
+	String idInforme="";
+	
+	
+	
+	public String getIdInforme() {
+		return idInforme;
+	}
+	public void setIdInforme(String idInforme) {
+		this.idInforme = idInforme;
+	}
+	
 	public MbTbl_Informes()
 	{
 		this.informe=null;
@@ -84,10 +96,13 @@ public class MbTbl_Informes {
 	{
 		FacesContext context = FacesContext.getCurrentInstance();
 		try {
-			context.getExternalContext().redirect("formato.conavim?idInforme="+id_informe);
+			this.idInforme=id_informe;
+			context.getExternalContext().redirect("formato.conavim");
 		} catch (Exception e) {
 			e.printStackTrace();
-		}	
+		}
+		
+		//new MbTbl_LineasAccion().setIdInforme(id_informe);
 	}
 	public Tbl_Informes getInforme() {
 		return informe;
