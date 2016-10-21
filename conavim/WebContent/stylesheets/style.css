@@ -56,3 +56,14 @@ table {
 .input-text-preguntas{
 	width: 400px;	
 }
+
+input[type=text]: disabled {
+	background: #dddddd !important;
+
+}
+input:DISABLED {
+	background: #dddddd !important;
+}
+.ui-selectonemenu.ui-state-disabled .ui-selectonemenu-label {
+	cursor: not-allowed !important
+}
