@@ -130,13 +130,13 @@ public class Tbl_lineasaccionDAO extends Conexion {
 		String [] tipoctividad=oTblRespuesta.getSeleCheckPregunta3();
 		String tipoactivity="";
 		for(String val: tipoctividad){tipoactivity+=val+",";}
-		tipoactivity+=oTblRespuesta.getTipoactivi();
+		//tipoactivity+=oTblRespuesta.getTipoactivi();
 		//Obtenemos fuente financia
-		String fuenteFinancia="-";
+		String fuenteFinancia="";
 		if(oTblRespuesta.getFuentefinacia().length>0){
 			for(String val: oTblRespuesta.getFuentefinacia()){fuenteFinancia+=val;}
 		}else{
-			fuenteFinancia=oTblRespuesta.getFuentefinacia2();
+			//fuenteFinancia=oTblRespuesta.getFuentefinacia2();
 		}
 		String query="INSERT INTO public.tbl_respuestas("
 				+ "id_informe, id_lineaaccion, dependentsist, activicumpla, "
@@ -165,28 +165,7 @@ public class Tbl_lineasaccionDAO extends Conexion {
 			//String fechainactv = (format.format(oTblRespuesta.getFechainactv()).isEmpty())?format.format(oTblRespuesta.getFechainactv()):"";
 			//String fechatermactv = (format.format(oTblRespuesta.getFechatermactv()).isEmpty())?format.format(oTblRespuesta.getFechatermactv()):"";
 			//System.out.println("fecha formateada-->"+fechainactv);
-			
-//			String query="INSERT INTO public.tbl_respuestas( id_informe, id_lineaaccion, dependentsist, activicumpla, "
-//					+ "tipoactivi, fechainactv, fechatermactv, producto, tipoproduc, "
-//					+ "linkproducto, metaprgmdlinacc, unidadmedlinacc, periodometaprglinacc, "
-//					+ "metaproglinacc, metaprogactv, periodometaprgactiv, avance, explicacionavance, "
-//					+ "observaciones, otrasinsticolaboran, presupuesto, fuentefinacia, "
-//					+ "noserviciosotrg, totalpoblbenfm, poblabenfmujing, totalpoblbenfh, "
-//					+ "poblabenfhombing, ninasbenifi0a12pobltot, ninasbenifi0a12poblindig, "
-//					+ "ninasbenifi12a17pobltot, ninasbenifi12a17poblindig, ninosbenifi0a12pobltot, "
-//					+ "ninosbenifi0a12poblindig, ninosbenifi12a17pobltot,ninpsbenifi12a17poblindig,"
-//					+ "status)"
-//					+ "VALUES ( "+oTblRespuesta.getId_informe()+","+oTblRespuesta.getId_lineaaccion()+",'"+oTblRespuesta.getDependentsist()+"', '-', "
-//					+ "'"+oTblRespuesta.getTipoactivi()+"','"+oTblRespuesta.getFechainactv()+"','"+oTblRespuesta.getFechatermactv()+"', "+oTblRespuesta.getProducto()+", '-', "
-//					+ "'-', '-', '-', '-', "
-//					+ "'-', '-', '-', '-', '-', "
-//					+ "'-', '-', 0, '-', "
-//					+ "0, 0, 0, 1, "
-//					+ "0, 0, 0, "
-//					+ "0, 0, 0, "
-//					+ "0, 0, 0, "
-//					+ "0);";
-			//String temp= SimpleDateFormat.format(oTblRespuesta.getFechainactv());
+			System.out.println("fecha insertada"+oTblRespuesta.getFechainactv());
 			System.out.println(query);	
 			java.sql.Date sqlDate=new java.sql.Date(2016,02,10);
 			consulta = getConnection().prepareStatement(query);
@@ -194,7 +173,7 @@ public class Tbl_lineasaccionDAO extends Conexion {
 					consulta.setInt(2, oTblRespuesta.getId_lineaaccion());
 					consulta.setString(3,oTblRespuesta.getDependentsist());
 					consulta.setString(4, oTblRespuesta.getActivicumpla());
-					consulta.setString(5, tipoactivity);
+					consulta.setString(5, tipoactivity+"--"+oTblRespuesta.getTipoactivi());
 					consulta.setDate(6,   sqlDate);
 					consulta.setDate(7,  sqlDate);
 					consulta.setString(8,oTblRespuesta.getProducto());
@@ -211,7 +190,7 @@ public class Tbl_lineasaccionDAO extends Conexion {
 					consulta.setString(19, oTblRespuesta.getObservaciones());
 					consulta.setString(20, oTblRespuesta.getOtrasinsticolaboran());
 					consulta.setInt(21, oTblRespuesta.getPresupuesto());
-					consulta.setString(22,fuenteFinancia);
+					consulta.setString(22,fuenteFinancia+"--"+oTblRespuesta.getFuentefinacia2());
 					consulta.setInt(23, oTblRespuesta.getNoserviciootrg());
 					consulta.setInt(24, oTblRespuesta.getTotalpoblbenfm());
 					consulta.setInt(25, oTblRespuesta.getPoblabenfmujing());
@@ -243,18 +222,146 @@ public class Tbl_lineasaccionDAO extends Conexion {
 		return null;
 	}
 	
-	public void verificarExisteLinea(String idInforme, int idLinea){
-		ResultSet res = null;
-		PreparedStatement consulta = null;
+	public TblRespuesta actualizarRespuestas(TblRespuesta oTblRespuesta, String idInforme, int idLinea) {
+		//Statement consulta = null;
+		PreparedStatement consulta=null;
+		String [] tipoctividad=oTblRespuesta.getSeleCheckPregunta3();
+		String tipoactivity="";
+		for(String val: tipoctividad){tipoactivity+=val+",";}
+		//tipoactivity+=oTblRespuesta.getTipoactivi();
+		//Obtenemos fuente financia
+		String fuenteFinancia="";
+		if(oTblRespuesta.getFuentefinacia().length>0){
+			for(String val: oTblRespuesta.getFuentefinacia()){fuenteFinancia+=val+",";}
+		}else{
+			//fuenteFinancia=oTblRespuesta.getFuentefinacia2();
+		}
+		String query="UPDATE public.tbl_respuestas "
+				+ "SET dependentsist=?, "
+				+ "activicumpla=?,  tipoactivi=?, fechainactv=?, fechatermactv=?, "
+				+ "producto=?, tipoproduc=?, linkproducto=?, metaprgmdlinacc=?, "
+				+ "unidadmedlinacc=?, periodometaprglinacc=?, metaproglinacc=?, "
+				+ "metaprogactv=?, periodometaprgactiv=?, avance=?, explicacionavance=?, "
+				+ "observaciones=?, otrasinsticolaboran=?, presupuesto=?, fuentefinacia=?, "
+				+ "noserviciosotrg=?, totalpoblbenfm=?, poblabenfmujing=?, totalpoblbenfh=?, "
+				+ "poblabenfhombing=?, ninasbenifi0a12pobltot=?, ninasbenifi0a12poblindig=?, "
+				+ "ninasbenifi12a17pobltot=?, ninasbenifi12a17poblindig=?, ninosbenifi0a12pobltot=?, "
+				+ "ninosbenifi0a12poblindig=?, ninosbenifi12a17pobltot=?, ninpsbenifi12a17poblindig=?, "
+				+ "status=? WHERE id_informe='"+idInforme+"' and id_lineaaccion="+idLinea+";";
+		
 		try {
-			consulta = getConnection().prepareStatement("SELECT count(*) total FROM tbl_respuestas where id_informe='"+idInforme+"' and id_lineaaccion="+idLinea+";");
-			res = consulta.executeQuery();
-			System.out.println("numero de Registros-->"+res.getRow());
-			if(res.getRow()>0){
-				
+
+			System.out.println(query);	
+			java.sql.Date sqlDate=new java.sql.Date(2016,02,10);
+			consulta = getConnection().prepareStatement(query);										
+					consulta.setString(1,oTblRespuesta.getDependentsist());
+					consulta.setString(2, oTblRespuesta.getActivicumpla());
+					consulta.setString(3, tipoactivity+"--"+oTblRespuesta.getTipoactivi());
+					consulta.setDate(4,   sqlDate);
+					consulta.setDate(5,  sqlDate);
+					consulta.setString(6,oTblRespuesta.getProducto());
+					consulta.setString(7, oTblRespuesta.getTipoproduct());
+					consulta.setString(8, oTblRespuesta.getLinkproducto());
+					consulta.setString(9, oTblRespuesta.getMetaprgmdlinacc());
+					consulta.setString(10, oTblRespuesta.getUnidadmedinacc());
+					consulta.setString(11, oTblRespuesta.getPeriodometaprgactiv());
+					consulta.setString(12, oTblRespuesta.getMetaproglinacc());
+					consulta.setString(13, oTblRespuesta.getMetaprogactv());
+					consulta.setString(14, oTblRespuesta.getPeriodometaprgactiv());
+					consulta.setString(15, oTblRespuesta.getAvance());
+					consulta.setString(16, oTblRespuesta.getExplicacionavance());
+					consulta.setString(17, oTblRespuesta.getObservaciones());
+					consulta.setString(18, oTblRespuesta.getOtrasinsticolaboran());
+					consulta.setInt(19, oTblRespuesta.getPresupuesto());
+					consulta.setString(20,fuenteFinancia+"--"+oTblRespuesta.getFuentefinacia2());
+					consulta.setInt(21, oTblRespuesta.getNoserviciootrg());
+					consulta.setInt(22, oTblRespuesta.getTotalpoblbenfm());
+					consulta.setInt(23, oTblRespuesta.getPoblabenfmujing());
+					consulta.setInt(24, oTblRespuesta.getTotalpoblbenfh());
+					consulta.setInt(25, oTblRespuesta.getPoblabenfhobing());
+					consulta.setInt(26, oTblRespuesta.getNinasbenifi0a12pobltot());
+					consulta.setInt(27, oTblRespuesta.getNinasbenifi0a12poblindig());
+					consulta.setInt(28, oTblRespuesta.getNinasbenifi12a17pobltot());
+					consulta.setInt(29, oTblRespuesta.getNinasbenifi12a17poblingdig());
+					consulta.setInt(30, oTblRespuesta.getNinosbenifi0a12pobltot());
+					consulta.setInt(31, oTblRespuesta.getNinosbenifi0a12poblingid());
+					consulta.setInt(32, oTblRespuesta.getNinosbenifi12a17pobltot());
+					consulta.setInt(33, oTblRespuesta.getNinpsbenifi12a17poblindig());
+					consulta.setInt(34, oTblRespuesta.getStatus());
+			consulta.executeUpdate();
+			System.out.println("\n\n\nREGISTRO ACTUALIZADO CON EXITO!!!");
+			consulta.close();
+		} catch (SQLException e) {
+			System.out.println("NO SE PUDO ACTUALIZAR REGISTRO\n" + e);
+			desconectar();
+		} finally {
+			try {
+				consulta.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return oTblRespuesta;
+	}
+	public TblRespuesta verificarExisteLinea(String idInforme, int idLinea){
+		TblRespuesta oTblRespuesta = new TblRespuesta();
+		ResultSet res = null;		
+		PreparedStatement consulta = null;
+		String []tempArreglo;
+		String tempVar = "";
+		
+		//System.out.println("idInforme->"+idInforme+" ----- ");
+		try {
+			consulta = getConnection().prepareStatement("SELECT * FROM tbl_respuestas where id_informe='"+idInforme+"' and id_lineaaccion="+idLinea+";");
+			res = consulta.executeQuery();						
+			while (res.next()) {
+				System.out.println("linea encontrada-->");				
+				oTblRespuesta.setId_informe(res.getString("id_informe"));
+				oTblRespuesta.setDependentsist(res.getString("dependentsist"));
+				oTblRespuesta.setActivicumpla(res.getString("activicumpla"));
+				//checar esta parte para campo otro
+				if(res.getString("tipoactivi").contains("--")){tempArreglo=res.getString("tipoactivi").split(",");tempVar=tempArreglo[tempArreglo.length-1];tempArreglo[tempArreglo.length-1]="";}else{tempArreglo=res.getString("tipoactivi").split(",");}
+				oTblRespuesta.setSeleCheckPregunta3(tempArreglo);				
+				oTblRespuesta.setTipoactivi(tempVar.replace("--", ""));
+				//////////////////////////////////////////////////////////
+				oTblRespuesta.setFechainactv(res.getDate("fechainactv"));
+				oTblRespuesta.setFechatermactv(res.getDate("fechatermactv"));
+				oTblRespuesta.setProducto(res.getString("producto"));
+				oTblRespuesta.setTipoproduct(res.getString("tipoproduc"));
+				oTblRespuesta.setLinkproducto(res.getString("linkproducto"));
+				oTblRespuesta.setMetaprgmdlinacc(res.getString("metaprgmdlinacc"));
+				oTblRespuesta.setUnidadmedinacc(res.getString("unidadmedlinacc"));
+				oTblRespuesta.setPeriodometaprglinacc(res.getString("periodometaprglinacc"));
+				oTblRespuesta.setMetaproglinacc(res.getString("metaproglinacc"));
+				oTblRespuesta.setMetaprogactv(res.getString("metaprogactv"));
+				oTblRespuesta.setPeriodometaprgactiv(res.getString("periodometaprgactiv"));
+				oTblRespuesta.setAvance(res.getString("avance"));
+				oTblRespuesta.setExplicacionavance(res.getString("explicacionavance"));
+				oTblRespuesta.setObservaciones(res.getString("observaciones"));
+				oTblRespuesta.setOtrasinsticolaboran(res.getString("otrasinsticolaboran"));				
+				oTblRespuesta.setPresupuesto(res.getInt("presupuesto"));
+				//checar esta parte para campo otro
+				if(res.getString("tipoactivi").contains("--")){tempArreglo=res.getString("fuentefinacia").split(",");tempVar=tempArreglo[tempArreglo.length-1];tempArreglo[tempArreglo.length-1]="";}else{tempArreglo=res.getString("fuentefinacia").split(",");}
+				oTblRespuesta.setFuentefinacia(tempArreglo);
+				oTblRespuesta.setFuentefinacia2(tempVar.replace("--", ""));
+				////////////////////////////////////////////////////////
+				oTblRespuesta.setNoserviciootrg(res.getInt("noserviciosotrg"));
+				oTblRespuesta.setTotalpoblbenfm(res.getInt("totalpoblbenfm"));
+				oTblRespuesta.setPoblabenfmujing(res.getInt("poblabenfmujing"));
+				oTblRespuesta.setTotalpoblbenfh(res.getInt("totalpoblbenfh"));
+				oTblRespuesta.setPoblabenfhobing(res.getInt("poblabenfhombing"));
+				oTblRespuesta.setNinasbenifi0a12pobltot(res.getInt("ninasbenifi0a12pobltot"));
+				oTblRespuesta.setNinasbenifi0a12poblindig(res.getInt("ninasbenifi0a12poblindig"));
+				oTblRespuesta.setNinasbenifi12a17pobltot(res.getInt("ninasbenifi12a17pobltot"));
+				oTblRespuesta.setNinasbenifi12a17poblingdig(res.getInt("ninasbenifi12a17poblindig"));
+				oTblRespuesta.setNinosbenifi0a12pobltot(res.getInt("ninosbenifi0a12pobltot"));
+				oTblRespuesta.setNinosbenifi0a12poblingid(res.getInt("ninosbenifi0a12poblindig"));
+				oTblRespuesta.setNinosbenifi12a17pobltot(res.getInt("ninosbenifi12a17pobltot"));
+				oTblRespuesta.setNinpsbenifi12a17poblindig(res.getInt("ninpsbenifi12a17poblindig"));				
 			}
 		} catch (Exception e) {
-			System.out.println("no se pudo consultar Estrategias\n" + e);
+			System.out.println("no se pudo buscar Linea\n" + e);
 			desconectar();
 		} finally {
 			try {
@@ -263,9 +370,8 @@ public class Tbl_lineasaccionDAO extends Conexion {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		}
-		
-		
+		}		
+	return oTblRespuesta; 
 	}
 		
 	public void dispose() {
