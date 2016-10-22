@@ -165,6 +165,7 @@ public class Tbl_lineasaccionDAO extends Conexion {
 			//String fechainactv = (format.format(oTblRespuesta.getFechainactv()).isEmpty())?format.format(oTblRespuesta.getFechainactv()):"";
 			//String fechatermactv = (format.format(oTblRespuesta.getFechatermactv()).isEmpty())?format.format(oTblRespuesta.getFechatermactv()):"";
 			//System.out.println("fecha formateada-->"+fechainactv);
+			
 			System.out.println("fecha insertada"+oTblRespuesta.getFechainactv());
 			System.out.println(query);	
 			java.sql.Date sqlDate=new java.sql.Date(2016,02,10);
