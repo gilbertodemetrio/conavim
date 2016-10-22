@@ -267,15 +267,15 @@
 						<h:panelGroup layout="block">						
 						</h:panelGroup>
 				</h:panelGrid>	
-				 
-				
-					<h:panelGroup  rendered="#{mbTbl_LineasAccion.pintarBotones==true}">
-						<p:commandButton id="insertar" value="Insertar"  action="#{mbTbl_LineasAccion.guardarLinea('')}" >				
-						</p:commandButton>
-					</h:panelGroup>
-					<h:panelGroup  rendered="#{mbTbl_LineasAccion.pintarBotones==false}">
-						<p:commandButton id="actualizar" value="Actualizar"  action="#{mbTbl_LineasAccion.guardarLinea('')}" >											
-						</p:commandButton>
+				 	<h:panelGroup id="botones">							
+						<h:panelGroup  rendered="#{mbTbl_LineasAccion.pintarBotones==true}">
+							<p:commandButton id="insertar" value="Insertar" actionListener="#{mbTbl_LineasAccion.notificacionMessage()}"  action="#{mbTbl_LineasAccion.guardarLinea('')}" update=":formObjetivos:growl">				
+							</p:commandButton>
+						</h:panelGroup>
+						<h:panelGroup  rendered="#{mbTbl_LineasAccion.pintarBotones==false}">
+							<p:commandButton id="actualizar" value="Actualizar" actionListener="#{mbTbl_LineasAccion.notificacionMessage()}"  action="#{mbTbl_LineasAccion.guardarLinea('')}" update=":formObjetivos:growl">											
+							</p:commandButton>
+						</h:panelGroup>
 					</h:panelGroup>
 			</h:panelGroup>	
 

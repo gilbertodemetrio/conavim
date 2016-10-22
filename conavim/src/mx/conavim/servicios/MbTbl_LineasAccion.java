@@ -1,7 +1,7 @@
 package mx.conavim.servicios;
 
 import java.awt.event.ActionEvent;
-import java.sql.Date;
+import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,6 +35,8 @@ public class MbTbl_LineasAccion {
 	private String idInforme;
 	TblRespuesta otblRespuesta;
 	private int iteamActivo=0;
+	private String mensaje="Hola";
+	
 	public int getIteamActivo() {
 		return iteamActivo;
 	}
@@ -259,16 +261,16 @@ public class MbTbl_LineasAccion {
 		 
 	    }
 	 
-	 public String validarFecha(String fecha) throws ParseException{
-		 SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-		 Date fechaValidada= java.sql.Date.valueOf(fecha);
-		 String tempFecha;
-//		 if(fecha.equals(null)){			 
-			 //tempFecha= format.format(fechaValidada);
-		 	tempFecha=fecha;
-			 System.out.println("fecha validada->"+tempFecha);
-//		 }
-		 return tempFecha;
+	 public java.sql.Date validarFecha(TblRespuesta oTblRespuesta,Date fecha) throws ParseException{
+		 java.sql.Date fechaValidada=null;
+		 if(fecha!=null){
+		 	SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
+			String fechaOrdenada=formateador.format(fecha);
+			fechaValidada = java.sql.Date.valueOf(fechaOrdenada);
+			//System.out.println("fecha insertada"+oTblRespuesta.getFechainactv());			
+			//System.out.println("fecha formateada-->"+fechaValidada);
+		 }
+		 return fechaValidada;
 	 }
 	 
 	 public void redirectIndex(String id_informe)
@@ -285,9 +287,17 @@ public class MbTbl_LineasAccion {
 		 if(otblRespuesta.getId_informe()!=null){
 			 pintarBotones=false;
 			 System.out.println("actualizar");
+			 mensaje="Registro Actualizado Exitosamente";
 		 }else{
 			 System.out.println("Insertar");
 			 pintarBotones=true;
+			 mensaje="Registro Insertado Exitosamente";
 		 }
 	 }
+	 
+	 public void notificacionMessage() {
+	        FacesContext context = FacesContext.getCurrentInstance();	         
+	        context.addMessage(null, new FacesMessage("COMPLETADO",  "" + mensaje) );
+	        //context.addMessage(null, new FacesMessage("Second Message", "Additional Message Detail"));
+	    }
 }

@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import mx.conavim.modelo.Tbl_Estrategia;
 import mx.conavim.modelo.Tbl_Producto;
 import mx.conavim.modelo.tblRespuestas;
 import mx.conavim.modelo.tbl_lineasaccion;
+import mx.conavim.servicios.MbTbl_LineasAccion;
 
 public class Tbl_lineasaccionDAO extends Conexion {
 
@@ -124,7 +126,8 @@ public class Tbl_lineasaccionDAO extends Conexion {
 	}
 
 	
-	public List<Tbl_Estrategia> insertarRespuestas(TblRespuesta oTblRespuesta) {
+	
+	public List<Tbl_Estrategia> insertarRespuestas(TblRespuesta oTblRespuesta) throws ParseException {
 		//Statement consulta = null;
 		PreparedStatement consulta=null;
 		String [] tipoctividad=oTblRespuesta.getSeleCheckPregunta3();
@@ -165,18 +168,23 @@ public class Tbl_lineasaccionDAO extends Conexion {
 			//String fechainactv = (format.format(oTblRespuesta.getFechainactv()).isEmpty())?format.format(oTblRespuesta.getFechainactv()):"";
 			//String fechatermactv = (format.format(oTblRespuesta.getFechatermactv()).isEmpty())?format.format(oTblRespuesta.getFechatermactv()):"";
 			//System.out.println("fecha formateada-->"+fechainactv);
+//			SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
+//			String fechaOrdenada=formateador.format(oTblRespuesta.getFechainactv());
+//			java.sql.Date fechainactv = java.sql.Date.valueOf(fechaOrdenada);
+//			System.out.println("fecha insertada"+oTblRespuesta.getFechainactv());			
+//			System.out.println("fecha formateada-->"+fechainactv);
 			
-			System.out.println("fecha insertada"+oTblRespuesta.getFechainactv());
+			
 			System.out.println(query);	
-			java.sql.Date sqlDate=new java.sql.Date(2016,02,10);
+			//java.sql.Date sqlDate=new java.sql.Date(2016,02,10);
 			consulta = getConnection().prepareStatement(query);
 					consulta.setString(1, oTblRespuesta.getId_informe());
 					consulta.setInt(2, oTblRespuesta.getId_lineaaccion());
 					consulta.setString(3,oTblRespuesta.getDependentsist());
 					consulta.setString(4, oTblRespuesta.getActivicumpla());
 					consulta.setString(5, tipoactivity+"--"+oTblRespuesta.getTipoactivi());
-					consulta.setDate(6,   sqlDate);
-					consulta.setDate(7,  sqlDate);
+					consulta.setDate(6,   new MbTbl_LineasAccion().validarFecha(oTblRespuesta, oTblRespuesta.getFechainactv()));
+					consulta.setDate(7,  new MbTbl_LineasAccion().validarFecha(oTblRespuesta, oTblRespuesta.getFechatermactv()));
 					consulta.setString(8,oTblRespuesta.getProducto());
 					consulta.setString(9, oTblRespuesta.getTipoproduct());
 					consulta.setString(10, oTblRespuesta.getLinkproducto());
@@ -223,7 +231,7 @@ public class Tbl_lineasaccionDAO extends Conexion {
 		return null;
 	}
 	
-	public TblRespuesta actualizarRespuestas(TblRespuesta oTblRespuesta, String idInforme, int idLinea) {
+	public TblRespuesta actualizarRespuestas(TblRespuesta oTblRespuesta, String idInforme, int idLinea) throws ParseException {
 		//Statement consulta = null;
 		PreparedStatement consulta=null;
 		String [] tipoctividad=oTblRespuesta.getSeleCheckPregunta3();
@@ -258,8 +266,8 @@ public class Tbl_lineasaccionDAO extends Conexion {
 					consulta.setString(1,oTblRespuesta.getDependentsist());
 					consulta.setString(2, oTblRespuesta.getActivicumpla());
 					consulta.setString(3, tipoactivity+"--"+oTblRespuesta.getTipoactivi());
-					consulta.setDate(4,   sqlDate);
-					consulta.setDate(5,  sqlDate);
+					consulta.setDate(4,   new MbTbl_LineasAccion().validarFecha(oTblRespuesta, oTblRespuesta.getFechainactv()));
+					consulta.setDate(5,  new MbTbl_LineasAccion().validarFecha(oTblRespuesta, oTblRespuesta.getFechatermactv()));
 					consulta.setString(6,oTblRespuesta.getProducto());
 					consulta.setString(7, oTblRespuesta.getTipoproduct());
 					consulta.setString(8, oTblRespuesta.getLinkproducto());
