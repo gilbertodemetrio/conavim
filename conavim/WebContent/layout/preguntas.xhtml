@@ -10,6 +10,7 @@
 	layout="block">		
 					
 					<h:panelGroup layout="block" id="panelPreg">
+						<f:param name="idInforme" value="#{mbTbl_Informes.idInforme}"/>
 					<h:panelGrid columns="2">
 						
 							<h:panelGroup layout="block">
@@ -266,10 +267,16 @@
 						<h:panelGroup layout="block">						
 						</h:panelGroup>
 				</h:panelGrid>	
+				 
 				
-				<p:commandButton  value="Insertar Registro"  action="#{mbTbl_LineasAccion.guardarLinea('')}">
-						<f:param name="idInforme" value="#{mbTbl_Informes.idInforme}"/>
-				</p:commandButton>														
-				</h:panelGroup>	
+					<h:panelGroup  rendered="#{mbTbl_LineasAccion.pintarBotones==true}">
+						<p:commandButton id="insertar" value="Insertar"  action="#{mbTbl_LineasAccion.guardarLinea('')}" >				
+						</p:commandButton>
+					</h:panelGroup>
+					<h:panelGroup  rendered="#{mbTbl_LineasAccion.pintarBotones==false}">
+						<p:commandButton id="actualizar" value="Actualizar"  action="#{mbTbl_LineasAccion.guardarLinea('')}" >											
+						</p:commandButton>
+					</h:panelGroup>
+			</h:panelGroup>	
 
 </f:view>	
