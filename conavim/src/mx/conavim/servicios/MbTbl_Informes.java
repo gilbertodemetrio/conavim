@@ -97,12 +97,11 @@ public class MbTbl_Informes {
 		FacesContext context = FacesContext.getCurrentInstance();
 		try {
 			this.idInforme=id_informe;
-			context.getExternalContext().redirect("formato.conavim");
+			context.getExternalContext().redirect("formato.conavim?idInforme="+id_informe);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		//new MbTbl_LineasAccion().setIdInforme(id_informe);
 	}
 	public Tbl_Informes getInforme() {
 		return informe;
