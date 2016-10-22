@@ -11,29 +11,29 @@ import java.util.Date;
 public class TblRespuesta {
 	
 	private int id_respuesta;
-	private String id_informe;
+	private String id_informe ;
 	private int id_lineaaccion;
-	private String dependentsist=null;
-	private String activicumpla=null;
-	private String tipoactivi=null;
+	private String dependentsist ;
+	private String activicumpla ;
+	private String tipoactivi ;
 	private Date fechainactv;
 	private Date fechatermactv;
-	private String producto=null;
-	private String tipoproduct=null;
-	private String linkproducto=null;
-	private String metaprgmdlinacc=null;
-	private String unidadmedinacc=null;
-	private String periodometaprglinacc=null;
-	private String metaproglinacc=null;
-	private String metaprogactv=null;
-	private String periodometaprgactiv=null;
-	private String avance=null;
-	private String explicacionavance=null;
-	private String observaciones=null;
-	private String otrasinsticolaboran=null;
+	private String producto ;
+	private String tipoproduct ;
+	private String linkproducto ;
+	private String metaprgmdlinacc ;
+	private String unidadmedinacc ;
+	private String periodometaprglinacc ;
+	private String metaproglinacc ;
+	private String metaprogactv ;
+	private String periodometaprgactiv ;
+	private String avance ;
+	private String explicacionavance ;
+	private String observaciones ;
+	private String otrasinsticolaboran ;
 	private int presupuesto;
-	private String [] fuentefinacia=null;
-	private String fuentefinacia2=null;
+	private String [] fuentefinacia;
+	private String fuentefinacia2 ;
 	private int noserviciootrg;
 	private int totalpoblbenfm;
 	private int poblabenfmujing;
@@ -47,10 +47,10 @@ public class TblRespuesta {
 	private int ninosbenifi0a12poblingid;
 	private int ninosbenifi12a17pobltot;
 	private int ninpsbenifi12a17poblindig;
-	private int status;
+	private int status=1;
 	
 	//obtener seleccion manyCheckbox
-	private String[] seleCheckPregunta3=null;
+	private String[] seleCheckPregunta3;
 	
 
 	public String getFuentefinacia2() {
