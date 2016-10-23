@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
@@ -41,7 +42,7 @@ public class MbExportReport {
 			oTbl_reportDAO = new Tbl_reportDAO();
 			
 			String nombre = "temp.pdf";
-			
+			String nombreDocumentoDownload=  "";
 			String tempFile = getPath() + nombre;
 			
 			if(oTbl_reportDAO.findEntidad(idEntidad))
@@ -60,7 +61,11 @@ public class MbExportReport {
 				
 				document.add(textNombreEntidad);
 				document.add(new Paragraph(" "));
-				
+				if (oTbl_reportDAO.getoEntidadSecre().getNombre_entidadsec().length() > 60)
+					nombreDocumentoDownload = oTbl_reportDAO.getoEntidadSecre().getNombre_entidadsec().substring(0, 59)+".pdf";
+				else
+					nombreDocumentoDownload = oTbl_reportDAO.getoEntidadSecre().getNombre_entidadsec()+".pdf";
+				nombreDocumentoDownload = nombreDocumentoDownload.replaceAll("[\r\n\t]", " ").trim();
 				if(oTbl_reportDAO.findObjetivos())
 				{
 					for(TblObjetivo objetivo : oTbl_reportDAO.getLstObjetivos())
@@ -103,7 +108,7 @@ public class MbExportReport {
 				}
 				
 				document.close();				
-				downloadFile(tempFile, nombre);
+				downloadFile(tempFile, nombreDocumentoDownload);
 			}
 			else
 			{
@@ -129,7 +134,8 @@ public class MbExportReport {
 		
 		String reponsePath = "";
 		reponsePath = new File(fullPath).getPath() + File.separatorChar;
-		reponsePath = reponsePath + "applications\\conavim\\temp\\";
+		reponsePath = reponsePath + "eclipseApps\\conavim\\temp\\";
+		//reponsePath = reponsePath + "applications\\conavim\\temp\\";
 		
 		return reponsePath;
 	}
@@ -141,6 +147,14 @@ public class MbExportReport {
 		HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
 		response.reset();
 		response.setContentType("application/force-download");
+        response.setCharacterEncoding("UTF-8");
+        try {
+			nombre = URLEncoder.encode(nombre,"UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+
 		response.setHeader("Content-Disposition", "attachment;filename=" + nombre );		
 		
 		response.setContentLength((int) file.length());
