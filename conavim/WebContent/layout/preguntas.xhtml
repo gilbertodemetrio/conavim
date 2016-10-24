@@ -57,20 +57,22 @@
 					<h:panelGroup layout="block">
 						<h:outputLabel styleClass="preguntas" value="6. Productos generados y/o evidencias (documento probatorio, liga o hipervínculo)"/>						
 						<br/>
-						<p:selectOneMenu id="producto" value="#{mbTbl_LineasAccion.otblRespuesta.producto}" style="width:400px;">
+						<p:selectOneMenu id="producto" value="#{mbTbl_LineasAccion.otblRespuesta.producto}" style="width:300px;">
 				            <f:selectItem itemLabel="Seleccione una Opcion" itemValue="" />				            
 				            <f:selectItems value="#{mbTbl_LineasAccion.productos}" var="prod" itemLabel="#{prod}" itemValue="#{prod}"/>
 				        </p:selectOneMenu>
-				        <p:selectOneMenu id="pregunta6" onchange="validacionPregunta6(this.value)" value="#{mbTbl_LineasAccion.otblRespuesta.tipoproduct}" style="width:300px;">				        				          
-				            <f:selectItem  itemLabel="Tipo" itemDisabled="true"/>
+				        <p:selectOneMenu id="pregunta6"  onchange="validacionPregunta6(this.value)" value="#{mbTbl_LineasAccion.otblRespuesta.tipoproduct}" style="width:300px;">				        				          
+				            <f:selectItem  itemLabel="Tipo" itemValue=""/>
 				            <f:selectItem   itemLabel="Documento Probatorio" itemValue="Documento Probatorio"/>
 				            <f:selectItem   itemLabel="Liga o Hipervinculo" itemValue="Liga o Hipervinculo"/>
 				        </p:selectOneMenu>				        
 					</h:panelGroup>
 					
  					<h:panelGroup >
-						<h:inputText id="liga"  value="#{mbTbl_LineasAccion.otblRespuesta.linkproducto}" style="display:none;"/>
-						<p:fileUpload id="archivo" style="display:none;" value="#{mbTbl_LineasAccion.otblRespuesta.linkproducto}" mode="simple" skinSimple="true"/>
+ 						<h:outputLabel id="ligaEtiqueta" value="Liga o Hipervinculo" style="display:#{mbTbl_LineasAccion.otblRespuesta.tipoproduct=='Liga o Hipervinculo'?'block':'none'};"/>
+						<h:inputText id="liga" style="display:#{mbTbl_LineasAccion.otblRespuesta.tipoproduct=='Liga o Hipervinculo'?'block':'none'};"  value="#{mbTbl_LineasAccion.otblRespuesta.linkproducto}" />
+						<h:outputLabel id="archivoEtiqueta" value="Documento Probatorio" style="display:#{mbTbl_LineasAccion.otblRespuesta.tipoproduct=='Documento Probatorio'?'block':'none'};"/>
+						<p:fileUpload id="archivo" style="display:#{mbTbl_LineasAccion.otblRespuesta.tipoproduct=='Documento Probatorio'?'block':'none'};" value="#{mbTbl_LineasAccion.otblRespuesta.linkproducto}" mode="simple" skinSimple="true"/>
 					</h:panelGroup>
 					
 					<h:panelGroup layout="block">
@@ -80,7 +82,7 @@
 					            <f:selectItem itemLabel="Aplica" itemValue="Aplica" />
 					            <f:selectItem itemLabel="No Aplica" itemValue="No Aplica" />					            
 					        </p:selectOneRadio>
-					        <h:inputText/>
+					        <h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.metaprgmdlinacc2}"/>
 					    </h:panelGrid>
 						
 					</h:panelGroup>
@@ -88,12 +90,12 @@
 					<h:panelGroup layout="block">
 						<h:outputLabel styleClass="preguntas"  value="8. Unidad de medida de la Meta" />
 							<br/>
-						<h:inputText styleClass="input-text-preguntas" id="pregunta8" value="#{mbTbl_LineasAccion.otblRespuesta.unidadmedinacc}"/>
+						<h:inputText disabled="#{mbTbl_LineasAccion.otblRespuesta.metaprgmdlinacc=='No Aplica'}" styleClass="input-text-preguntas" id="pregunta8" value="#{mbTbl_LineasAccion.otblRespuesta.metaprgmdlinacc=='No Aplica'?'No Aplica':mbTbl_LineasAccion.otblRespuesta.unidadmedinacc}"/>
 					</h:panelGroup>
 						
 					<h:panelGroup layout="block">
 						<h:outputLabel styleClass="preguntas" value="9. Periodicidad de la Meta programada para línea de acción"/>
-						<p:selectOneMenu widgetVar="pregunta9" value="#{mbTbl_LineasAccion.otblRespuesta.periodometaprglinacc}" style="width:300px;">
+						<p:selectOneMenu disabled="#{mbTbl_LineasAccion.otblRespuesta.metaprgmdlinacc=='No Aplica'}" widgetVar="pregunta9" value="#{mbTbl_LineasAccion.otblRespuesta.periodometaprglinacc}" style="width:300px;">
 				            <f:selectItem itemLabel="Seleccione una Opcion" itemValue="" />
 				            <f:selectItem itemLabel="Mensual" itemValue="Mensual" />
 				            <f:selectItem itemLabel="Bimestral" itemValue="Bimestral" />
@@ -105,9 +107,9 @@
 					</h:panelGroup>
 					
 					<h:panelGroup layout="block">
-						<h:outputLabel styleClass="preguntas" value="10. Meta Programada para línea de acción"/>
+						<h:outputLabel styleClass="preguntas"  value="10. Meta Programada para línea de acción"/>
 						<br/>
-						<h:inputText styleClass="input-text-preguntas" id="pregunta10" value="#{mbTbl_LineasAccion.otblRespuesta.metaproglinacc}"/>
+						<h:inputText styleClass="input-text-preguntas" disabled="#{mbTbl_LineasAccion.otblRespuesta.metaprgmdlinacc=='No Aplica'}" id="pregunta10" value="#{mbTbl_LineasAccion.otblRespuesta.metaprgmdlinacc=='No Aplica'?'No Aplica':mbTbl_LineasAccion.otblRespuesta.metaproglinacc}"/>
 					</h:panelGroup>
 					
 					<h:panelGroup layout="block">
@@ -269,7 +271,7 @@
 				</h:panelGrid>	
 				 	<h:panelGroup id="botones">							
 						<h:panelGroup  rendered="#{mbTbl_LineasAccion.pintarBotones==true}">
-							<p:commandButton id="insertar" value="Insertar" actionListener="#{mbTbl_LineasAccion.notificacionMessage()}"  action="#{mbTbl_LineasAccion.guardarLinea('')}" update=":formObjetivos:growl">				
+							<p:commandButton id="insertar" value="Insertar" actionListener="#{mbTbl_LineasAccion.notificacionMessage()}"  action="#{mbTbl_LineasAccion.guardarLinea('')}" update=":formObjetivos:growl :formObjetivos:objetivos:botones">				
 							</p:commandButton>
 						</h:panelGroup>
 						<h:panelGroup  rendered="#{mbTbl_LineasAccion.pintarBotones==false}">

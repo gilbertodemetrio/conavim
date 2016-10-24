@@ -73,7 +73,7 @@ public class Tbl_lineasaccionDAO extends Conexion {
 			consulta.close();
 
 		} catch (Exception e) {
-			System.out.println("no se pudo consultar la Persona\n" + e);
+			System.out.println("no se pudo consultar la Linea\n" + e);
 			desconectar();
 		} finally {
 			try {
@@ -188,7 +188,7 @@ public class Tbl_lineasaccionDAO extends Conexion {
 					consulta.setString(8,oTblRespuesta.getProducto());
 					consulta.setString(9, oTblRespuesta.getTipoproduct());
 					consulta.setString(10, oTblRespuesta.getLinkproducto());
-					consulta.setString(11, oTblRespuesta.getMetaprgmdlinacc());
+					consulta.setString(11, oTblRespuesta.getMetaprgmdlinacc()+"--"+oTblRespuesta.getMetaprgmdlinacc2());
 					consulta.setString(12, oTblRespuesta.getUnidadmedinacc());
 					consulta.setString(13, oTblRespuesta.getPeriodometaprgactiv());
 					consulta.setString(14, oTblRespuesta.getMetaproglinacc());
@@ -271,7 +271,8 @@ public class Tbl_lineasaccionDAO extends Conexion {
 					consulta.setString(6,oTblRespuesta.getProducto());
 					consulta.setString(7, oTblRespuesta.getTipoproduct());
 					consulta.setString(8, oTblRespuesta.getLinkproducto());
-					consulta.setString(9, oTblRespuesta.getMetaprgmdlinacc());
+					//agregar metaprgmdlinacc2 a input
+					consulta.setString(9, oTblRespuesta.getMetaprgmdlinacc()+"--"+oTblRespuesta.getMetaprgmdlinacc2());
 					consulta.setString(10, oTblRespuesta.getUnidadmedinacc());
 					consulta.setString(11, oTblRespuesta.getPeriodometaprgactiv());
 					consulta.setString(12, oTblRespuesta.getMetaproglinacc());
@@ -319,13 +320,19 @@ public class Tbl_lineasaccionDAO extends Conexion {
 		PreparedStatement consulta = null;
 		String []tempArreglo;
 		String tempVar = "";
+		String tempVar2 = "";
 		
 		//System.out.println("idInforme->"+idInforme+" ----- ");
 		try {
 			consulta = getConnection().prepareStatement("SELECT * FROM tbl_respuestas where id_informe='"+idInforme+"' and id_lineaaccion="+idLinea+";");
-			res = consulta.executeQuery();						
+			res = consulta.executeQuery();
+//			if(res.){
+//				System.out.println("Existe Registro");
+//			}else{
+//				System.out.println("NO Existe Registro!!!!!");
+//			}
+			//System.out.println("linea encontrada-->idInforme="+idInforme+"--->idLinea="+idLinea+" --Numeroregistro->"+res.getRow());
 			while (res.next()) {
-				System.out.println("linea encontrada-->");				
 				oTblRespuesta.setId_informe(res.getString("id_informe"));
 				oTblRespuesta.setDependentsist(res.getString("dependentsist"));
 				oTblRespuesta.setActivicumpla(res.getString("activicumpla"));
@@ -339,7 +346,10 @@ public class Tbl_lineasaccionDAO extends Conexion {
 				oTblRespuesta.setProducto(res.getString("producto"));
 				oTblRespuesta.setTipoproduct(res.getString("tipoproduc"));
 				oTblRespuesta.setLinkproducto(res.getString("linkproducto"));
-				oTblRespuesta.setMetaprgmdlinacc(res.getString("metaprgmdlinacc"));
+				//agregar metaprgmdlinacc2 a input
+				if(res.getString("metaprgmdlinacc").contains("--")){tempArreglo=res.getString("metaprgmdlinacc").split("--");tempVar=(tempArreglo.length>1)?tempArreglo[1]:"";tempVar2=(tempArreglo.length>0)?tempArreglo[0]:"";}
+				oTblRespuesta.setMetaprgmdlinacc(tempVar2);
+				oTblRespuesta.setMetaprgmdlinacc2(tempVar);
 				oTblRespuesta.setUnidadmedinacc(res.getString("unidadmedlinacc"));
 				oTblRespuesta.setPeriodometaprglinacc(res.getString("periodometaprglinacc"));
 				oTblRespuesta.setMetaproglinacc(res.getString("metaproglinacc"));
@@ -370,7 +380,7 @@ public class Tbl_lineasaccionDAO extends Conexion {
 				oTblRespuesta.setNinpsbenifi12a17poblindig(res.getInt("ninpsbenifi12a17poblindig"));				
 			}
 		} catch (Exception e) {
-			System.out.println("no se pudo buscar Linea\n" + e);
+			System.out.println("no se pudo buscar Linea No se encontro\n" + e);
 			desconectar();
 		} finally {
 			try {

@@ -62,7 +62,7 @@ public class MbTbl_LineasAccion {
 	}
 
 	public void setIdInforme(String idInforme) {
-		System.out.println("Seteando id informe-->"+idInforme);
+		//System.out.println("Seteando id informe-->"+idInforme);
 		this.idInforme = idInforme;
 	}
 
@@ -130,8 +130,8 @@ public class MbTbl_LineasAccion {
 		 FacesContext fc = FacesContext.getCurrentInstance();
 	     Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
 	     this.idInforme =  params.get("idInforme");
-	     System.out.println("Metodo init-->");
-	     System.out.println("id informe-->"+idInforme);
+	     //System.out.println("Metodo init-->");
+	     //System.out.println("id informe-->"+idInforme);
 		consultas=new Tbl_lineasaccionDAO();
 		tempLineas=consultas.getLineasAccion();
 		productos = consultas.getProductos();
@@ -167,7 +167,7 @@ public class MbTbl_LineasAccion {
 				}				
 			}
 			this.idLinea = lineasaccion.get(0).getId_lineaaccion();
-			System.out.println("id Linea accion->"+idLinea);
+			//System.out.println("id Linea accion->"+idLinea);
 //			for(tbl_lineasaccion val:lineasaccion){
 //				System.out.println("sacando nuevas Estrategi----->"+val.getId_estrategia()+"--nombre-->"+val.getNombre_linea()+"----descripcion---->"+val.getDescripcion());
 //			}
@@ -184,7 +184,7 @@ public class MbTbl_LineasAccion {
 			}			
 			int ob = estrategias.get(0).getId_estrategia();
 			this.estrategia = ob;
-			System.out.println("id Estrategia->"+estrategia);
+			//System.out.println("id Estrategia->"+estrategia);
 			llenarLineas(ob);			
 //			for(tbl_lineasaccion val:lineasaccion){
 //				System.out.println("sacando nuevas listas Estrategias----->"+val.getId_estrategia()+"--nombre-->"+val.getNombre_linea()+"--->descripcion"+val.getDescripcion());
@@ -199,7 +199,7 @@ public class MbTbl_LineasAccion {
         FacesMessage msg = new FacesMessage(event.getTab().getTitletip());        
         String est = (msg.getDetail());
         estrategia = Integer.parseInt(est);
-        System.out.println("id Estrategia-->"+estrategia);
+        //System.out.println("id Estrategia-->"+estrategia);
         llenarLineas(estrategia);
         iteamActivo=0;
         consultas=new Tbl_lineasaccionDAO();
@@ -212,7 +212,7 @@ public class MbTbl_LineasAccion {
         FacesMessage msg = new FacesMessage(event.getTab().getTitle());
         String est = (msg.getDetail()).replace("Objetivo ", "");
         objetivo = Integer.parseInt(est);
-        System.out.println("id Objetivo-->"+objetivo);
+        //System.out.println("id Objetivo-->"+objetivo);
         llenarEstrategias(objetivo);  
         
         consultas=new Tbl_lineasaccionDAO();
@@ -226,7 +226,7 @@ public class MbTbl_LineasAccion {
         FacesMessage msg = new FacesMessage(event.getTab().getTitletip());
         String est = (msg.getDetail());
         idLinea = Integer.parseInt(est);
-        System.out.println("id Linea-->"+idLinea);
+        //System.out.println("id Linea-->"+idLinea);
         
         consultas=new Tbl_lineasaccionDAO();
         otblRespuesta = consultas.verificarExisteLinea(idInforme,idLinea);
@@ -249,10 +249,11 @@ public class MbTbl_LineasAccion {
 		 //otblRespuesta.setFechatermactv(validarFecha(otblRespuesta.getFechatermactv()));		 
 		 otblRespuesta.setId_lineaaccion(idLinea);
 		 otblRespuesta.setId_informe(idInforme);		 
-		 System.out.println("Valor de informe-->"+idInforme);
+		 //System.out.println("Valor de informe-->"+idInforme);
+		 //System.out.println("valor pintarBotones:->"+pintarBotones);
 		 if(pintarBotones){
 		 	consultas.insertarRespuestas(otblRespuesta);
-		 	otblRespuesta=null;
+		 	pintarBotones=false;
 		 }else{
 			 otblRespuesta=consultas.actualizarRespuestas(otblRespuesta, idInforme, idLinea);
 			 
@@ -266,9 +267,7 @@ public class MbTbl_LineasAccion {
 		 if(fecha!=null){
 		 	SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
 			String fechaOrdenada=formateador.format(fecha);
-			fechaValidada = java.sql.Date.valueOf(fechaOrdenada);
-			//System.out.println("fecha insertada"+oTblRespuesta.getFechainactv());			
-			//System.out.println("fecha formateada-->"+fechaValidada);
+			fechaValidada = java.sql.Date.valueOf(fechaOrdenada);			
 		 }
 		 return fechaValidada;
 	 }
@@ -286,10 +285,10 @@ public class MbTbl_LineasAccion {
 	 public void validarBotones(TblRespuesta otblRespuesta){
 		 if(otblRespuesta.getId_informe()!=null){
 			 pintarBotones=false;
-			 System.out.println("actualizar");
+			 //System.out.println("actualizar");
 			 mensaje="Registro Actualizado Exitosamente";
 		 }else{
-			 System.out.println("Insertar");
+			 //System.out.println("Insertar");
 			 pintarBotones=true;
 			 mensaje="Registro Insertado Exitosamente";
 		 }
@@ -298,6 +297,5 @@ public class MbTbl_LineasAccion {
 	 public void notificacionMessage() {
 	        FacesContext context = FacesContext.getCurrentInstance();	         
 	        context.addMessage(null, new FacesMessage("COMPLETADO",  "" + mensaje) );
-	        //context.addMessage(null, new FacesMessage("Second Message", "Additional Message Detail"));
 	    }
 }

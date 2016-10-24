@@ -14,13 +14,18 @@
 	<ui:define name="head">
 				<link rel="stylesheet" type="text/css" href="../stylesheets/style.css"/>
 				<script type="text/javascript">
+					
 					function validacionPregunta6(seleccion){	
 						if(seleccion==='Documento Probatorio'){
 							document.getElementById("formObjetivos:objetivos:liga").style.display='none';
+							document.getElementById("formObjetivos:objetivos:ligaEtiqueta").style.display='none';
 							document.getElementById("formObjetivos:objetivos:archivo").style.display='block';
+							document.getElementById("formObjetivos:objetivos:archivoEtiqueta").style.display='block';
 						}else if(seleccion==='Liga o Hipervinculo'){
 							document.getElementById("formObjetivos:objetivos:liga").style.display='block';
+							document.getElementById("formObjetivos:objetivos:ligaEtiqueta").style.display='block';
 							document.getElementById("formObjetivos:objetivos:archivo").style.display='none';
+							document.getElementById("formObjetivos:objetivos:archivoEtiqueta").style.display='none';
 						}				
 					}
 					
@@ -30,8 +35,8 @@
 							document.getElementById('formObjetivos:objetivos:pregunta8').disabled = true;
 							PF('pregunta9').disable();
 							document.getElementById('formObjetivos:objetivos:pregunta10').disabled = true;
-							document.getElementById('formObjetivos:objetivos:pregunta8').value = 'No aplica';
-							document.getElementById('formObjetivos:objetivos:pregunta10').value = 'No aplica';
+							document.getElementById('formObjetivos:objetivos:pregunta8').value = 'No Aplica';
+							document.getElementById('formObjetivos:objetivos:pregunta10').value = 'No Aplica';
 						}else if(seleccion==='Aplica'){
 							document.getElementById('formObjetivos:objetivos:pregunta8').disabled = false;
 							PF('pregunta9').enable();
@@ -39,7 +44,9 @@
 							document.getElementById('formObjetivos:objetivos:pregunta8').value = '';
 							document.getElementById('formObjetivos:objetivos:pregunta10').value = '';
 						}
-					}	
+					}
+					
+
 					
 				</script>			
 	</ui:define>		
@@ -56,7 +63,7 @@
 
 		<h:panelGroup layout="block">
 		<h:form id="formObjetivos">
-			<p:growl id="growl" showDetail="true"  />
+			<p:growl id="growl" showDetail="true" life="3000" />
 			<p:tabView id="objetivos">
 				<p:ajax event="tabChange" listener="#{mbTbl_LineasAccion.onTabChangeObjetivo}" update=":formObjetivos:objetivos "/>
 					        <p:tab title="Objetivo 1">

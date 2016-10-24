@@ -22,6 +22,7 @@ public class TblRespuesta {
 	private String tipoproduct ;
 	private String linkproducto ;
 	private String metaprgmdlinacc ;
+	private String metaprgmdlinacc2 ;
 	private String unidadmedinacc ;
 	private String periodometaprglinacc ;
 	private String metaproglinacc ;
@@ -52,7 +53,15 @@ public class TblRespuesta {
 	//obtener seleccion manyCheckbox
 	private String[] seleCheckPregunta3;
 	
+	
+	
 
+	public String getMetaprgmdlinacc2() {
+		return metaprgmdlinacc2;
+	}
+	public void setMetaprgmdlinacc2(String metaprgmdlinacc2) {
+		this.metaprgmdlinacc2 = metaprgmdlinacc2;
+	}
 	public String getFuentefinacia2() {
 		return fuentefinacia2;
 	}
