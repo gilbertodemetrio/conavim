@@ -54,7 +54,7 @@ table {
 }
 
 .input-text-preguntas{
-	width: 400px;	
+	width: 80%;	
 }
 
 input[type=text]: disabled {
@@ -69,10 +69,23 @@ input:DISABLED {
 }
 
 #detallesFormato{
-	width:98%;
+	width:99%;
 	margin:0 auto; 
 	border:2px solid  #ddd !important;
+	margin-top: 30px;
 }
 .etiquetasDetalles{
 	font-weight:700;
+}
+#capturaFormato{
+	margin:0 auto;
+	background: #F9F9F9;
+	padding: 5px;
+	padding-left: 20px;
+	border-bottom: 3px solid #ddd;
+	width:97%;	
+	font-size: 1.0rem;
+}
+#logout{
+	background-color: #f5f5f5 !important;height: 55px;position: fixed;z-index: 1030; width:80%;border-bottom: 3px solid #ddd;
 }
