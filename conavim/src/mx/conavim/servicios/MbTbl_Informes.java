@@ -22,6 +22,7 @@ public class MbTbl_Informes {
 	
 	
 	
+	
 	public String getIdInforme() {
 		return idInforme;
 	}
@@ -87,17 +88,17 @@ public class MbTbl_Informes {
 				consultas.dispose();
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-			
+			}			
 		} 	
 		consultas.dispose();
 	}
-	public void redirectLineas(String id_informe)
+	public void redirectLineas(String id_informe, Tbl_Informes oTbInforme)
 	{
 		FacesContext context = FacesContext.getCurrentInstance();
 		try {
 			this.idInforme=id_informe;
-			context.getExternalContext().redirect("formato.conavim?idInforme="+id_informe);
+			//context.getExternalContext().redirect("formato.conavim?idInforme="+id_informe+"&informe="+oTbInforme);			
+			context.getExternalContext().redirect("formato.conavim");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

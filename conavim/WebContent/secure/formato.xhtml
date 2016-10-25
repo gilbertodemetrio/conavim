@@ -59,9 +59,28 @@
 	<h:panelGroup layout="block">
 		<h:outputText value="Captura de Formato" />
 	 </h:panelGroup>
-	
-
-		<h:panelGroup layout="block">
+		
+		
+		<h:panelGroup layout="block" style="background:white;">
+		
+			<h:panelGroup id="detallesFormato" layout="block">
+					<h:outputLabel styleClass="etiquetasDetalles" value="Entidad: "/>
+					<h:outputText value="#{mbTbl_LineasAccion.selInforme.nombreEntidad}" />
+					<br/>
+					<h:outputLabel styleClass="etiquetasDetalles" value="Unidad de Enlace Responsable del Reporte: "/>
+					<h:outputText value="#{mbTbl_LineasAccion.selInforme.unidad_enlaceResp}" />
+					<br/>
+					<h:outputLabel styleClass="etiquetasDetalles" value="Año: "/>
+					<h:outputText value="#{mbTbl_LineasAccion.selInforme.anio}" />
+					<br/>
+					<h:outputLabel styleClass="etiquetasDetalles" value="Programa Presupuestario: "/>
+					<h:outputText value="#{mbTbl_LineasAccion.selInforme.programa_presupe}" />
+					<br/>
+					<h:outputLabel styleClass="etiquetasDetalles" value="Periodo: "/>
+					<h:outputText value="#{mbTbl_LineasAccion.selInforme.periodo}" />
+					<br/>
+			</h:panelGroup>
+		
 		<h:form id="formObjetivos">
 			<p:growl id="growl" showDetail="true" life="3000" />
 			<p:tabView id="objetivos">

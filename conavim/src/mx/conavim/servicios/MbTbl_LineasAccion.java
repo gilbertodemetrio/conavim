@@ -19,6 +19,7 @@ import org.primefaces.event.TabChangeEvent;
 import mx.conavim.control.Tbl_lineasaccionDAO;
 import mx.conavim.modelo.TblRespuesta;
 import mx.conavim.modelo.Tbl_Estrategia;
+import mx.conavim.modelo.Tbl_Informes;
 import mx.conavim.modelo.tbl_lineasaccion;
 
 public class MbTbl_LineasAccion {
@@ -36,7 +37,18 @@ public class MbTbl_LineasAccion {
 	TblRespuesta otblRespuesta;
 	private int iteamActivo=0;
 	private String mensaje="Hola";
+	private Tbl_Informes selInforme;
 	
+	public Tbl_Informes getSelInforme() {
+		return selInforme;
+	}
+
+	public void setSelInforme(Tbl_Informes selInforme) {
+		//System.out.println("nombre_entidad->"+selInforme.getNombreEntidad());
+		this.selInforme = selInforme;
+		cargarDatos();
+	}
+
 	public int getIteamActivo() {
 		return iteamActivo;
 	}
@@ -118,31 +130,52 @@ public class MbTbl_LineasAccion {
 		this.lineasaccion = lineasaccion;
 	}
 
-
-
-	@PostConstruct
-	public void init() {
-		//if(otblRespuesta ==null){
+	public void cargarDatos(){
+		if(otblRespuesta ==null){
 			//System.out.println("inicializando TblRespuesta");
-			//otblRespuesta=new TblRespuesta();
-		//}
+			otblRespuesta=new TblRespuesta();
+		}
 		 //Obtenemos idInforme
-		 FacesContext fc = FacesContext.getCurrentInstance();
-	     Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
-	     this.idInforme =  params.get("idInforme");
-	     //System.out.println("Metodo init-->");
-	     //System.out.println("id informe-->"+idInforme);
+//		 FacesContext fc = FacesContext.getCurrentInstance();
+//	     Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+//	     this.idInforme =  params.get("idInforme");
+//	     System.out.println("Metodo init-->");
+	     System.out.println("id informe en cargar datos-->"+selInforme.getId_informe());
 		consultas=new Tbl_lineasaccionDAO();
 		tempLineas=consultas.getLineasAccion();
 		productos = consultas.getProductos();
 		tempEstrategias = consultas.getEstrategias();
 		llenarEstrategias(1);
 		//verificando si existe linea con id informe
-		otblRespuesta = consultas.verificarExisteLinea(idInforme,idLinea);
+		otblRespuesta = consultas.verificarExisteLinea(selInforme.getId_informe(),idLinea);
 		validarBotones(otblRespuesta);
 		//System.out.println("Valor de id Informe-->"+idInforme);
 		consultas.dispose();
 	}
+
+//	@PostConstruct
+//	public void init() {
+//		if(otblRespuesta ==null){
+//			//System.out.println("inicializando TblRespuesta");
+//			otblRespuesta=new TblRespuesta();
+//		}
+//		 //Obtenemos idInforme
+//		 FacesContext fc = FacesContext.getCurrentInstance();
+//	     Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+//	     this.idInforme =  params.get("idInforme");
+//	     System.out.println("Metodo init-->");
+//	     System.out.println("id informe-->"+idInforme);
+//		consultas=new Tbl_lineasaccionDAO();
+//		tempLineas=consultas.getLineasAccion();
+//		productos = consultas.getProductos();
+//		tempEstrategias = consultas.getEstrategias();
+//		llenarEstrategias(1);
+//		//verificando si existe linea con id informe
+//		otblRespuesta = consultas.verificarExisteLinea(idInforme,idLinea);
+//		validarBotones(otblRespuesta);
+//		//System.out.println("Valor de id Informe-->"+idInforme);
+//		consultas.dispose();
+//	}
 	
 	
 	public List<Tbl_Estrategia> getEstrategias() {
@@ -203,7 +236,7 @@ public class MbTbl_LineasAccion {
         llenarLineas(estrategia);
         iteamActivo=0;
         consultas=new Tbl_lineasaccionDAO();
-        otblRespuesta = consultas.verificarExisteLinea(idInforme,idLinea);
+        otblRespuesta = consultas.verificarExisteLinea(selInforme.getId_informe(),idLinea);
 		validarBotones(otblRespuesta);
 		consultas.dispose();
     }
@@ -214,9 +247,9 @@ public class MbTbl_LineasAccion {
         objetivo = Integer.parseInt(est);
         //System.out.println("id Objetivo-->"+objetivo);
         llenarEstrategias(objetivo);  
-        
+        iteamActivo=0;
         consultas=new Tbl_lineasaccionDAO();
-        otblRespuesta = consultas.verificarExisteLinea(idInforme,idLinea);
+        otblRespuesta = consultas.verificarExisteLinea(selInforme.getId_informe(),idLinea);
 		validarBotones(otblRespuesta);
 		consultas.dispose();
         //System.out.println("Linea-->"+idLinea);
@@ -229,7 +262,7 @@ public class MbTbl_LineasAccion {
         //System.out.println("id Linea-->"+idLinea);
         
         consultas=new Tbl_lineasaccionDAO();
-        otblRespuesta = consultas.verificarExisteLinea(idInforme,idLinea);
+        otblRespuesta = consultas.verificarExisteLinea(selInforme.getId_informe(),idLinea);
 		validarBotones(otblRespuesta);
 		consultas.dispose();
     }
@@ -248,15 +281,14 @@ public class MbTbl_LineasAccion {
 		 //otblRespuesta.setFechainactv(validarFecha(otblRespuesta.getFechainactv()));
 		 //otblRespuesta.setFechatermactv(validarFecha(otblRespuesta.getFechatermactv()));		 
 		 otblRespuesta.setId_lineaaccion(idLinea);
-		 otblRespuesta.setId_informe(idInforme);		 
+		 otblRespuesta.setId_informe(selInforme.getId_informe());		 
 		 //System.out.println("Valor de informe-->"+idInforme);
 		 //System.out.println("valor pintarBotones:->"+pintarBotones);
 		 if(pintarBotones){
 		 	consultas.insertarRespuestas(otblRespuesta);
 		 	pintarBotones=false;
 		 }else{
-			 otblRespuesta=consultas.actualizarRespuestas(otblRespuesta, idInforme, idLinea);
-			 
+			 otblRespuesta=consultas.actualizarRespuestas(otblRespuesta, selInforme.getId_informe(), idLinea);			 
 		 }
 		 consultas.dispose();		 	     
 		 
@@ -298,4 +330,5 @@ public class MbTbl_LineasAccion {
 	        FacesContext context = FacesContext.getCurrentInstance();	         
 	        context.addMessage(null, new FacesMessage("COMPLETADO",  "" + mensaje) );
 	    }
+	 
 }

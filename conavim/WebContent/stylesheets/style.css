@@ -67,3 +67,12 @@ input:DISABLED {
 .ui-selectonemenu.ui-state-disabled .ui-selectonemenu-label {
 	cursor: not-allowed !important
 }
+
+#detallesFormato{
+	width:98%;
+	margin:0 auto; 
+	border:2px solid  #ddd !important;
+}
+.etiquetasDetalles{
+	font-weight:700;
+}
