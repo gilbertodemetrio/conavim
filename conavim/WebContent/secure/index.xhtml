@@ -16,7 +16,7 @@
 	</ui:define>
 
 	<ui:define name="body">
-		<h:form id="IdAgrInforme">			
+		<h:form id="IdAgrInforme" style="margin-top: 40px;">			
           <p:commandButton value="Agregar Formato" actionListener="#{mbTbl_Informes.restValores}" 
                  oncomplete="PF('dlg').show();">
                  <p:ajax update=":IdAgrInforme:idAgregarF" resetValues="true" /> 
