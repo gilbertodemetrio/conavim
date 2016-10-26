@@ -81,9 +81,9 @@
 					<br/>
 			</h:panelGroup>
 		
-		<h:form id="formObjetivos" style="width: 94%;margin: 0 auto;" >
+		<h:form id="formObjetivos" style="width: 100%;margin: 0 auto;" >
 			<p:growl id="growl" showDetail="true" life="3000" />
-			<p:tabView id="objetivos" style="top: 45px;">
+			<p:tabView id="objetivos" style="top: 45px;padding-left:3%;">
 				<p:ajax event="tabChange" listener="#{mbTbl_LineasAccion.onTabChangeObjetivo}" update=":formObjetivos:objetivos "/>
 					        <p:tab   title="Objetivo 1">
 					        	<h:outputText styleClass="titulo-objetivos" value="1. Fomentar la armonización de contenidos legislativos e impulsar la transformación cultural para contribuir a la no violencia contra las mujeres."/>
