@@ -83,9 +83,9 @@
 		
 		<h:form id="formObjetivos" style="width: 100%;margin: 0 auto;" >
 			<p:growl id="growl" showDetail="true" life="3000" />
-			<p:tabView id="objetivos" style="top: 45px;padding-left:3%;">
+			<p:tabView id="objetivos" style="top: 45px;padding-left:3%; border:none"  >
 				<p:ajax event="tabChange" listener="#{mbTbl_LineasAccion.onTabChangeObjetivo}" update=":formObjetivos:objetivos "/>
-					        <p:tab   title="Objetivo 1">
+					        <p:tab   title="Objetivo 1" titleStyleClass="tabEditInfor">
 					        	<h:outputText styleClass="titulo-objetivos" value="1. Fomentar la armonización de contenidos legislativos e impulsar la transformación cultural para contribuir a la no violencia contra las mujeres."/>
 					            <h:panelGroup  layout="block">						            				    			
 					    			<c:if test="#{mbTbl_LineasAccion.objetivo==1}" >
@@ -93,7 +93,7 @@
 									</c:if>
 					    		</h:panelGroup>					    			        
 							</p:tab>
-							<p:tab title="Objetivo 2">
+							<p:tab title="Objetivo 2" titleStyleClass="tabEditInfor">
 								<h:outputText styleClass="titulo-objetivos" value="2. Garantizar la prevención integral para reducir los factores de riesgo de la violencia contra las mujeres y niñas"/>
 					            <h:panelGroup  layout="block">	
 					            	<c:if test="#{mbTbl_LineasAccion.objetivo==2}" >
@@ -101,7 +101,7 @@
 									</c:if>
 					    		</h:panelGroup>	
 					        </p:tab>
-					        <p:tab title="Objetivo 3"> 
+					        <p:tab title="Objetivo 3" titleStyleClass="tabEditInfor"> 
 					        	<h:outputText styleClass="titulo-objetivos" value="3. Garantizar el acceso a los servicios de atención integral a mujeres y niñas víctimas de violencia."/>
 					           <h:panelGroup  layout="block">					    					
 									<c:if test="#{mbTbl_LineasAccion.objetivo==3}" >
@@ -109,7 +109,7 @@
 									</c:if>
 					    		</h:panelGroup>	
 					        </p:tab>
-					        <p:tab title="Objetivo 4">
+					        <p:tab title="Objetivo 4" titleStyleClass="tabEditInfor">
 					        	<h:outputText styleClass="titulo-objetivos" value="4. Asegurar el acceso a la justicia de las mujeres mediante la investigación efectiva, reparación del daño y la sanción."/>
 					            <h:panelGroup  layout="block">					    					
 									<c:if test="#{mbTbl_LineasAccion.objetivo==4}" >
@@ -117,7 +117,7 @@
 									</c:if>
 					    		</h:panelGroup>	
 					        </p:tab>
-					        <p:tab title="Objetivo 5">
+					        <p:tab title="Objetivo 5" titleStyleClass="tabEditInfor">
 					        	<h:outputText styleClass="titulo-objetivos" value="5. Fortalecer la coordinación institucional en materia de prevención, atención, sanción y erradicación de la violencia contra las mujeres."/>
 					            <h:panelGroup  layout="block">					    					
 									<c:if test="#{mbTbl_LineasAccion.objetivo==5}" >

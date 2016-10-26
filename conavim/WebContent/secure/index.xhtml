@@ -16,33 +16,39 @@
 	</ui:define>
 
 	<ui:define name="body">
-		<h:form id="IdAgrInforme" style="margin-top: 40px;">			
-          <p:commandButton value="Agregar Formato" actionListener="#{mbTbl_Informes.restValores}" 
-                 oncomplete="PF('dlg').show();">
-                 <p:ajax update=":IdAgrInforme:idAgregarF" resetValues="true" /> 
-                 
-                </p:commandButton>
+	<h:panelGroup layout="block" style="background:white;float:left;margin-top: 50px;">
+	  <h:panelGroup id="capturaFormato" layout="block" style="">
+	    	<h:outputText value="Formatos Campturados" />
+    	 </h:panelGroup>
+		<h:form id="IdAgrInforme" style="width: 94%;margin: 0 auto; margin-top: 25px;">			
+          <p:commandButton value="Agregar"  oncomplete="PF('dlg').show();" styleClass="buttonIndex">
+                 <p:ajax update=":IdAgrInforme:idDlgF" resetValues="true" />                  
+           </p:commandButton>
+            <p:commandButton value="Reporte total" styleClass="buttonIndex" />
+                            
 		    
-			<h:panelGroup id="idPGDatos" layout="block">
+			<h:panelGroup id="idPGDatos" layout="block" style="margin-top: 8px;">
 				<h:panelGrid id="idPanelInforme">
 					<p:dataTable id="idTablInformes" var="informe" value="#{mbTbl_Informes.listaInformes}"
 						 widgetVar="tblInformes"
 						 rows="10"
 					     paginator="true"
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         rowsPerPageTemplate="5,10,15">
-					   <p:column filterBy="#{informe.nombreEntidad}" headerText="Entidad">
+                         rowsPerPageTemplate="5,10,15"
+                         paginatorPosition="bottom"
+                         styleClass="headerTable">
+					   <p:column filterBy="#{informe.nombreEntidad}" headerText="Entidad" styleClass="headerTable">
 					        <h:outputText value="#{informe.nombreEntidad}" />
 					    </p:column>
-					    <p:column filterBy="#{informe.siglasEntidad}" headerText="Siglas">
+					    <p:column filterBy="#{informe.siglasEntidad}" headerText="Siglas" styleClass="headerTable">
 					        <h:outputText value="#{informe.siglasEntidad}"/>
 					    </p:column>
 					 
-					    <p:column filterBy="#{informe.anio}" headerText="A&ntilde;o">
+					    <p:column filterBy="#{informe.anio}" headerText="A&ntilde;o" styleClass="headerTable">
 					        <h:outputText value="#{informe.anio}" />
 					    </p:column>
 					 
-					    <p:column filterBy="#{informe.periodo}" headerText="Periodo">
+					    <p:column filterBy="#{informe.periodo}" headerText="Periodo" styleClass="headerTable">
 
 			            <f:facet name="filter">            
 					    <p:selectOneMenu onchange="PF('tblInformes').filter()">
@@ -55,43 +61,43 @@
 					        <h:outputText value="#{informe.periodo}" />
 					    </p:column>
 					 
-					    <p:column filterBy="#{informe.fecha_captura}" headerText="Fecha de captura">
+					    <p:column filterBy="#{informe.fecha_captura}" headerText="Fecha de captura" styleClass="headerTable">
 					        <h:outputText value="#{informe.fecha_captura}" />
 					    </p:column>
-					    <p:column filterBy="#{informe.fecha_modifi}" headerText="Fecha de modificaci&oacute;n">
+					    <p:column filterBy="#{informe.fecha_modifi}" headerText="Fecha de modificaci&oacute;n" styleClass="headerTable">
 					        <h:outputText value="#{informe.fecha_modifi}" />
 					    </p:column>
-					    <p:column >
-    	      				<h:commandButton value="PDF" action="#{mbExportReport.exportPDF(informe.secretaria)}"/>    	      				
-    	      				<h:commandButton value="Editar" action="#{mbTbl_Informes.redirectLineas(informe.id_informe,informe)}" style="position: relative;left: 15px;">
+					    <p:column styleClass="headerTable">
+    	      				<h:commandButton value="PDF" action="#{mbExportReport.exportPDF(informe.secretaria)}" styleClass="buttonIndex"/>    	      				
+    	      				<h:commandButton value="Editar" action="#{mbTbl_Informes.redirectLineas(informe.id_informe,informe)}" styleClass="buttonIndex" style="position: relative;left: 15px;">
     	      					<f:setPropertyActionListener value="#{informe}" target="#{mbTbl_LineasAccion.selInforme}" />
     	      				</h:commandButton>    	      	
 					    </p:column>					    					    					    
 					</p:dataTable>				
 				</h:panelGrid>
 				<h:panelGrid id="idAgregarF">
-				<p:growl id="growl" sticky="true" showDetail="true" />
-				<p:dialog id="idDlgF" header="Formato de encabezado" widgetVar="dlg" 
-				modal="true">
+				<p:growl id="growl" showDetail="true"  life="3000" escape="true" redisplay="true"/>
+				<p:dialog id="idDlgF" header="Capturando Formato" widgetVar="dlg" 
+				resizable="true" modal="true" closable="false" dir="ltr">
 					<h:panelGrid columns="1" cellpadding="3">
+						<p:outputLabel style="color:red; font-size:12px" value="Todos los campos son requerridos *"/>
 						<h:outputText
 							value="Dependecia y Mecanismos para el Adelando de las Mujeres
-								que reportan informacion del PIPASEVM:" />
+								que reportan informacion del PIPASEVM: *"  />
 						<p:outputLabel for="entidades" />
 						<p:selectOneMenu id="entidades" 
-							value="#{mbTbl_Informes.informe.secretaria}">
+							value="#{mbTbl_Informes.informe.secretaria}" filter="true">
 							<f:selectItem itemLabel="Select One" itemValue="" />
 							<f:selectItems value="#{mbTbl_Informes.listaEntidades}"
 								var="entidad" itemLabel="#{entidad.nombre_entidadsec}"
 								itemValue="#{entidad.id_secretaria}" />
 						</p:selectOneMenu>
 						<h:outputText
-							value="Nombre de la Unidad de Enlace Responsable del Reporte:" />
-						<h:inputText value="#{mbTbl_Informes.informe.unidad_enlaceResp}"/>
-						<h:outputText value="Programa Presupuestario:" />
-						<h:inputText value="#{mbTbl_Informes.informe.programa_presupe}"/>
-						<h:outputText value="Periodo" />
-						<p:outputLabel for="periodos" />
+							value="Nombre de la Unidad de Enlace Responsable del Reporte: *" />
+						<h:inputText value="#{mbTbl_Informes.informe.unidad_enlaceResp}" style="width:90%"/>
+						<h:outputText value="Programa Presupuestario: *" />
+						<h:inputText value="#{mbTbl_Informes.informe.programa_presupe}" style="width:90%"/>
+						<h:outputText value="Periodo *" />
 						<p:selectOneMenu id="periodos"
 							value="#{mbTbl_Informes.informe.periodo}" style="width:125px" >
 							<f:selectItem itemLabel="Ene-Mar" itemValue="Ene-Mar" />
@@ -99,15 +105,18 @@
 							<f:selectItem itemLabel="Jul-Sep" itemValue="Jul-Sep" />
 							<f:selectItem itemLabel="Oct-Dic" itemValue="Oct-Dic" />
 						</p:selectOneMenu>
-			            <f:facet name="footer">
-			            <p:commandButton value="Continuar" ajax="false" actionListener="#{mbTbl_Informes.insertInforme}" update="growl" oncomplete="if (!args.validationFailed) PF('dlg').hide();">
+			            <f:facet name="footer" >
+			            <h:panelGroup layout="block" style="margin-left: 70%; margin-top: 22px;">
+						<p:commandButton value="Continuar"  actionListener="#{mbTbl_Informes.insertInforme}" update="growl :IdAgrInforme:idTablInformes" style="margin-right:-39px !important;" styleClass="buttonIndex"  oncomplete="if (!args.validationFailed) PF('dlg').hide();">
 			            </p:commandButton>
-			            <p:commandButton value="Cancelar" actionListener="#{mbTbl_Informes.restValores}" oncomplete="PF('dlg').hide();"/>			                
+			            <p:commandButton value="Cancelar"  actionListener="#{mbTbl_Informes.restValores}" oncomplete="PF('dlg').hide();" style="margin-left: 29% !important;" styleClass="buttonIndex"/>			            
+			            </h:panelGroup>
 			            </f:facet>  						
 					</h:panelGrid>
 				</p:dialog>				
 			  </h:panelGrid>			
 			</h:panelGroup>
 		</h:form>
+</h:panelGroup>		
 	</ui:define>
 </ui:composition>

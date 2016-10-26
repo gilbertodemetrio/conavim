@@ -18,7 +18,19 @@ public class Tbl_Informes implements Serializable{
 	private String siglasEntidad;
 	
 	public Tbl_Informes()
-	{}
+	{
+		this.id_informe="";
+		this.secretaria=0;
+		this.anio="";
+		this.periodo="";
+		this.fecha_captura=new Date(0);
+		this.fecha_modifi=new Date(0);
+		this.programa_presupe="";
+		this.unidad_enlaceResp="";
+		this.status=-1;
+		this.nombreEntidad="";
+		this.siglasEntidad="";		
+	}
 
 	public String getId_informe() {
 		return id_informe;

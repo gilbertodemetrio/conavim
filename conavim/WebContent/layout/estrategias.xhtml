@@ -11,7 +11,7 @@
 
 					<p:tabView id="estar" value="#{mbTbl_LineasAccion.estrategias}" var="estrategia" style="padding-left: 10px;">
 						<p:ajax event="tabChange" listener="#{mbTbl_LineasAccion.onTabChangeEstrategia}" update=":formObjetivos:objetivos:estar :formObjetivos:objetivos:lineas :formObjetivos:objetivos:panelPreg"/>
-				        <p:tab titletip="#{estrategia.id_estrategia}" title="#{estrategia.nombre_estrategia}">				            
+				        <p:tab titletip="#{estrategia.id_estrategia}" title="#{estrategia.nombre_estrategia}" titleStyleClass="tabEditInfor">				            
 				                <h:outputText styleClass="titulo-estrategias-lineas" value="#{estrategia.descripcion}"/>				                				            				            
 				        </p:tab>
 				    </p:tabView>
