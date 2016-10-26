@@ -9,12 +9,12 @@
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
 	layout="block">		
 					
-					<h:panelGroup layout="block" id="panelPreg">
+					<h:panelGroup layout="block" id="panelPreg" style="padding-left: 25px;">
 <!-- 						<f:param name="idInforme" value="#{mbTbl_Informes.idInforme}"/> -->
 											
-					<h:panelGrid columns="2">
+					<h:panelGrid columns="2" style="" >
 						
-							<h:panelGroup layout="block">
+							<h:panelGroup layout="block" >
 								<h:outputLabel styleClass="preguntas" value="1. Dependencia/ Entidad/ Sistema"/>
 								<br/>									
 								<h:inputText styleClass="input-text-preguntas" value="#{mbTbl_LineasAccion.otblRespuesta.dependentsist}" pt:placeholder="Ejemplo (INMUJERES)"/>
@@ -38,7 +38,8 @@
 					    </p:selectManyCheckbox>
 					</h:panelGroup>
 					
-					<h:panelGroup layout="block">						
+					<h:panelGroup layout="block">	
+						<br/>					
 						<h:outputLabel value="Otro: "/>
 					    <h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.tipoactivi}" pt:placeholder="Especifique"/>
 					</h:panelGroup>
@@ -58,11 +59,11 @@
 					<h:panelGroup layout="block">
 						<h:outputLabel styleClass="preguntas" value="6. Productos generados y/o evidencias (documento probatorio, liga o hipervínculo)"/>						
 						<br/>
-						<p:selectOneMenu id="producto" value="#{mbTbl_LineasAccion.otblRespuesta.producto}" style="width:300px;">
+						<p:selectOneMenu id="producto" value="#{mbTbl_LineasAccion.otblRespuesta.producto}" style="width:30%;">
 				            <f:selectItem itemLabel="Seleccione una Opcion" itemValue="" />				            
 				            <f:selectItems value="#{mbTbl_LineasAccion.productos}" var="prod" itemLabel="#{prod}" itemValue="#{prod}"/>
 				        </p:selectOneMenu>
-				        <p:selectOneMenu id="pregunta6"  onchange="validacionPregunta6(this.value)" value="#{mbTbl_LineasAccion.otblRespuesta.tipoproduct}" style="width:300px;">				        				          
+				        <p:selectOneMenu id="pregunta6"  onchange="validacionPregunta6(this.value)" value="#{mbTbl_LineasAccion.otblRespuesta.tipoproduct}" style="width:30%;">				        				          
 				            <f:selectItem  itemLabel="Tipo" itemValue=""/>
 				            <f:selectItem   itemLabel="Documento Probatorio" itemValue="Documento Probatorio"/>
 				            <f:selectItem   itemLabel="Liga o Hipervinculo" itemValue="Liga o Hipervinculo"/>
@@ -77,8 +78,9 @@
 					</h:panelGroup>
 					
 					<h:panelGroup layout="block">
-						<h:panelGrid columns="3" style="margin-bottom:10px" cellpadding="5" >
-					        <p:outputLabel for="pregunta7" styleClass="preguntas" value="7. Meta programada para la línea de acción" />					        
+						<br/>
+						<p:outputLabel for="pregunta7" styleClass="preguntas" value="7. Meta programada para la línea de acción" />
+						<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" >												        						        				      
 					        <p:selectOneRadio onclick="validacionPregunta7(this.value)" id="pregunta7" value="#{mbTbl_LineasAccion.otblRespuesta.metaprgmdlinacc}">
 					            <f:selectItem itemLabel="Aplica" itemValue="Aplica" />
 					            <f:selectItem itemLabel="No Aplica" itemValue="No Aplica" />					            
@@ -131,9 +133,10 @@
 						<h:inputText styleClass="input-text-preguntas" value="#{mbTbl_LineasAccion.otblRespuesta.avance}"/>
 					</h:panelGroup>
 					
-					<h:panelGroup layout="block">
-						<h:outputLabel styleClass="preguntas" value="14. Explicación de la variación y/o justificación en caso que el cumplimiento no sea satisfactorio (100%)"/>
-						<br/>
+					<h:panelGroup layout="block" >
+						<h:panelGroup layout="block" style="width:84%;">
+							<h:outputLabel styleClass="preguntas"  value="14. Explicación de la variación y/o justificación en caso que el cumplimiento no sea satisfactorio (100%)"/>
+						</h:panelGroup>						
 						<h:inputText styleClass="input-text-preguntas" value="#{mbTbl_LineasAccion.otblRespuesta.explicacionavance}"/>
 					</h:panelGroup>
 										
@@ -143,133 +146,147 @@
 						<h:panelGroup layout="block">
 							<h:outputLabel styleClass="preguntas"  value="15. Observaciones"/>
 							<br/>
-							<p:inputTextarea  style="width:85%;" value="#{mbTbl_LineasAccion.otblRespuesta.otrasinsticolaboran}" rows="5" cols="30"  maxlength="10" autoResize="false" />
+							<p:inputTextarea  style="width:90%;" value="#{mbTbl_LineasAccion.otblRespuesta.otrasinsticolaboran}" rows="5" cols="30"  maxlength="10" autoResize="false" />
     						<h:outputText id="display"/>			
 						</h:panelGroup>
 						
 						<h:panelGroup layout="block">
 							<h:outputLabel styleClass="preguntas" value="16. ¿Otras instituciones colaboraron con ustedes para el cumplimiento de la línea de acción?"/>
 							<br/>						
-    						<p:inputTextarea style="width:85%;" styleClass="input-text-preguntas" value="#{mbTbl_LineasAccion.otblRespuesta.otrasinsticolaboran}" rows="5" cols="30" maxlength="10" autoResize="false" />
+    						<p:inputTextarea style="width:90%;" styleClass="input-text-preguntas" value="#{mbTbl_LineasAccion.otblRespuesta.otrasinsticolaboran}" rows="5" cols="30" maxlength="10" autoResize="false" />
     						<h:outputText id="display1" />	
 						</h:panelGroup>
 						
 						<h:panelGroup layout="block">
 							<h:outputLabel styleClass="preguntas" value="17. Presupuesto destinado a estas actividades o línea de acción"/>
 							<br/>
-							<h:inputText style="width:85%;" value="#{mbTbl_LineasAccion.otblRespuesta.presupuesto}"/>
+							<h:inputText style="width:90%;" value="#{mbTbl_LineasAccion.otblRespuesta.presupuesto}"/>
 						</h:panelGroup>
 						
 						<h:panelGroup layout="block">
 							<h:outputLabel styleClass="preguntas" value="18. Tipo de actividad:"/>
-							<p:selectManyCheckbox id="basic" value="#{mbTbl_LineasAccion.otblRespuesta.fuentefinacia}">
-						        <f:selectItem itemLabel="PAIMEF-INDESOL" itemValue="PAIMEF-INDESOL" />
-						        <f:selectItem itemLabel="TRANSVERSALIDAD-INMUJERES" itemValue="TRANSVERSALIDAD-INMUJERES" />						        
-						    </p:selectManyCheckbox>
-						    <h:outputLabel value="Otro: "/>
-						    <h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.fuentefinacia2}"/>
+							<h:panelGrid columns="3" style="width:60%;">
+								<p:selectManyCheckbox id="basic" value="#{mbTbl_LineasAccion.otblRespuesta.fuentefinacia}">
+							        <f:selectItem itemLabel="PAIMEF-INDESOL" itemValue="PAIMEF-INDESOL" />
+							        <f:selectItem itemLabel="TRANSVERSALIDAD-INMUJERES" itemValue="TRANSVERSALIDAD-INMUJERES" />						        
+							    </p:selectManyCheckbox>
+							    
+							    <h:outputLabel value="Otro: "/>
+							    <h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.fuentefinacia2}"/>
+						    </h:panelGrid>
 						</h:panelGroup>
 						
 						<h:panelGroup layout="block">
 							<h:outputLabel styleClass="preguntas" value="19. Número de Servicios otorgados mediante estas actividades o acciones"/>
 							<br/>
-							<h:inputText styleClass="input-text-preguntas" value="#{mbTbl_LineasAccion.otblRespuesta.noserviciootrg}"/>
+							<h:inputText style="width:90%;" value="#{mbTbl_LineasAccion.otblRespuesta.noserviciootrg}"/>
 						</h:panelGroup>
 						
 						<h:panelGroup layout="block">
 							<h:outputLabel styleClass="preguntas" value="20. Número de personas beneficiadas con estas actividades o acciones (sólo registrar beneficiarias/os de 18 años y más y para el periodo correspondiente)"/>
-							<h:panelGrid columns="2">
-								<h:outputLabel value="Mujeres"/>
-								<h:outputLabel value="Hombres"/>
+							<h:panelGrid columns="2" style="width: 90%;text-align:center;font-weight: bold;">
+									<h:outputLabel value="Mujeres"/>
+									
+									<h:outputLabel value="Hombres"/>	
 							</h:panelGrid>
-							<h:panelGrid columns="4">
-									<h:panelGroup layout="block">
-										<h:outputLabel value="20.1. Población beneficiaria total (1)"/>
-		<!-- 								<br/> -->
-										<h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.totalpoblbenfm}"/>
-									</h:panelGroup>
-									
-									<h:panelGroup layout="block">	
-										<h:outputLabel value="20.1. Población beneficiaria total (1)"/>
-		<!-- 								<br/> -->
-										<h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.poblabenfmujing}"/>
-									</h:panelGroup>
-									
-									<h:panelGroup layout="block">
-										<h:outputLabel value="20.3. Población beneficiaria total (1)"/>
-		<!-- 								<br/> -->
-										<h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.totalpoblbenfh}"/>	
-									</h:panelGroup>
-									
-									<h:panelGroup layout="block">
-										<h:outputLabel value="20.4. Población beneficiaria total (1)"/>
-		<!-- 								<br/> -->
-										<h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.poblabenfhobing}"/>
-									</h:panelGroup>									
-							</h:panelGrid>							
+							<h:panelGrid columns="2" style="margin:0 auto;width: 90%">																
+									<h:panelGrid columns="2" style="width: 90%;">										
+										<h:panelGroup layout="block" style="width:60%; text-align:center;">
+											<h:outputLabel value="20.1. Población beneficiaria total (1)"/>
+											<h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.totalpoblbenfm}"/>
+										</h:panelGroup>
+										
+										<h:panelGroup layout="block" style="width:60%; text-align:center;">	
+											<h:outputLabel value="20.1. Población beneficiaria total (1)"/>
+											<h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.poblabenfmujing}"/>
+										</h:panelGroup>
+									</h:panelGrid>
+																	
+									<h:panelGrid columns="2">											
+										<h:panelGroup layout="block" style="width:60%; text-align:center;">
+											<h:outputLabel value="20.3. Población beneficiaria total (1)"/>											
+											<h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.totalpoblbenfh}"/>	
+										</h:panelGroup>
+																				
+										<h:panelGroup layout="block" style="width:60%; text-align:center;">
+											<h:outputLabel value="20.4. Población beneficiaria total (1)"/>
+											<h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.poblabenfhobing}"/>
+										</h:panelGroup>									
+									</h:panelGrid>							
+							</h:panelGrid>													
 						</h:panelGroup>
 							
 							<h:panelGroup layout="block"> 
 								<h:outputText styleClass="preguntas" value="21. Niñas, niños y adolescentes beneficiadas(os) (sólo registrar para el periodo correspondiente)"/>
 								<br/>
-								<h:panelGrid columns="2">
-									<h:outputLabel value="Mujeres"/>
+								<h:panelGrid columns="2" style="width: 90%;text-align:center;font-weight: bold;">
+									<h:outputLabel  value="Mujeres"/>									
 									<h:outputLabel value="Hombres"/>	
 								</h:panelGrid>
-								<h:panelGrid columns="4">
+								<h:panelGrid columns="4" style="width: 90%; text-align:center;">
 									<h:outputLabel value="De 0 meses hasta 11 años con 11 meses de edad (un día antes de cumplir los 12 años )"/>
 									<h:outputLabel value="De 12 años cumplidos hasta 17 años con 11 meses de edad (un día antes de cumplir los 18 años )"/>
 									<h:outputLabel value="De 0 meses hasta 11 años con 11 meses de edad (un día antes de cumplir los 12 años )"/>
 									<h:outputLabel value="De 12 años cumplidos hasta 17 años con 11 meses de edad (un día antes de cumplir los 18 años )"/>
+									<h:panelGroup layout="block">
+										<h:panelGrid columns="2" style="text-align: center;">
+											<h:panelGroup>
+												<h:outputText value="21.1. Población total"/>
+												<br/>
+												<h:inputText style="width:50%;" value="#{mbTbl_LineasAccion.otblRespuesta.ninasbenifi0a12pobltot}"/>
+											</h:panelGroup>																			
+											<h:panelGroup>		
+												<h:outputText value="21.2 Población indígena"/>
+												<br/>
+												<h:inputText style="width:50%;" value="#{mbTbl_LineasAccion.otblRespuesta.ninasbenifi0a12poblindig}"/>
+											</h:panelGroup>
+										</h:panelGrid>
+									</h:panelGroup>
 									
-									<h:panelGrid columns="2">
-										<h:outputText value="21.1. Población total"/>
-											<br/>
-										<h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.ninasbenifi0a12pobltot}"/>
-									</h:panelGrid>
-									<h:panelGrid columns="2">
-										<h:outputText value="21.2 Población indígena"/>
-											<br/>
-										<h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.ninasbenifi0a12poblindig}"/>
-									</h:panelGrid>
-									
-									<h:panelGrid columns="2">
-										<h:outputText value="21.3. Población total"/>
-											<br/>
-										<h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.ninasbenifi12a17pobltot}"/>
-									</h:panelGrid>
-									<h:panelGrid columns="2">
-										<h:outputText value="21.4 Población indígena"/>
-											<br/>
-										<h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.ninasbenifi12a17poblingdig}"/>
-									</h:panelGrid>
-									
-									<h:panelGrid columns="2">
-										<h:outputText value="21.5. Población total"/>
-											<br/>
-										<h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.ninosbenifi0a12pobltot}"/>
-									</h:panelGrid>
-									<h:panelGrid columns="2">
-										<h:outputText value="21.6 Población indígena"/>
-											<br/>
-										<h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.ninosbenifi0a12poblingid}"/>
+									<h:panelGrid columns="2" style="text-align: center;">
+											<h:panelGroup>
+												<h:outputText value="21.3. Población total"/>
+													<br/>
+												<h:inputText style="width:50%;" value="#{mbTbl_LineasAccion.otblRespuesta.ninasbenifi12a17pobltot}"/>
+											</h:panelGroup>
+											<h:panelGroup>
+												<h:outputText value="21.4 Población indígena"/>
+													<br/>
+												<h:inputText style="width:50%;" value="#{mbTbl_LineasAccion.otblRespuesta.ninasbenifi12a17poblingdig}"/>
+											</h:panelGroup>
 									</h:panelGrid>
 									
-									<h:panelGrid columns="2">
-										<h:outputText value="21.7. Población total"/>
-										<br/>
-										<h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.ninosbenifi12a17pobltot}"/>
+									<h:panelGrid columns="2" style="text-align: center;">
+										<h:panelGroup>
+												<h:outputText value="21.5. Población total"/>
+													<br/>
+												<h:inputText style="width:50%;" value="#{mbTbl_LineasAccion.otblRespuesta.ninosbenifi0a12pobltot}"/>
+										</h:panelGroup>
+										<h:panelGroup>
+												<h:outputText value="21.6 Población indígena"/>
+													<br/>
+												<h:inputText style="width:50%;" value="#{mbTbl_LineasAccion.otblRespuesta.ninosbenifi0a12poblingid}"/>
+										</h:panelGroup>
 									</h:panelGrid>
-									<h:panelGrid columns="2">
-										<h:outputText value="21.8 Población indígena"/>
-										<br/>
-										<h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.ninpsbenifi12a17poblindig}"/>
+									
+									<h:panelGrid columns="2" style="text-align: center;">
+										<h:panelGroup>
+												<h:outputText value="21.7. Población total"/>
+												<br/>
+												<h:inputText style="width:50%;" value="#{mbTbl_LineasAccion.otblRespuesta.ninosbenifi12a17pobltot}"/>
+										</h:panelGroup>
+										<h:panelGroup>
+												<h:outputText value="21.8 Población indígena"/>
+												<br/>
+												<h:inputText style="width:50%;" value="#{mbTbl_LineasAccion.otblRespuesta.ninpsbenifi12a17poblindig}"/>
+										</h:panelGroup>
 									</h:panelGrid>
 								</h:panelGrid>
 							</h:panelGroup>												
 						<h:panelGroup layout="block">						
 						</h:panelGroup>
-				</h:panelGrid>	
+				</h:panelGrid>
+					<br/><br/>	
 				 	<h:panelGroup id="botones">							
 						<h:panelGroup  rendered="#{mbTbl_LineasAccion.pintarBotones==true}">
 							<p:commandButton id="insertar" value="Insertar" actionListener="#{mbTbl_LineasAccion.notificacionMessage()}"  action="#{mbTbl_LineasAccion.guardarLinea('')}" update=":formObjetivos:growl :formObjetivos:objetivos:botones">				

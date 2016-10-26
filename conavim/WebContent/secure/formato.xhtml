@@ -52,17 +52,17 @@
 	</ui:define>		
 	
 	<ui:define name="body">
-	<ui:include src="/logOut.xhtml"></ui:include>
-	<br/>
-	<br/>
+		<h:panelGroup layout="block">
+			<ui:include src="/logOut.xhtml"></ui:include>
+		</h:panelGroup>
 	
-	<h:panelGroup layout="block">
-		<h:outputText value="Captura de Formato" />
-	 </h:panelGroup>
 		
 		
-		<h:panelGroup layout="block" style="background:white;">
 		
+		<h:panelGroup layout="block" style="background:white;float:left;margin-top: 90px;">
+			<h:panelGroup id="capturaFormato" layout="block" style="">
+				<h:outputText value="Captura de Formato" />
+	 		</h:panelGroup>
 			<h:panelGroup id="detallesFormato" layout="block">
 					<h:outputLabel styleClass="etiquetasDetalles" value="Entidad: "/>
 					<h:outputText value="#{mbTbl_LineasAccion.selInforme.nombreEntidad}" />
@@ -81,11 +81,11 @@
 					<br/>
 			</h:panelGroup>
 		
-		<h:form id="formObjetivos">
+		<h:form id="formObjetivos" style="width: 94%;margin: 0 auto;" >
 			<p:growl id="growl" showDetail="true" life="3000" />
-			<p:tabView id="objetivos">
+			<p:tabView id="objetivos" style="top: 45px;">
 				<p:ajax event="tabChange" listener="#{mbTbl_LineasAccion.onTabChangeObjetivo}" update=":formObjetivos:objetivos "/>
-					        <p:tab title="Objetivo 1">
+					        <p:tab   title="Objetivo 1">
 					        	<h:outputText styleClass="titulo-objetivos" value="1. Fomentar la armonización de contenidos legislativos e impulsar la transformación cultural para contribuir a la no violencia contra las mujeres."/>
 					            <h:panelGroup  layout="block">						            				    			
 					    			<c:if test="#{mbTbl_LineasAccion.objetivo==1}" >

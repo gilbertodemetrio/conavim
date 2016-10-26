@@ -9,7 +9,7 @@
 	layout="block">		
 			
 											
-					<p:tabView id="lineas" value="#{mbTbl_LineasAccion.lineasaccion}" var="linea" activeIndex="#{mbTbl_LineasAccion.iteamActivo}">												
+					<p:tabView id="lineas" value="#{mbTbl_LineasAccion.lineasaccion}" var="linea" activeIndex="#{mbTbl_LineasAccion.iteamActivo}" style="padding-left: 20px;">												
 						<p:ajax event="tabChange" listener="#{mbTbl_LineasAccion.onTabChangeLinea}" update=":formObjetivos:objetivos:lineas :formObjetivos:objetivos:panelPreg"/>
 				        <p:tab  titletip="#{linea.id_lineaaccion}" title="#{linea.nombre_linea}">				           
 				                <h:outputText styleClass="titulo-estrategias-lineas" value="#{linea.descripcion}"/>				            
