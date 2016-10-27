@@ -20,6 +20,7 @@ public class MbTbl_Informes {
 	List<Tbl_EntidadSecre> listaEntidades;
 	private String mensaje="";
 	String idInforme="";
+
 	
 	
 	
@@ -58,9 +59,10 @@ public class MbTbl_Informes {
 		
 	}
 	public void allInformes() throws SQLException{
-	
+		consultas= new ConsultasDAO();
 			listaInformes=consultas.obtenerInforme();
 			obtNomSiglasEnt();
+		consultas.dispose();
 	}
 	public void restValores()
 	{
@@ -85,7 +87,6 @@ public class MbTbl_Informes {
 				int tipoMensaje=0;
 				insert = consultas.insertInforme(informe);
 				if(insert==true){
-					allInformes();
 					mensaje="Formato agregado";
 					tipoMensaje=1;
 					}
@@ -166,6 +167,14 @@ public class MbTbl_Informes {
 		this.entidad = entidad;
 	}
 	public List<Tbl_Informes> getListaInformes() throws SQLException {
+		
+		if(listaInformes!=null)		{
+
+			consultas= new ConsultasDAO();
+			allInformes();
+			consultas.dispose();
+		}
+		
 		return listaInformes;
 	}
 	public void setListaInformes(List<Tbl_Informes> listaInformes) {
