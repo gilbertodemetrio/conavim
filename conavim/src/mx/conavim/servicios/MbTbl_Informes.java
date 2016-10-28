@@ -55,8 +55,7 @@ public class MbTbl_Informes {
 		consultas.dispose();
 		// TODO Auto-generated catch block
 		e.printStackTrace();
-	}
-		
+	}		
 	}
 	public void allInformes() throws SQLException{
 		consultas= new ConsultasDAO();
