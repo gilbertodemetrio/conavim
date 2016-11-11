@@ -106,7 +106,7 @@
 							<f:selectItem itemLabel="Oct-Dic" itemValue="Oct-Dic" />
 						</p:selectOneMenu>
 			            <f:facet name="footer" >
-			            <h:panelGroup layout="block" style="margin-left: 70%; margin-top: 22px;">
+			            <h:panelGroup layout="block" style="margin-left: 60%; margin-top: 22px;">
 						<p:commandButton value="Continuar"  actionListener="#{mbTbl_Informes.insertInforme}" update="growl :IdAgrInforme:idTablInformes" style="margin-right:-39px !important;" styleClass="buttonIndex"  oncomplete="if (!args.validationFailed) PF('dlg').hide();">
 			            </p:commandButton>
 			            <p:commandButton value="Cancelar"  actionListener="#{mbTbl_Informes.restValores}" oncomplete="PF('dlg').hide();" style="margin-left: 29% !important;" styleClass="buttonIndex"/>			            
