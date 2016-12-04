@@ -11,13 +11,14 @@
 					
 					<h:panelGroup layout="block" id="panelPreg" style="padding-left: 25px;">
 <!-- 						<f:param name="idInforme" value="#{mbTbl_Informes.idInforme}"/> -->
+
 											
 					<h:panelGrid columns="2" style="" >
 						
 							<h:panelGroup layout="block" >
 								<h:outputLabel styleClass="preguntas" value="1. Dependencia/ Entidad/ Sistema"/>
 								<br/>									
-								<h:inputText styleClass="input-text-preguntas" value="#{mbTbl_LineasAccion.otblRespuesta.dependentsist}" pt:placeholder="Ejemplo (INMUJERES)"/>
+								<h:inputText styleClass="input-text-preguntas" value="#{mbTbl_LineasAccion.selInforme.nombreEntidad}" pt:placeholder="Ejemplo (INMUJERES)"/>
 							</h:panelGroup>
 							
 							<h:panelGroup layout="block">
@@ -197,7 +198,7 @@
 										</h:panelGroup>
 										
 										<h:panelGroup layout="block" style="width:60%; text-align:center;">	
-											<h:outputLabel value="20.1. Población beneficiaria total (1)"/>
+											<h:outputLabel value="20.2. Población beneficiaria ind&iacute;gena (1)"/>
 											<h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.poblabenfmujing}"/>
 										</h:panelGroup>
 									</h:panelGrid>
@@ -209,7 +210,7 @@
 										</h:panelGroup>
 																				
 										<h:panelGroup layout="block" style="width:60%; text-align:center;">
-											<h:outputLabel value="20.4. Población beneficiaria total (1)"/>
+											<h:outputLabel value="20.4. Población beneficiaria ind&iacute;gena (1)"/>
 											<h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.poblabenfhobing}"/>
 										</h:panelGroup>									
 									</h:panelGrid>							
