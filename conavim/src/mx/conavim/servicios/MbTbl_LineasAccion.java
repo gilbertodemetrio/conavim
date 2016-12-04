@@ -16,7 +16,9 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.event.TabChangeEvent;
 
+import mx.conavim.control.TblActividadDAO;
 import mx.conavim.control.Tbl_lineasaccionDAO;
+import mx.conavim.modelo.TblActividad;
 import mx.conavim.modelo.TblRespuesta;
 import mx.conavim.modelo.Tbl_Estrategia;
 import mx.conavim.modelo.Tbl_Informes;
@@ -28,8 +30,10 @@ public class MbTbl_LineasAccion {
 	private List<tbl_lineasaccion> lineasaccion = new ArrayList<tbl_lineasaccion>();
 	private List<tbl_lineasaccion> tempLineas = new ArrayList<tbl_lineasaccion>();
 	private List<Tbl_Estrategia>  estrategias = new ArrayList<Tbl_Estrategia>();
-	private List<Tbl_Estrategia>  tempEstrategias = new ArrayList<Tbl_Estrategia>();
+	private List<Tbl_Estrategia>  tempEstrategias = new ArrayList<Tbl_Estrategia>();	
 	private List<String> productos = new ArrayList<String>();
+	private List<String> actividades = new ArrayList<String>();
+	
 	private int estrategia=1;	
 	private int objetivo=1;
 	private int idLinea=1;
@@ -38,6 +42,8 @@ public class MbTbl_LineasAccion {
 	private int iteamActivo=0;
 	private String mensaje="Hola";
 	private Tbl_Informes selInforme;
+	private TblActividadDAO oTblActividadDAO;
+	
 	
 	public Tbl_Informes getSelInforme() {
 		return selInforme;
@@ -129,7 +135,19 @@ public class MbTbl_LineasAccion {
 	public void setLineasaccion(List<tbl_lineasaccion> lineasaccion) {
 		this.lineasaccion = lineasaccion;
 	}
+	
+	
 
+	public List<String> getActividades() {
+		return actividades;
+	}
+
+	public void setActividades(List<String> actividades) {
+		this.actividades = actividades;
+	}
+
+	
+	
 	public void cargarDatos(){
 		if(otblRespuesta ==null){
 			//System.out.println("inicializando TblRespuesta");
@@ -144,6 +162,8 @@ public class MbTbl_LineasAccion {
 		consultas=new Tbl_lineasaccionDAO();
 		tempLineas=consultas.getLineasAccion();
 		productos = consultas.getProductos();
+		oTblActividadDAO = new TblActividadDAO();
+		actividades = oTblActividadDAO.getAllActividades();
 		tempEstrategias = consultas.getEstrategias();
 		llenarEstrategias(1);
 		//verificando si existe linea con id informe

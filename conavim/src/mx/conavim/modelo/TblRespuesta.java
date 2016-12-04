@@ -15,6 +15,7 @@ public class TblRespuesta {
 	private int id_lineaaccion;
 	private String dependentsist ;
 	private String activicumpla ;
+	private String descripactivida;
 	private String tipoactivi ;
 	private Date fechainactv;
 	private Date fechatermactv;
@@ -56,6 +57,14 @@ public class TblRespuesta {
 	
 	
 
+	
+	
+	public String getDescripactivida() {
+		return descripactivida;
+	}
+	public void setDescripactivida(String descripactivida) {
+		this.descripactivida = descripactivida;
+	}
 	public String getMetaprgmdlinacc2() {
 		return metaprgmdlinacc2;
 	}

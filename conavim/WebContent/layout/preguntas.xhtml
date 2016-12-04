@@ -19,12 +19,19 @@
 								<h:outputLabel styleClass="preguntas" value="1. Dependencia/ Entidad/ Sistema"/>
 								<br/>									
 								<h:inputText styleClass="input-text-preguntas" value="#{mbTbl_LineasAccion.selInforme.nombreEntidad}" pt:placeholder="Ejemplo (INMUJERES)"/>
+								<br/><br/><br/>							
 							</h:panelGroup>
 							
 							<h:panelGroup layout="block">
 								<h:outputLabel styleClass="preguntas" value="2. Actividades para el Cumplimiento de la línea de acción"/>
 								<br/>							
-								<h:inputText styleClass="input-text-preguntas" value="#{mbTbl_LineasAccion.otblRespuesta.activicumpla}"/>
+								<p:selectOneMenu id="detallesActividades" value="#{mbTbl_LineasAccion.otblRespuesta.activicumpla}" style="width:80%;margin-bottom: 10px;">
+						            <f:selectItem itemLabel="Seleccione una Opcion" itemValue="" />				            
+						            <f:selectItems value="#{mbTbl_LineasAccion.actividades}" var="actividad" itemLabel="#{actividad}" itemValue="#{actividad}"/>
+						        </p:selectOneMenu>
+						        <br/>
+						        <h:outputLabel value="Detalles:  "/>
+								<h:inputText style="width:66%;" value="#{mbTbl_LineasAccion.otblRespuesta.descripactivida}"/>
 							</h:panelGroup>					
 					
 					<h:panelGroup layout="block">
