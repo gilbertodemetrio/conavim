@@ -149,6 +149,7 @@ public class MbTbl_LineasAccion {
 	
 	
 	public void cargarDatos(){
+		objetivo = 1;
 		if(otblRespuesta ==null){
 			//System.out.println("inicializando TblRespuesta");
 			otblRespuesta=new TblRespuesta();
