@@ -133,10 +133,9 @@ public class MbTbl_Informes {
 	 
 	 private boolean validarInsert(){
 		 boolean insertAcep=true;
-		 if(informe.getSecretaria()==0 || informe.getUnidad_enlaceResp().equals("")
-			|| informe.getPeriodo().equals("")|| informe.getPrograma_presupe().equals("")){
+		 if(informe.getSecretaria()==0 || informe.getPeriodo().equals("")){
 			 insertAcep=false;
-			 mensaje="Todos los campos son requeridos";
+			 mensaje="Los campos marcados con * son obligatorios";
 			 notificacionMessage(0);
 		 }
 		 return insertAcep;
