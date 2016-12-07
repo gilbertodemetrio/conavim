@@ -24,6 +24,7 @@ import mx.conavim.control.Tbl_reportDAO;
 import mx.conavim.modelo.TblEstrategia;
 import mx.conavim.modelo.TblLineaAccion;
 import mx.conavim.modelo.TblObjetivo;
+import mx.conavim.modelo.TblRespuesta;
 
 public class MbExportReport {
 	
@@ -113,6 +114,116 @@ public class MbExportReport {
 			else
 			{
 				
+			}			
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			oTbl_reportDAO.dispose();
+		}
+	}
+	
+	public void exportPDF2(String idInforme)
+	{
+		try
+		{
+			oTbl_reportDAO = new Tbl_reportDAO();
+			
+			String nombre = "temp.pdf";
+			String nombreDocumentoDownload=  "";
+			String tempFile = getPath() + nombre;
+			
+			if(oTbl_reportDAO.findEntidades(idInforme))
+			{	
+				Document document = new Document(PageSize.LETTER);
+				
+				Font fontTitulo = FontFactory.getFont(FontFactory.HELVETICA, 12, Font.BOLD, new BaseColor(4, 4, 4));
+				Font fontBasicTitulo = FontFactory.getFont(FontFactory.HELVETICA, 10, Font.BOLD, new BaseColor(65, 65, 65));
+				Font fontBasicInfo = FontFactory.getFont(FontFactory.HELVETICA, 10, Font.NORMAL, new BaseColor(65, 65, 65));
+				
+				PdfWriter.getInstance(document, new FileOutputStream(tempFile));
+				document.open();
+				
+				Paragraph textPeriodo = new Paragraph("Periodo: " + oTbl_reportDAO.getoEntidadSecre().getTipo(), fontBasicInfo);
+				textPeriodo.setAlignment(Element.ALIGN_RIGHT);
+				document.add(textPeriodo);
+				
+				Paragraph textNombreEntidad = new Paragraph(oTbl_reportDAO.getoEntidadSecre().getNombre_entidadsec() + " - " + oTbl_reportDAO.getoEntidadSecre().getSiglas_entidad(), fontTitulo);
+				textNombreEntidad.setAlignment(Element.ALIGN_CENTER);				
+				document.add(textNombreEntidad);
+				
+				if (oTbl_reportDAO.getoEntidadSecre().getNombre_entidadsec().length() > 60)
+					nombreDocumentoDownload = oTbl_reportDAO.getoEntidadSecre().getNombre_entidadsec().substring(0, 59)+".pdf";
+				else
+					nombreDocumentoDownload = oTbl_reportDAO.getoEntidadSecre().getNombre_entidadsec()+".pdf";
+				nombreDocumentoDownload = nombreDocumentoDownload.replaceAll("[\r\n\t]", " ").trim();
+				for(TblRespuesta oTblRespuesta: oTbl_reportDAO.getLstTblRespuesta())
+				{
+						document.add(new Paragraph(""));
+						Paragraph textNombreObjetivo = new Paragraph("Objetivo " + oTblRespuesta.getDescripcionObjetivo(), fontBasicTitulo);
+						textNombreObjetivo.setAlignment(Element.ALIGN_JUSTIFIED);
+						document.add(textNombreObjetivo); 						
+						Paragraph textEstrategia = new Paragraph( "Estrategia " +oTblRespuesta.getDescripcionEstrategia(), fontBasicTitulo);
+						textEstrategia.setAlignment(Element.ALIGN_JUSTIFIED);
+						document.add(textEstrategia);
+						document.add(new Paragraph(""));
+						Paragraph textDescripcionLinea = new Paragraph("Linea " + oTblRespuesta.getDescripcionLinea(), fontBasicInfo);
+						textDescripcionLinea.setAlignment(Element.ALIGN_JUSTIFIED);
+						document.add(textDescripcionLinea);
+						Paragraph textRespuesta1 = new Paragraph("1. Dependencia/ Entidad/ Sistema: R." + oTbl_reportDAO.getoEntidadSecre().getNombre_entidadsec(), fontBasicInfo);
+						textRespuesta1.setAlignment(Element.ALIGN_JUSTIFIED);
+						document.add(textRespuesta1);
+						
+						Paragraph textRespuesta2 = new Paragraph("2. Actividades para el Cumplimiento de la línea de acción: R." + oTblRespuesta.getActivicumpla(), fontBasicInfo);
+						textRespuesta2.setAlignment(Element.ALIGN_JUSTIFIED);
+						document.add(textRespuesta2);
+						
+						Paragraph textRespuesta3 = new Paragraph("3. Tipo de actividad: R." + oTblRespuesta.getTipoactivi(), fontBasicInfo);
+						textRespuesta3.setAlignment(Element.ALIGN_JUSTIFIED);
+						document.add(textRespuesta3);
+						
+						Paragraph textRespuesta4 = new Paragraph("4. Fecha de inicio de actividades: R." + oTblRespuesta.getFechainactv(), fontBasicInfo);
+						textRespuesta4.setAlignment(Element.ALIGN_JUSTIFIED);
+						document.add(textRespuesta4);
+						
+						Paragraph textRespuesta5 = new Paragraph("5. Fecha de termino de actividades: R." + oTblRespuesta.getFechatermactv(), fontBasicInfo);
+						textRespuesta5.setAlignment(Element.ALIGN_JUSTIFIED);
+						document.add(textRespuesta5);
+						
+						document.add(new Paragraph(" "));
+						Paragraph textRespuesta6 = new Paragraph(".....después aquí van a aparecer el resto de las preguntas con sus respuestas. " , fontBasicTitulo);
+						textRespuesta6.setAlignment(Element.ALIGN_JUSTIFIED);
+						document.add(textRespuesta6);
+						document.add(new Paragraph(" "));
+						
+						
+						
+				}
+				
+				
+				document.close();				
+				downloadFile(tempFile, nombreDocumentoDownload);
+			}
+			else
+			{
+				Document document = new Document(PageSize.LETTER);
+				
+				Font fontBasicTitulo = FontFactory.getFont(FontFactory.HELVETICA, 10, Font.BOLD, new BaseColor(65, 65, 65));				
+				
+				PdfWriter.getInstance(document, new FileOutputStream(tempFile));
+				document.open();
+				
+				Paragraph textNombreEntidad = new Paragraph("La entidad y periodo seleccionado aún no tiene líneas de acción.", fontBasicTitulo);
+				textNombreEntidad.setAlignment(Element.ALIGN_CENTER);				
+				document.add(textNombreEntidad);
+								
+				nombreDocumentoDownload = "EntidadSinLineasDeAccion.pdf".replaceAll("[\r\n\t]", " ").trim();
+				
+				document.close();				
+				downloadFile(tempFile, nombreDocumentoDownload);
 			}			
 		}
 		catch(Exception ex)
