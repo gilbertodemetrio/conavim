@@ -11,6 +11,12 @@ import java.util.Date;
 public class TblRespuesta {
 	
 	private int id_respuesta;
+	private String estrategia;
+	private String objetivo;
+	private String descripcionLinea;
+	private String descripcionObjetivo;
+	private String descripcionEstrategia;
+	private String nombreLinea;
 	private String id_informe ;
 	private int id_lineaaccion;
 	private String dependentsist ;
@@ -310,5 +316,43 @@ public class TblRespuesta {
 	public void setStatus(int status) {
 		this.status = status;
 	}
+	
+	public String getEstrategia() {
+		return estrategia;
+	}
+	public void setEstrategia(String estrategia) {
+		this.estrategia = estrategia;
+	}
+	public String getObjetivo() {
+		return objetivo;
+	}
+	public void setObjetivo(String objetivo) {
+		this.objetivo = objetivo;
+	}
+	public String getDescripcionLinea() {
+		return descripcionLinea;
+	}
+	public void setDescripcionLinea(String descripcionLinea) {
+		this.descripcionLinea = descripcionLinea;
+	}
+	public String getNombreLinea() {
+		return nombreLinea;
+	}
+	public void setNombreLinea(String nombreLinea) {
+		this.nombreLinea = nombreLinea;
+	}
+	public String getDescripcionObjetivo() {
+		return descripcionObjetivo;
+	}
+	public void setDescripcionObjetivo(String descripcionObjetivo) {
+		this.descripcionObjetivo = descripcionObjetivo;
+	}
+	public String getDescripcionEstrategia() {
+		return descripcionEstrategia;
+	}
+	public void setDescripcionEstrategia(String descripcionEstrategia) {
+		this.descripcionEstrategia = descripcionEstrategia;
+	}
+	
 	
 }
