@@ -162,6 +162,7 @@ public class MbExportReport {
 				nombreDocumentoDownload = nombreDocumentoDownload.replaceAll("[\r\n\t]", " ").trim();
 				for(TblRespuesta oTblRespuesta: oTbl_reportDAO.getLstTblRespuesta())
 				{
+					
 						document.add(new Paragraph(""));
 						Paragraph textNombreObjetivo = new Paragraph("Objetivo " + oTblRespuesta.getDescripcionObjetivo(), fontBasicTitulo);
 						textNombreObjetivo.setAlignment(Element.ALIGN_JUSTIFIED);
