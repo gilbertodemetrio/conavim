@@ -68,7 +68,7 @@
 					        <h:outputText value="#{informe.fecha_modifi}" />
 					    </p:column>
 					    <p:column styleClass="headerTable">
-    	      				<h:commandButton value="PDF" action="#{mbExportReport.exportPDF(informe.secretaria)}" styleClass="buttonIndex"/>    	      				
+    	      				<h:commandButton value="PDF" action="#{mbExportReport.exportPDF2(informe.id_informe)}" styleClass="buttonIndex"/>    	      				
     	      				<h:commandButton value="Editar" action="#{mbTbl_Informes.redirectLineas(informe.id_informe,informe)}" styleClass="buttonIndex" style="position: relative;left: 15px;">
     	      					<f:setPropertyActionListener value="#{informe}" target="#{mbTbl_LineasAccion.selInforme}" />
     	      				</h:commandButton>    	      	
@@ -93,9 +93,9 @@
 								itemValue="#{entidad.id_secretaria}" />
 						</p:selectOneMenu>
 						<h:outputText
-							value="Nombre de la Unidad de Enlace Responsable del Reporte: *" />
+							value="Nombre de la Unidad de Enlace Responsable del Reporte: " />
 						<h:inputText value="#{mbTbl_Informes.informe.unidad_enlaceResp}" style="width:90%"/>
-						<h:outputText value="Programa Presupuestario: *" />
+						<h:outputText value="Programa Presupuestario: " />
 						<h:inputText value="#{mbTbl_Informes.informe.programa_presupe}" style="width:90%"/>
 						<h:outputText value="Periodo *" />
 						<p:selectOneMenu id="periodos"
