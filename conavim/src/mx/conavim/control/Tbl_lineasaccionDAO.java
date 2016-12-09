@@ -19,11 +19,15 @@ import mx.conavim.servicios.MbTbl_LineasAccion;
 
 public class Tbl_lineasaccionDAO extends Conexion {
 
+	
+	String []tempArreglo;
+	String tempVar="";
+	
 	public List<String> getProductos() {
 		// List<Tbl_Productos> productos = new ArrayList<Tbl_Productos>();
 		List<String> productos = new ArrayList<String>();
 		ResultSet res = null;
-		PreparedStatement consulta = null;
+		PreparedStatement consulta = null;		
 
 		try {
 			consulta = getConnection().prepareStatement("SELECT nombre_producto FROM tbl_productos");
@@ -125,16 +129,23 @@ public class Tbl_lineasaccionDAO extends Conexion {
 		return estrategias;
 	}
 
-	
+	public String concatenaRespuestasCombos(String[] cadena){			
+		String resultado="";
+		if(cadena.length>0){
+			for(String val: cadena){
+				resultado+=val+",";
+			}	
+		}else
+			resultado=",";
+		return resultado;
+	}
 	
 	public List<Tbl_Estrategia> insertarRespuestas(TblRespuesta oTblRespuesta) throws ParseException {
 		//Statement consulta = null;
-		PreparedStatement consulta=null;
+		PreparedStatement consulta=null;		
 		String [] tipoctividad=oTblRespuesta.getSeleCheckPregunta3();
 		String tipoactivity="";
-		for(String val: tipoctividad){tipoactivity+=val+",";}
-		//tipoactivity+=oTblRespuesta.getTipoactivi();
-		//Obtenemos fuente financia
+		for(String val: tipoctividad){tipoactivity+=val+",";}		
 		String fuenteFinancia="";
 		if(oTblRespuesta.getFuentefinacia().length>0){
 			for(String val: oTblRespuesta.getFuentefinacia()){fuenteFinancia+=val;}
@@ -142,17 +153,17 @@ public class Tbl_lineasaccionDAO extends Conexion {
 			//fuenteFinancia=oTblRespuesta.getFuentefinacia2();
 		}
 		String query="INSERT INTO public.tbl_respuestas("
-				+ "id_informe, id_lineaaccion, dependentsist, activicumpla, descripactivida, "
-				+ "tipoactivi, fechainactv, fechatermactv, producto, tipoproduc, "
-				+ "linkproducto, metaprgmdlinacc, unidadmedlinacc, periodometaprglinacc, "
+				+ "id_informe, id_lineaaccion, dependentsist, activicumpla, otroactivicumpla, descripactivida, "
+				+ "tipoactivi, otrotipoactivi, fechainactv, fechatermactv, producto, tipoproduc, "
+				+ "linkproducto, metaprgmdlinacc, otrometaprgmdlinacc, unidadmedlinacc, periodometaprglinacc, "
 				+ "metaproglinacc, metaprogactv, periodometaprgactiv, avance, explicacionavance, "
-				+ "observaciones, otrasinsticolaboran, presupuesto, fuentefinacia, "
+				+ "observaciones, otrasinsticolaboran, presupuesto, fuentefinacia, otrofuentefinancia, "
 				+ "noserviciosotrg, totalpoblbenfm, poblabenfmujing, totalpoblbenfh, "
 				+ "poblabenfhombing, ninasbenifi0a12pobltot, ninasbenifi0a12poblindig, "
 				+ "ninasbenifi12a17pobltot, ninasbenifi12a17poblindig, ninosbenifi0a12pobltot, "
 				+ "ninosbenifi0a12poblindig, ninosbenifi12a17pobltot, ninpsbenifi12a17poblindig, "
 				+ "status)"
-				+ "VALUES (?,?, ?, ?, ?, "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, "
 				+ "?, ?, ?, ?, ?, "
 				+ "?, ?, ?, ?, "
 				+ "?, ?, ?, ?, ?, "
@@ -182,39 +193,43 @@ public class Tbl_lineasaccionDAO extends Conexion {
 					consulta.setInt(2, oTblRespuesta.getId_lineaaccion());
 					consulta.setString(3,oTblRespuesta.getDependentsist());
 					consulta.setString(4, oTblRespuesta.getActivicumpla());
-					consulta.setString(5, oTblRespuesta.getDescripactivida());
-					consulta.setString(6, tipoactivity+"--"+oTblRespuesta.getTipoactivi());
-					consulta.setDate(7,   new MbTbl_LineasAccion().validarFecha(oTblRespuesta, oTblRespuesta.getFechainactv()));
-					consulta.setDate(8,  new MbTbl_LineasAccion().validarFecha(oTblRespuesta, oTblRespuesta.getFechatermactv()));
-					consulta.setString(9,oTblRespuesta.getProducto());
-					consulta.setString(10, oTblRespuesta.getTipoproduct());
-					consulta.setString(11, oTblRespuesta.getLinkproducto());
-					consulta.setString(12, oTblRespuesta.getMetaprgmdlinacc()+"--"+oTblRespuesta.getMetaprgmdlinacc2());
-					consulta.setString(13, oTblRespuesta.getUnidadmedinacc());
-					consulta.setString(14, oTblRespuesta.getPeriodometaprgactiv());
-					consulta.setString(15, oTblRespuesta.getMetaproglinacc());
-					consulta.setString(16, oTblRespuesta.getMetaprogactv());
+					consulta.setString(5, oTblRespuesta.getOtroactivicumpla());
+					consulta.setString(6, oTblRespuesta.getDescripactivida());
+					consulta.setString(7, concatenaRespuestasCombos(oTblRespuesta.getSeleCheckPregunta3()));
+					consulta.setString(8, oTblRespuesta.getOtrotipoactivi());
+					consulta.setDate(9,   new MbTbl_LineasAccion().validarFecha(oTblRespuesta, oTblRespuesta.getFechainactv()));
+					consulta.setDate(10,  new MbTbl_LineasAccion().validarFecha(oTblRespuesta, oTblRespuesta.getFechatermactv()));
+					consulta.setString(11,oTblRespuesta.getProducto());
+					consulta.setString(12, oTblRespuesta.getTipoproduct());
+					consulta.setString(13, oTblRespuesta.getLinkproducto());
+					consulta.setString(14, oTblRespuesta.getMetaprgmdlinacc());
+					consulta.setString(15, oTblRespuesta.getOtrometaprgmdlinacc());
+					consulta.setString(16, oTblRespuesta.getUnidadmedinacc());
 					consulta.setString(17, oTblRespuesta.getPeriodometaprgactiv());
-					consulta.setString(18, oTblRespuesta.getAvance());
-					consulta.setString(19, oTblRespuesta.getExplicacionavance());
-					consulta.setString(20, oTblRespuesta.getObservaciones());
-					consulta.setString(21, oTblRespuesta.getOtrasinsticolaboran());
-					consulta.setInt(22, oTblRespuesta.getPresupuesto());
-					consulta.setString(23,fuenteFinancia+"--"+oTblRespuesta.getFuentefinacia2());
-					consulta.setInt(24, oTblRespuesta.getNoserviciootrg());
-					consulta.setInt(25, oTblRespuesta.getTotalpoblbenfm());
-					consulta.setInt(26, oTblRespuesta.getPoblabenfmujing());
-					consulta.setInt(27, oTblRespuesta.getTotalpoblbenfh());
-					consulta.setInt(28, oTblRespuesta.getPoblabenfhobing());
-					consulta.setInt(29, oTblRespuesta.getNinasbenifi0a12pobltot());
-					consulta.setInt(30, oTblRespuesta.getNinasbenifi0a12poblindig());
-					consulta.setInt(31, oTblRespuesta.getNinasbenifi12a17pobltot());
-					consulta.setInt(32, oTblRespuesta.getNinasbenifi12a17poblingdig());
-					consulta.setInt(33, oTblRespuesta.getNinosbenifi0a12pobltot());
-					consulta.setInt(34, oTblRespuesta.getNinosbenifi0a12poblingid());
-					consulta.setInt(35, oTblRespuesta.getNinosbenifi12a17pobltot());
-					consulta.setInt(36, oTblRespuesta.getNinpsbenifi12a17poblindig());
-					consulta.setInt(37, oTblRespuesta.getStatus());
+					consulta.setString(18, oTblRespuesta.getMetaproglinacc());
+					consulta.setString(19, oTblRespuesta.getMetaprogactv());
+					consulta.setString(20, oTblRespuesta.getPeriodometaprgactiv());
+					consulta.setString(21, oTblRespuesta.getAvance());
+					consulta.setString(22, oTblRespuesta.getExplicacionavance());
+					consulta.setString(23, oTblRespuesta.getObservaciones());
+					consulta.setString(24, oTblRespuesta.getOtrasinsticolaboran());
+					consulta.setInt(25, oTblRespuesta.getPresupuesto());
+					consulta.setString(26,concatenaRespuestasCombos(oTblRespuesta.getFuentefinacia()));
+					consulta.setString(27,oTblRespuesta.getOtrofuentefinacia());
+					consulta.setInt(28, oTblRespuesta.getNoserviciootrg());
+					consulta.setInt(29, oTblRespuesta.getTotalpoblbenfm());
+					consulta.setInt(30, oTblRespuesta.getPoblabenfmujing());
+					consulta.setInt(31, oTblRespuesta.getTotalpoblbenfh());
+					consulta.setInt(32, oTblRespuesta.getPoblabenfhobing());
+					consulta.setInt(33, oTblRespuesta.getNinasbenifi0a12pobltot());
+					consulta.setInt(34, oTblRespuesta.getNinasbenifi0a12poblindig());
+					consulta.setInt(35, oTblRespuesta.getNinasbenifi12a17pobltot());
+					consulta.setInt(36, oTblRespuesta.getNinasbenifi12a17poblingdig());
+					consulta.setInt(37, oTblRespuesta.getNinosbenifi0a12pobltot());
+					consulta.setInt(38, oTblRespuesta.getNinosbenifi0a12poblingid());
+					consulta.setInt(39, oTblRespuesta.getNinosbenifi12a17pobltot());
+					consulta.setInt(40, oTblRespuesta.getNinpsbenifi12a17poblindig());
+					consulta.setInt(41, oTblRespuesta.getStatus());
 			consulta.executeUpdate();
 			System.out.println("\n\n\nREGISTRO INSERTADO CON EXITO!!!");
 			consulta.close();
@@ -248,14 +263,15 @@ public class Tbl_lineasaccionDAO extends Conexion {
 		}
 		String query="UPDATE public.tbl_respuestas "
 				+ "SET dependentsist=?, "
-				+ "activicumpla=?, descripactivida=?,  tipoactivi=?, fechainactv=?, fechatermactv=?, "
-				+ "producto=?, tipoproduc=?, linkproducto=?, metaprgmdlinacc=?, "
+				+ "activicumpla=?, otroactivicumpla=?, descripactivida=?,  tipoactivi=?, otrotipoactivi=?, fechainactv=?, fechatermactv=?, "
+				+ "producto=?, tipoproduc=?, linkproducto=?, metaprgmdlinacc=?, otrometaprgmdlinacc=?, "
 				+ "unidadmedlinacc=?, periodometaprglinacc=?, metaproglinacc=?, "
 				+ "metaprogactv=?, periodometaprgactiv=?, avance=?, explicacionavance=?, "
-				+ "observaciones=?, otrasinsticolaboran=?, presupuesto=?, fuentefinacia=?, "
+				+ "observaciones=?, otrasinsticolaboran=?, presupuesto=?, fuentefinacia=?, otrofuentefinancia=?, "
 				+ "noserviciosotrg=?, totalpoblbenfm=?, poblabenfmujing=?, totalpoblbenfh=?, "
-				+ "poblabenfhombing=?, ninasbenifi0a12pobltot=?, ninasbenifi0a12poblindig=?, "
+				+ "poblabenfhombing=?, ninasbenifi0a12pobltot=?, ninasbenifi0a12poblindig=?, "				
 				+ "ninasbenifi12a17pobltot=?, ninasbenifi12a17poblindig=?, ninosbenifi0a12pobltot=?, "
+				
 				+ "ninosbenifi0a12poblindig=?, ninosbenifi12a17pobltot=?, ninpsbenifi12a17poblindig=?, "
 				+ "status=? WHERE id_informe='"+idInforme+"' and id_lineaaccion="+idLinea+";";
 		
@@ -266,40 +282,43 @@ public class Tbl_lineasaccionDAO extends Conexion {
 			consulta = getConnection().prepareStatement(query);										
 					consulta.setString(1,oTblRespuesta.getDependentsist());
 					consulta.setString(2, oTblRespuesta.getActivicumpla());
-					consulta.setString(3, oTblRespuesta.getDescripactivida());
-					consulta.setString(4, tipoactivity+"--"+oTblRespuesta.getTipoactivi());
-					consulta.setDate(5,   new MbTbl_LineasAccion().validarFecha(oTblRespuesta, oTblRespuesta.getFechainactv()));
-					consulta.setDate(6,  new MbTbl_LineasAccion().validarFecha(oTblRespuesta, oTblRespuesta.getFechatermactv()));
-					consulta.setString(7,oTblRespuesta.getProducto());
-					consulta.setString(8, oTblRespuesta.getTipoproduct());
-					consulta.setString(9, oTblRespuesta.getLinkproducto());
-					//agregar metaprgmdlinacc2 a input
-					consulta.setString(10, oTblRespuesta.getMetaprgmdlinacc()+"--"+oTblRespuesta.getMetaprgmdlinacc2());
-					consulta.setString(11, oTblRespuesta.getUnidadmedinacc());
-					consulta.setString(12, oTblRespuesta.getPeriodometaprgactiv());
-					consulta.setString(13, oTblRespuesta.getMetaproglinacc());
-					consulta.setString(14, oTblRespuesta.getMetaprogactv());
-					consulta.setString(15, oTblRespuesta.getPeriodometaprgactiv());
-					consulta.setString(16, oTblRespuesta.getAvance());
-					consulta.setString(17, oTblRespuesta.getExplicacionavance());
-					consulta.setString(18, oTblRespuesta.getObservaciones());
-					consulta.setString(19, oTblRespuesta.getOtrasinsticolaboran());
-					consulta.setInt(20, oTblRespuesta.getPresupuesto());
-					consulta.setString(21,fuenteFinancia+"--"+oTblRespuesta.getFuentefinacia2());
-					consulta.setInt(22, oTblRespuesta.getNoserviciootrg());
-					consulta.setInt(23, oTblRespuesta.getTotalpoblbenfm());
-					consulta.setInt(24, oTblRespuesta.getPoblabenfmujing());
-					consulta.setInt(25, oTblRespuesta.getTotalpoblbenfh());
-					consulta.setInt(26, oTblRespuesta.getPoblabenfhobing());
-					consulta.setInt(27, oTblRespuesta.getNinasbenifi0a12pobltot());
-					consulta.setInt(28, oTblRespuesta.getNinasbenifi0a12poblindig());
-					consulta.setInt(29, oTblRespuesta.getNinasbenifi12a17pobltot());
-					consulta.setInt(30, oTblRespuesta.getNinasbenifi12a17poblingdig());
-					consulta.setInt(31, oTblRespuesta.getNinosbenifi0a12pobltot());
-					consulta.setInt(32, oTblRespuesta.getNinosbenifi0a12poblingid());
-					consulta.setInt(33, oTblRespuesta.getNinosbenifi12a17pobltot());
-					consulta.setInt(34, oTblRespuesta.getNinpsbenifi12a17poblindig());
-					consulta.setInt(35, oTblRespuesta.getStatus());
+					consulta.setString(3, oTblRespuesta.getOtroactivicumpla());
+					consulta.setString(4, oTblRespuesta.getDescripactivida());
+					consulta.setString(5, concatenaRespuestasCombos(oTblRespuesta.getSeleCheckPregunta3()));
+					consulta.setString(6, oTblRespuesta.getOtrotipoactivi());
+					consulta.setDate(7,  new MbTbl_LineasAccion().validarFecha(oTblRespuesta, oTblRespuesta.getFechainactv()));
+					consulta.setDate(8,  new MbTbl_LineasAccion().validarFecha(oTblRespuesta, oTblRespuesta.getFechatermactv()));
+					consulta.setString(9,oTblRespuesta.getProducto());
+					consulta.setString(10, oTblRespuesta.getTipoproduct());
+					consulta.setString(11, oTblRespuesta.getLinkproducto());
+					consulta.setString(12, oTblRespuesta.getMetaprgmdlinacc());
+					consulta.setString(13, oTblRespuesta.getOtrometaprgmdlinacc());
+					consulta.setString(14, oTblRespuesta.getUnidadmedinacc());
+					consulta.setString(15, oTblRespuesta.getPeriodometaprglinacc());
+					consulta.setString(16, oTblRespuesta.getMetaproglinacc());
+					consulta.setString(17, oTblRespuesta.getMetaprogactv());
+					consulta.setString(18, oTblRespuesta.getPeriodometaprgactiv());
+					consulta.setString(19, oTblRespuesta.getAvance());
+					consulta.setString(20, oTblRespuesta.getExplicacionavance());
+					consulta.setString(21, oTblRespuesta.getObservaciones());
+					consulta.setString(22, oTblRespuesta.getOtrasinsticolaboran());
+					consulta.setInt(23, oTblRespuesta.getPresupuesto());
+					consulta.setString(24,concatenaRespuestasCombos(oTblRespuesta.getFuentefinacia()));
+					consulta.setString(25, oTblRespuesta.getOtrofuentefinacia());
+					consulta.setInt(26, oTblRespuesta.getNoserviciootrg());
+					consulta.setInt(27, oTblRespuesta.getTotalpoblbenfm());
+					consulta.setInt(28, oTblRespuesta.getPoblabenfmujing());
+					consulta.setInt(29, oTblRespuesta.getTotalpoblbenfh());//totalpoblbenfh
+					consulta.setInt(30, oTblRespuesta.getPoblabenfhobing());//poblabenfhombing
+					consulta.setInt(31, oTblRespuesta.getNinasbenifi0a12pobltot());//ninasbenifi0a12pobltot
+					consulta.setInt(32, oTblRespuesta.getNinasbenifi0a12poblindig());//ninasbenifi0a12poblindig
+					consulta.setInt(33, oTblRespuesta.getNinasbenifi12a17pobltot());//ninasbenifi12a17pobltot
+					consulta.setInt(34, oTblRespuesta.getNinasbenifi12a17poblingdig());//ninasbenifi12a17poblindig
+					consulta.setInt(35, oTblRespuesta.getNinosbenifi0a12pobltot());//ninosbenifi0a12pobltot
+					consulta.setInt(36, oTblRespuesta.getNinosbenifi0a12poblingid());//ninosbenifi0a12poblindig
+					consulta.setInt(37, oTblRespuesta.getNinosbenifi12a17pobltot());//ninosbenifi12a17pobltot
+					consulta.setInt(38, oTblRespuesta.getNinpsbenifi12a17poblindig());//ninpsbenifi12a17poblindig
+					consulta.setInt(39, oTblRespuesta.getStatus());
 			consulta.executeUpdate();
 			System.out.println("\n\n\nREGISTRO ACTUALIZADO CON EXITO!!!");
 			consulta.close();
@@ -316,11 +335,39 @@ public class Tbl_lineasaccionDAO extends Conexion {
 
 		return oTblRespuesta;
 	}
+	//separa respuestas de check y combobox para pintarlas
+	
+	public void separarRespuestas(String cadena){
+		String[] tempArr = new String[2];
+		if(cadena.contains("--")){			
+			tempArr=cadena.split("--");
+			if(tempArr.length>1){
+				tempVar=tempArr[1];
+				tempArreglo=tempArr[0].split(",");
+			}else if(tempArr.length>0){
+				tempArreglo = (String[]) (tempArr[0]!=null ? tempArr[0].split(","):"");
+				tempVar = (tempArr[0].contains(",")?"":tempArr[0]);
+			}else{
+				tempArreglo[0]="";
+				tempVar="";
+			}
+			
+		}else{
+			//tempArreglo=cadena.split(",");
+		}
+		
+		
+	}
+	public void vaciarVariables(){
+		tempVar="";
+		tempArreglo=null;
+	}
+	
 	public TblRespuesta verificarExisteLinea(String idInforme, int idLinea){
 		TblRespuesta oTblRespuesta = new TblRespuesta();
 		ResultSet res = null;		
 		PreparedStatement consulta = null;
-		String []tempArreglo;
+		String []tempArreglo = null;
 		String tempVar = "";
 		String tempVar2 = "";
 		
@@ -337,22 +384,23 @@ public class Tbl_lineasaccionDAO extends Conexion {
 			while (res.next()) {
 				oTblRespuesta.setId_informe(res.getString("id_informe"));
 				oTblRespuesta.setDependentsist(res.getString("dependentsist"));
+				//if(res.getString("activicumpla").contains("--")){tempArreglo=res.getString("activicumpla").split("--");tempVar= tempArreglo.length<2?"":tempArreglo[1];}
 				oTblRespuesta.setActivicumpla(res.getString("activicumpla"));
+				oTblRespuesta.setOtroactivicumpla(res.getString("otroactivicumpla"));
 				oTblRespuesta.setDescripactivida(res.getString("descripactivida"));
-				//checar esta parte para campo otro
-				if(res.getString("tipoactivi").contains("--")){tempArreglo=res.getString("tipoactivi").split(",");tempVar=tempArreglo[tempArreglo.length-1];tempArreglo[tempArreglo.length-1]="";}else{tempArreglo=res.getString("tipoactivi").split(",");}
-				oTblRespuesta.setSeleCheckPregunta3(tempArreglo);				
-				oTblRespuesta.setTipoactivi(tempVar.replace("--", ""));
+				//if(res.getString("tipoactivi").contains("--")){tempArreglo=res.getString("tipoactivi").split(",");tempVar=tempArreglo[tempArreglo.length-1];tempArreglo[tempArreglo.length-1]="";}else{tempArreglo=res.getString("tipoactivi").split(",");}
+				oTblRespuesta.setSeleCheckPregunta3(res.getString("tipoactivi").split(","));				
+				oTblRespuesta.setOtrotipoactivi(res.getString("otrotipoactivi"));
 				//////////////////////////////////////////////////////////
 				oTblRespuesta.setFechainactv(res.getDate("fechainactv"));
 				oTblRespuesta.setFechatermactv(res.getDate("fechatermactv"));
 				oTblRespuesta.setProducto(res.getString("producto"));
 				oTblRespuesta.setTipoproduct(res.getString("tipoproduc"));
 				oTblRespuesta.setLinkproducto(res.getString("linkproducto"));
-				//agregar metaprgmdlinacc2 a input
-				if(res.getString("metaprgmdlinacc").contains("--")){tempArreglo=res.getString("metaprgmdlinacc").split("--");tempVar=(tempArreglo.length>1)?tempArreglo[1]:"";tempVar2=(tempArreglo.length>0)?tempArreglo[0]:"";}
-				oTblRespuesta.setMetaprgmdlinacc(tempVar2);
-				oTblRespuesta.setMetaprgmdlinacc2(tempVar);
+				//if(res.getString("metaprgmdlinacc").contains("--")){tempArreglo=res.getString("metaprgmdlinacc").split("--");tempVar=(tempArreglo.length>1)?tempArreglo[1]:"";tempVar2=(tempArreglo.length>0)?tempArreglo[0]:"";}
+				oTblRespuesta.setMetaprgmdlinacc(res.getString("metaprgmdlinacc"));
+				oTblRespuesta.setOtrometaprgmdlinacc(res.getString("otrometaprgmdlinacc"));
+				//////////////////////////////////////////////////////////
 				oTblRespuesta.setUnidadmedinacc(res.getString("unidadmedlinacc"));
 				oTblRespuesta.setPeriodometaprglinacc(res.getString("periodometaprglinacc"));
 				oTblRespuesta.setMetaproglinacc(res.getString("metaproglinacc"));
@@ -363,10 +411,9 @@ public class Tbl_lineasaccionDAO extends Conexion {
 				oTblRespuesta.setObservaciones(res.getString("observaciones"));
 				oTblRespuesta.setOtrasinsticolaboran(res.getString("otrasinsticolaboran"));				
 				oTblRespuesta.setPresupuesto(res.getInt("presupuesto"));
-				//checar esta parte para campo otro
-				if(res.getString("tipoactivi").contains("--")){tempArreglo=res.getString("fuentefinacia").split(",");tempVar=tempArreglo[tempArreglo.length-1];tempArreglo[tempArreglo.length-1]="";}else{tempArreglo=res.getString("fuentefinacia").split(",");}
-				oTblRespuesta.setFuentefinacia(tempArreglo);
-				oTblRespuesta.setFuentefinacia2(tempVar.replace("--", ""));
+				//if(res.getString("tipoactivi").contains("--")){tempArreglo=res.getString("fuentefinacia").split(",");tempVar=tempArreglo[tempArreglo.length-1];tempArreglo[tempArreglo.length-1]="";}else{tempArreglo=res.getString("fuentefinacia").split(",");}
+				oTblRespuesta.setFuentefinacia(res.getString("fuentefinacia").split(","));
+				oTblRespuesta.setOtrofuentefinacia(res.getString("otrofuentefinancia"));
 				////////////////////////////////////////////////////////
 				oTblRespuesta.setNoserviciootrg(res.getInt("noserviciosotrg"));
 				oTblRespuesta.setTotalpoblbenfm(res.getInt("totalpoblbenfm"));
