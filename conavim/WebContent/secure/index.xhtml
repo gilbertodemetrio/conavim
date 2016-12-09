@@ -67,7 +67,8 @@
 					        <h:outputText value="#{informe.fecha_modifi}" />
 					    </p:column>
 					    <p:column styleClass="headerTable">
-    	      				<h:commandButton value="PDF" action="#{mbExportReport.exportPDF2(informe.id_informe)}" styleClass="buttonIndex"/>    	      				
+    	      				<h:commandButton value="PDF" action="#{mbExportReport.exportPDF2(informe.id_informe)}" styleClass="buttonIndex"/>
+    	      				<h:commandButton value="Excel" action="#{mbExportReport.exportExcel(informe.id_informe)}" styleClass="buttonIndex"/>    	      				
     	      				<h:commandButton value="Editar" action="#{mbTbl_Informes.redirectLineas(informe.id_informe,informe)}" styleClass="buttonIndex" style="position: relative;left: 15px;">
     	      					<f:setPropertyActionListener value="#{informe}" target="#{mbTbl_LineasAccion.selInforme}" />
     	      				</h:commandButton>    	      	
