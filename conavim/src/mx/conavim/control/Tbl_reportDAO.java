@@ -1,5 +1,6 @@
 package mx.conavim.control;
 
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,7 @@ import mx.conavim.modelo.TblLineaAccion;
 import mx.conavim.modelo.TblObjetivo;
 import mx.conavim.modelo.TblRespuesta;
 import mx.conavim.modelo.Tbl_EntidadSecre;
+import mx.conavim.modelo.Tbl_Informes;
 
 public class Tbl_reportDAO extends Conexion {
 	
@@ -18,51 +20,102 @@ public class Tbl_reportDAO extends Conexion {
 	private List<TblObjetivo> lstObjetivos;
 	private List<TblEstrategia> lstEstrategias;
 	private List<TblLineaAccion> lstLineasAccion;
-	private List<TblRespuesta> lstTblRespuesta = new ArrayList<TblRespuesta>();
 	
-	public boolean findEntidades(String idInforme){		
+	private List<TblRespuesta> lstTblRespuesta = new ArrayList<TblRespuesta>();
+	private List<Tbl_EntidadSecre> lstTblEntidadSecre = new ArrayList<Tbl_EntidadSecre>();	
+	private List<Tbl_Informes> lstTblInformes = new ArrayList<Tbl_Informes>();;
+		
+	public boolean findEntidades(String idInforme,boolean excel){		
 		try
-		{String query = "select informe.periodo, informe.id_informe, " +
-				"entidad.nombre_entidadsece, entidad.siglas_entidad, " +
-				"objetivo.id_objetivo, objetivo.nombre_objetivo, objetivo.descripcion_obj, " +
-				"estrategia.id_estrategia, estrategia.nombre_estrategia, estrategia.descripcion, " +
-				"linea.id_estrategia, linea.nombre_linea, linea.descripcion as descripcionlinea, " +
-				"respuesta.id_respuesta, respuesta.id_informe, respuesta.dependentsist,respuesta.activicumpla, respuesta.tipoactivi,respuesta.fechainactv, respuesta.fechatermactv, respuesta.producto, respuesta.tipoproduc, respuesta.linkproducto, respuesta.metaprgmdlinacc, respuesta.unidadmedlinacc, respuesta.periodometaprglinacc, respuesta.metaproglinacc, respuesta.metaprogactv, respuesta.periodometaprgactiv, respuesta.avance, respuesta.explicacionavance, respuesta.observaciones, respuesta.otrasinsticolaboran, respuesta.presupuesto, respuesta.fuentefinacia, respuesta.noserviciosotrg, respuesta.totalpoblbenfm, respuesta.poblabenfmujing, respuesta.totalpoblbenfh, respuesta.poblabenfhombing, respuesta.ninasbenifi0a12pobltot, respuesta.ninasbenifi0a12poblindig, respuesta.ninasbenifi12a17pobltot, respuesta.ninasbenifi12a17poblindig, respuesta.ninosbenifi0a12pobltot, respuesta.ninosbenifi0a12poblindig, respuesta.ninosbenifi12a17pobltot, respuesta.ninpsbenifi12a17poblindig, respuesta.status " +
-				"from tbl_respuestas respuesta, tbl_informes informe, tbl_entidata_secretaria entidad, tbl_lineasaccion linea, tbl_estrategias estrategia, tbl_objetivos objetivo " +
-				"where  respuesta.id_informe like '"+ idInforme + "'"+
-				" and respuesta.id_informe = informe.id_informe " +
-				"and entidad.id_secretaria = informe.id_secretaria " +
-				"and linea.id_lineaaccion = respuesta.id_lineaaccion " +
-				"and estrategia.id_estrategia = linea.id_estrategia " +
-				"and objetivo.id_objetivo = estrategia.id_objetivo";
+		{
+			String query;
+			if(excel){
+				 query="select informe.id_informe,informe.periodo,informe.ano, informe.fecha_captura, informe.fecha_nodifi,"
+				 		+ "entidad.id_secretaria,entidad.nombre_entidadsece, entidad.siglas_entidad,"
+				 		+ "objetivo.id_objetivo, objetivo.nombre_objetivo, objetivo.descripcion_obj,"
+				 		+ "estrategia.id_estrategia, estrategia.nombre_estrategia, estrategia.descripcion,"
+				 		+ "linea.id_estrategia, linea.nombre_linea, linea.descripcion as descripcionlinea,"
+				 		+ "respuesta.id_respuesta, respuesta.id_informe, respuesta.dependentsist,respuesta.activicumpla, respuesta.otroactivicumpla, respuesta.descripactivida, respuesta.tipoactivi, respuesta.otrotipoactivi,respuesta.fechainactv, respuesta.fechatermactv, respuesta.producto, respuesta.tipoproduc, respuesta.linkproducto, respuesta.metaprgmdlinacc, respuesta.otrometaprgmdlinacc, respuesta.unidadmedlinacc, respuesta.periodometaprglinacc, respuesta.metaproglinacc, respuesta.metaprogactv, respuesta.periodometaprgactiv, respuesta.avance, respuesta.explicacionavance, respuesta.observaciones, respuesta.otrasinsticolaboran, respuesta.presupuesto, respuesta.fuentefinacia, respuesta.otrofuentefinancia, respuesta.noserviciosotrg, respuesta.totalpoblbenfm, respuesta.poblabenfmujing, respuesta.totalpoblbenfh, respuesta.poblabenfhombing, respuesta.ninasbenifi0a12pobltot, respuesta.ninasbenifi0a12poblindig, respuesta.ninasbenifi12a17pobltot, respuesta.ninasbenifi12a17poblindig, respuesta.ninosbenifi0a12pobltot, respuesta.ninosbenifi0a12poblindig, respuesta.ninosbenifi12a17pobltot, respuesta.ninpsbenifi12a17poblindig, respuesta.status "
+				 		+ "from tbl_respuestas respuesta, tbl_informes informe, tbl_entidata_secretaria entidad, tbl_lineasaccion linea, tbl_estrategias estrategia, tbl_objetivos objetivo "
+				 		+ "where respuesta.id_informe = informe.id_informe "
+				 		+ "and entidad.id_secretaria = informe.id_secretaria "
+				 		+ "and linea.id_lineaaccion = respuesta.id_lineaaccion "
+				 		+ "and estrate"
+				 		+ "gia.id_estrategia = linea.id_estrategia "
+				 		+ "and objetivo.id_objetivo = estrategia.id_objetivo "
+				 		+ "order by informe.id_informe, linea.id_lineaaccion";
+			}else{
+				 query = "select informe.periodo, informe.id_informe, " +
+						"entidad.nombre_entidadsece, entidad.siglas_entidad, " +
+						"objetivo.id_objetivo, objetivo.nombre_objetivo, objetivo.descripcion_obj, " +
+						"estrategia.id_estrategia, estrategia.nombre_estrategia, estrategia.descripcion, " +
+						"linea.id_estrategia, linea.nombre_linea, linea.descripcion as descripcionlinea, " +
+						"respuesta.id_respuesta, respuesta.id_informe, respuesta.dependentsist,respuesta.activicumpla, respuesta.tipoactivi,respuesta.fechainactv, respuesta.fechatermactv, respuesta.producto, respuesta.tipoproduc, respuesta.linkproducto, respuesta.metaprgmdlinacc, respuesta.unidadmedlinacc, respuesta.periodometaprglinacc, respuesta.metaproglinacc, respuesta.metaprogactv, respuesta.periodometaprgactiv, respuesta.avance, respuesta.explicacionavance, respuesta.observaciones, respuesta.otrasinsticolaboran, respuesta.presupuesto, respuesta.fuentefinacia, respuesta.noserviciosotrg, respuesta.totalpoblbenfm, respuesta.poblabenfmujing, respuesta.totalpoblbenfh, respuesta.poblabenfhombing, respuesta.ninasbenifi0a12pobltot, respuesta.ninasbenifi0a12poblindig, respuesta.ninasbenifi12a17pobltot, respuesta.ninasbenifi12a17poblindig, respuesta.ninosbenifi0a12pobltot, respuesta.ninosbenifi0a12poblindig, respuesta.ninosbenifi12a17pobltot, respuesta.ninpsbenifi12a17poblindig, respuesta.status " +
+						"from tbl_respuestas respuesta, tbl_informes informe, tbl_entidata_secretaria entidad, tbl_lineasaccion linea, tbl_estrategias estrategia, tbl_objetivos objetivo " +
+						"where  respuesta.id_informe like '"+ idInforme + "'"+
+						" and respuesta.id_informe = informe.id_informe " +
+						"and entidad.id_secretaria = informe.id_secretaria " +
+						"and linea.id_lineaaccion = respuesta.id_lineaaccion " +
+						"and estrategia.id_estrategia = linea.id_estrategia " +
+						"and objetivo.id_objetivo = estrategia.id_objetivo";						
+				}
 			consulta = getConnection().prepareStatement(query);
 			System.out.println("query export" + query);
 			
+			
 			res = consulta.executeQuery();
 			int i=0;
+			
+			List<TblRespuesta> lstTblRespuesta = null;
+			
+			if(excel){
+				lstTblRespuesta = new ArrayList<TblRespuesta>();
+			}
+			
 			while(res.next())
 			{
 				i++;
-				TblRespuesta oTblRespuesta = new TblRespuesta();	
-				oEntidadSecre = new Tbl_EntidadSecre();
-				oEntidadSecre.setNombre_entidadsec(res.getString("nombre_entidadsece"));
-				oEntidadSecre.setSiglas_entidad(res.getString("siglas_entidad"));
-				oEntidadSecre.setTipo(res.getString("periodo"));
+				TblRespuesta oTblRespuesta = new TblRespuesta();
+				Tbl_Informes oTbl_Informes = null;
+				Tbl_EntidadSecre oTbl_EntidadSecre=null;											
+				
+				if(excel){					
+					oTbl_Informes = new Tbl_Informes();
+					oTbl_EntidadSecre = new Tbl_EntidadSecre();					
+					oTbl_Informes.setId_informe(res.getString("id_informe"));
+					oTbl_Informes.setAnio(res.getString("ano"));
+					oTbl_Informes.setPeriodo(res.getString("periodo"));
+					oTbl_Informes.setFecha_captura(res.getDate("fecha_captura"));
+					oTbl_Informes.setFecha_modifi(res.getDate("fecha_nodifi"));
+					oTbl_EntidadSecre.setId_secretaria(res.getInt("id_secretaria"));
+					oTbl_EntidadSecre.setNombre_entidadsec(res.getString("nombre_entidadsece"));//siglas_entidad
+					oTbl_EntidadSecre.setSiglas_entidad(res.getString("siglas_entidad"));
+					
+				}else{
+					oEntidadSecre = new Tbl_EntidadSecre();
+					oEntidadSecre.setNombre_entidadsec(res.getString("nombre_entidadsece"));
+					oEntidadSecre.setSiglas_entidad(res.getString("siglas_entidad"));
+					oEntidadSecre.setTipo(res.getString("periodo"));
+				}
 				oTblRespuesta.setObjetivo(res.getString("nombre_objetivo"));
 				oTblRespuesta.setEstrategia(res.getString("nombre_estrategia"));
 				oTblRespuesta.setDescripcionLinea(res.getString("descripcionlinea"));
 				oTblRespuesta.setDescripcionObjetivo(res.getString("descripcion_obj"));
 				oTblRespuesta.setDescripcionEstrategia(res.getString("descripcion"));
 				oTblRespuesta.setNombreLinea(res.getString("nombre_linea"));
-				oTblRespuesta.setActivicumpla(res.getString("activicumpla"));			
 				oTblRespuesta.setDependentsist(res.getString("dependentsist"));
+				oTblRespuesta.setActivicumpla(res.getString("activicumpla"));
+				oTblRespuesta.setOtroactivicumpla(res.getString("otroactivicumpla"));
+				oTblRespuesta.setDescripactivida(res.getString("descripactivida"));
 				oTblRespuesta.setTipoactivi(res.getString("tipoactivi"));
+				oTblRespuesta.setOtrotipoactivi(res.getString("otrotipoactivi"));
 				oTblRespuesta.setFechainactv(res.getDate("Fechainactv"));
 				oTblRespuesta.setFechatermactv(res.getDate("fechatermactv"));
 				oTblRespuesta.setProducto(res.getString("producto"));
 				oTblRespuesta.setTipoproduct(res.getString("tipoproduc"));
 				oTblRespuesta.setLinkproducto(res.getString("linkproducto"));
 				oTblRespuesta.setMetaprgmdlinacc(res.getString("metaprgmdlinacc"));
+				oTblRespuesta.setOtrometaprgmdlinacc(res.getString("otrometaprgmdlinacc"));
 				oTblRespuesta.setUnidadmedinacc(res.getString("unidadmedlinacc"));
 				oTblRespuesta.setPeriodometaprglinacc(res.getString("periodometaprglinacc"));
 				oTblRespuesta.setMetaproglinacc(res.getString("metaproglinacc"));
@@ -73,7 +126,8 @@ public class Tbl_reportDAO extends Conexion {
 				oTblRespuesta.setObservaciones(res.getString("observaciones"));
 				oTblRespuesta.setOtrasinsticolaboran(res.getString("otrasinsticolaboran"));
 				oTblRespuesta.setPresupuesto(res.getInt("presupuesto"));
-				//oTblRespuesta.setFuentefinacia(res.getString("fuentefinacia")); pendiente por setear para ver si es más conveniente crear uno tipo string solo para pintar
+				oTblRespuesta.setFuentefinacia(res.getString("fuentefinacia").split(",")); //pendiente por setear para ver si es más conveniente crear uno tipo string solo para pintar
+				oTblRespuesta.setOtrofuentefinacia(res.getString("otrofuentefinancia"));
 				oTblRespuesta.setNoserviciootrg(res.getInt("noserviciosotrg"));
 				oTblRespuesta.setTotalpoblbenfm(res.getInt("totalpoblbenfm"));
 				oTblRespuesta.setPoblabenfmujing(res.getInt("poblabenfmujing"));
@@ -89,9 +143,18 @@ public class Tbl_reportDAO extends Conexion {
 				oTblRespuesta.setNinpsbenifi12a17poblindig(res.getInt("ninpsbenifi12a17poblindig"));
 				oTblRespuesta.setStatus(res.getInt("status"));
 				
-				
-				lstTblRespuesta.add(oTblRespuesta);
+				if(!excel)
+					this.lstTblRespuesta.add(oTblRespuesta);
+				else{
+					lstTblRespuesta.add(oTblRespuesta);
+					lstTblInformes.add(oTbl_Informes);
+					lstTblEntidadSecre.add(oTbl_EntidadSecre);							
+				}
 			}
+			if(excel)
+				this.lstTblRespuesta = lstTblRespuesta;
+						
+			
 			if(i>0)
 			return true;
 			else return false;
@@ -272,5 +335,25 @@ public class Tbl_reportDAO extends Conexion {
 		}
 		desconectar();
 	}
+
+	public List<Tbl_EntidadSecre> getLstTblEntidadSecre() {
+		return lstTblEntidadSecre;
+	}
+
+	public void setLstTblEntidadSecre(List<Tbl_EntidadSecre> lstTblEntidadSecre) {
+		this.lstTblEntidadSecre = lstTblEntidadSecre;
+	}
+
+	public List<Tbl_Informes> getLstTblInformes() {
+		return lstTblInformes;
+	}
+
+	public void setLstTblInformes(List<Tbl_Informes> lstTblInformes) {
+		this.lstTblInformes = lstTblInformes;
+	}
+
+	
+	
+	
 
 }
