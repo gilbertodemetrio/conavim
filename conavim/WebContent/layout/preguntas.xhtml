@@ -18,20 +18,23 @@
 							<h:panelGroup layout="block" >
 								<h:outputLabel styleClass="preguntas" value="1. Dependencia/ Entidad/ Sistema"/>
 								<br/>									
-								<h:inputText styleClass="input-text-preguntas" value="#{mbTbl_LineasAccion.selInforme.nombreEntidad}" pt:placeholder="Ejemplo (INMUJERES)"/>
-								<br/><br/><br/>							
+								<h:inputText styleClass="input-text-preguntas" value="#{mbTbl_LineasAccion.selInforme.nombreEntidad}" pt:placeholder="Ejemplo (INMUJERES)"/>												
 							</h:panelGroup>
 							
 							<h:panelGroup layout="block">
 								<h:outputLabel styleClass="preguntas" value="2. Actividades para el Cumplimiento de la línea de acción"/>
 								<br/>							
-								<p:selectOneMenu id="detallesActividades" value="#{mbTbl_LineasAccion.otblRespuesta.activicumpla}" style="width:80%;margin-bottom: 10px;">
+								<p:selectOneMenu onchange="validacionPregunta2(this.value)" id="detallesActividades" value="#{mbTbl_LineasAccion.otblRespuesta.activicumpla}" style="width:80%;margin-bottom: 10px;">
 						            <f:selectItem itemLabel="Seleccione una Opcion" itemValue="" />				            
 						            <f:selectItems value="#{mbTbl_LineasAccion.actividades}" var="actividad" itemLabel="#{actividad}" itemValue="#{actividad}"/>
 						        </p:selectOneMenu>
 						        <br/>
-						        <h:outputLabel value="Detalles:  "/>
-								<h:inputText style="width:66%;" value="#{mbTbl_LineasAccion.otblRespuesta.descripactivida}"/>
+						        <h:panelGroup id="preg2Otro" style="display:#{mbTbl_LineasAccion.otblRespuesta.activicumpla=='Otro (especifique)'?'block':'none'};">
+							        <h:outputLabel value="Otro:  "/>
+							        <h:inputText style="width:74%;" value="#{mbTbl_LineasAccion.otblRespuesta.otroactivicumpla}"/><br/>
+							    </h:panelGroup>
+						        <h:outputLabel value="Detalles:  " /><br/>
+								<h:inputTextarea required="true" requiredMessage="Valor de pregunta 2 necesario" style="width:80%;resize: none;" value="#{mbTbl_LineasAccion.otblRespuesta.descripactivida}"/>
 							</h:panelGroup>					
 					
 					<h:panelGroup layout="block">
@@ -49,7 +52,7 @@
 					<h:panelGroup layout="block">	
 						<br/>					
 						<h:outputLabel value="Otro: "/>
-					    <h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.tipoactivi}" pt:placeholder="Especifique"/>
+					    <h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.otrotipoactivi}" pt:placeholder="Especifique"/>
 					</h:panelGroup>
 					
 					<h:panelGroup layout="block">
@@ -93,7 +96,7 @@
 					            <f:selectItem itemLabel="Aplica" itemValue="Aplica" />
 					            <f:selectItem itemLabel="No Aplica" itemValue="No Aplica" />					            
 					        </p:selectOneRadio>
-					        <h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.metaprgmdlinacc2}"/>
+					        <h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.otrometaprgmdlinacc}"/>
 					    </h:panelGrid>
 						
 					</h:panelGroup>
@@ -101,7 +104,7 @@
 					<h:panelGroup layout="block">
 						<h:outputLabel styleClass="preguntas"  value="8. Unidad de medida de la Meta" />
 							<br/>
-						<h:inputText disabled="#{mbTbl_LineasAccion.otblRespuesta.metaprgmdlinacc=='No Aplica'}" styleClass="input-text-preguntas" id="pregunta8" value="#{mbTbl_LineasAccion.otblRespuesta.metaprgmdlinacc=='No Aplica'?'No Aplica':mbTbl_LineasAccion.otblRespuesta.unidadmedinacc}"/>
+						<h:inputText disabled="#{mbTbl_LineasAccion.otblRespuesta.metaprgmdlinacc=='No Aplica'}" styleClass="input-text-preguntas" id="pregunta8" value="#{mbTbl_LineasAccion.otblRespuesta.metaprgmdlinacc.equals('No Aplica')?'No Aplica':mbTbl_LineasAccion.otblRespuesta.unidadmedinacc}"/>
 					</h:panelGroup>
 						
 					<h:panelGroup layout="block">
@@ -120,7 +123,7 @@
 					<h:panelGroup layout="block">
 						<h:outputLabel styleClass="preguntas"  value="10. Meta Programada para línea de acción"/>
 						<br/>
-						<h:inputText styleClass="input-text-preguntas" disabled="#{mbTbl_LineasAccion.otblRespuesta.metaprgmdlinacc=='No Aplica'}" id="pregunta10" value="#{mbTbl_LineasAccion.otblRespuesta.metaprgmdlinacc=='No Aplica'?'No Aplica':mbTbl_LineasAccion.otblRespuesta.metaproglinacc}"/>
+						<h:inputText styleClass="input-text-preguntas" disabled="#{mbTbl_LineasAccion.otblRespuesta.metaprgmdlinacc=='No Aplica'}" id="pregunta10" value="#{mbTbl_LineasAccion.otblRespuesta.metaprgmdlinacc.equals('No Aplica')?'No Aplica':mbTbl_LineasAccion.otblRespuesta.metaproglinacc}"/>
 					</h:panelGroup>
 					
 					<h:panelGroup layout="block">
@@ -172,7 +175,7 @@
 						</h:panelGroup>
 						
 						<h:panelGroup layout="block">
-							<h:outputLabel styleClass="preguntas" value="18. Tipo de actividad:"/>
+							<h:outputLabel styleClass="preguntas" value="18. Fuente de financiamiento:"/>
 							<h:panelGrid columns="3" style="width:60%;">
 								<p:selectManyCheckbox id="basic" value="#{mbTbl_LineasAccion.otblRespuesta.fuentefinacia}">
 							        <f:selectItem itemLabel="PAIMEF-INDESOL" itemValue="PAIMEF-INDESOL" />
@@ -180,7 +183,7 @@
 							    </p:selectManyCheckbox>
 							    
 							    <h:outputLabel value="Otro: "/>
-							    <h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.fuentefinacia2}"/>
+							    <h:inputText value="#{mbTbl_LineasAccion.otblRespuesta.otrofuentefinacia}"/>
 						    </h:panelGrid>
 						</h:panelGroup>
 						
