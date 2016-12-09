@@ -46,7 +46,14 @@
 						}
 					}
 					
-
+					function validacionPregunta2(seleccion){						
+						if(seleccion==='Otro (especifique)'){
+							document.getElementById('formObjetivos:objetivos:preg2Otro').style.display='block';							
+						}else{
+							document.getElementById('formObjetivos:objetivos:preg2Otro').style.display='none';
+							document.getElementById('formObjetivos:objetivos:preg2Otro').value='';
+						}
+					}
 					
 				</script>			
 	</ui:define>		
