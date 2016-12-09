@@ -21,15 +21,17 @@ public class TblRespuesta {
 	private int id_lineaaccion;
 	private String dependentsist ;
 	private String activicumpla ;
+	private String otroactivicumpla;
 	private String descripactivida;
 	private String tipoactivi ;
+	private String otrotipoactivi ;
 	private Date fechainactv;
 	private Date fechatermactv;
 	private String producto ;
 	private String tipoproduct ;
 	private String linkproducto ;
 	private String metaprgmdlinacc ;
-	private String metaprgmdlinacc2 ;
+	private String otrometaprgmdlinacc ;
 	private String unidadmedinacc ;
 	private String periodometaprglinacc ;
 	private String metaproglinacc ;
@@ -41,7 +43,7 @@ public class TblRespuesta {
 	private String otrasinsticolaboran ;
 	private int presupuesto;
 	private String [] fuentefinacia;
-	private String fuentefinacia2 ;
+	private String otrofuentefinacia;
 	private int noserviciootrg;
 	private int totalpoblbenfm;
 	private int poblabenfmujing;
@@ -65,23 +67,17 @@ public class TblRespuesta {
 
 	
 	
+	public String getOtroactivicumpla() {
+		return otroactivicumpla;
+	}
+	public void setOtroactivicumpla(String otroactivicumpla) {
+		this.otroactivicumpla = otroactivicumpla;
+	}
 	public String getDescripactivida() {
 		return descripactivida;
 	}
 	public void setDescripactivida(String descripactivida) {
 		this.descripactivida = descripactivida;
-	}
-	public String getMetaprgmdlinacc2() {
-		return metaprgmdlinacc2;
-	}
-	public void setMetaprgmdlinacc2(String metaprgmdlinacc2) {
-		this.metaprgmdlinacc2 = metaprgmdlinacc2;
-	}
-	public String getFuentefinacia2() {
-		return fuentefinacia2;
-	}
-	public void setFuentefinacia2(String fuentefinacia2) {
-		this.fuentefinacia2 = fuentefinacia2;
 	}
 	
 	public String[] getSeleCheckPregunta3() {		
@@ -353,6 +349,25 @@ public class TblRespuesta {
 	public void setDescripcionEstrategia(String descripcionEstrategia) {
 		this.descripcionEstrategia = descripcionEstrategia;
 	}
+	public String getOtrotipoactivi() {
+		return otrotipoactivi;
+	}
+	public void setOtrotipoactivi(String otrotipoactivi) {
+		this.otrotipoactivi = otrotipoactivi;
+	}
+	public String getOtrometaprgmdlinacc() {
+		return otrometaprgmdlinacc;
+	}
+	public void setOtrometaprgmdlinacc(String otrometaprgmdlinacc) {
+		this.otrometaprgmdlinacc = otrometaprgmdlinacc;
+	}
+	public String getOtrofuentefinacia() {
+		return otrofuentefinacia;
+	}
+	public void setOtrofuentefinacia(String otrofuentefinacia) {
+		this.otrofuentefinacia = otrofuentefinacia;
+	}
+	
 	
 	
 }
