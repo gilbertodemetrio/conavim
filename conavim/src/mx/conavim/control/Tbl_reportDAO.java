@@ -65,13 +65,12 @@ public class Tbl_reportDAO extends Conexion {
 					 		+ "linea.id_estrategia, linea.nombre_linea, linea.descripcion as descripcionlinea,"
 					 		+ "respuesta.id_respuesta, respuesta.id_informe, respuesta.dependentsist,respuesta.activicumpla, respuesta.otroactivicumpla, respuesta.descripactivida, respuesta.tipoactivi, respuesta.otrotipoactivi,respuesta.fechainactv, respuesta.fechatermactv, respuesta.producto, respuesta.tipoproduc, respuesta.linkproducto, respuesta.metaprgmdlinacc, respuesta.otrometaprgmdlinacc, respuesta.unidadmedlinacc, respuesta.periodometaprglinacc, respuesta.metaproglinacc, respuesta.metaprogactv, respuesta.periodometaprgactiv, respuesta.avance, respuesta.explicacionavance, respuesta.observaciones, respuesta.otrasinsticolaboran, respuesta.presupuesto, respuesta.fuentefinacia, respuesta.otrofuentefinancia, respuesta.noserviciosotrg, respuesta.totalpoblbenfm, respuesta.poblabenfmujing, respuesta.totalpoblbenfh, respuesta.poblabenfhombing, respuesta.ninasbenifi0a12pobltot, respuesta.ninasbenifi0a12poblindig, respuesta.ninasbenifi12a17pobltot, respuesta.ninasbenifi12a17poblindig, respuesta.ninosbenifi0a12pobltot, respuesta.ninosbenifi0a12poblindig, respuesta.ninosbenifi12a17pobltot, respuesta.ninpsbenifi12a17poblindig, respuesta.status "
 					 		+ "from tbl_respuestas respuesta, tbl_informes informe, tbl_entidata_secretaria entidad, tbl_lineasaccion linea, tbl_estrategias estrategia, tbl_objetivos objetivo "
-					 		+ "where respuesta.id_informe like '"+ idInforme + "'"
-					 		+ "and entidad.id_secretaria = informe.id_secretaria "
-					 		+ "and linea.id_lineaaccion = respuesta.id_lineaaccion "
-					 		+ "and estrate"
-					 		+ "gia.id_estrategia = linea.id_estrategia "
-					 		+ "and objetivo.id_objetivo = estrategia.id_objetivo "
-					 		+ "order by informe.id_informe, linea.id_lineaaccion";
+					 		+ "where respuesta.id_informe like '"+ idInforme + "'"+
+							" and respuesta.id_informe = informe.id_informe " +
+							"and entidad.id_secretaria = informe.id_secretaria " +
+						"and linea.id_lineaaccion = respuesta.id_lineaaccion " +
+						"and estrategia.id_estrategia = linea.id_estrategia " +
+						"and objetivo.id_objetivo = estrategia.id_objetivo";
 				}
 			consulta = getConnection().prepareStatement(query);
 			System.out.println("query export" + query);
