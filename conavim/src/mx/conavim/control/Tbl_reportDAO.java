@@ -45,19 +45,33 @@ public class Tbl_reportDAO extends Conexion {
 				 		+ "and objetivo.id_objetivo = estrategia.id_objetivo "
 				 		+ "order by informe.id_informe, linea.id_lineaaccion";
 			}else{
-				 query = "select informe.periodo, informe.id_informe, " +
-						"entidad.nombre_entidadsece, entidad.siglas_entidad, " +
-						"objetivo.id_objetivo, objetivo.nombre_objetivo, objetivo.descripcion_obj, " +
-						"estrategia.id_estrategia, estrategia.nombre_estrategia, estrategia.descripcion, " +
-						"linea.id_estrategia, linea.nombre_linea, linea.descripcion as descripcionlinea, " +
-						"respuesta.id_respuesta, respuesta.id_informe, respuesta.dependentsist,respuesta.activicumpla, respuesta.tipoactivi,respuesta.fechainactv, respuesta.fechatermactv, respuesta.producto, respuesta.tipoproduc, respuesta.linkproducto, respuesta.metaprgmdlinacc, respuesta.unidadmedlinacc, respuesta.periodometaprglinacc, respuesta.metaproglinacc, respuesta.metaprogactv, respuesta.periodometaprgactiv, respuesta.avance, respuesta.explicacionavance, respuesta.observaciones, respuesta.otrasinsticolaboran, respuesta.presupuesto, respuesta.fuentefinacia, respuesta.noserviciosotrg, respuesta.totalpoblbenfm, respuesta.poblabenfmujing, respuesta.totalpoblbenfh, respuesta.poblabenfhombing, respuesta.ninasbenifi0a12pobltot, respuesta.ninasbenifi0a12poblindig, respuesta.ninasbenifi12a17pobltot, respuesta.ninasbenifi12a17poblindig, respuesta.ninosbenifi0a12pobltot, respuesta.ninosbenifi0a12poblindig, respuesta.ninosbenifi12a17pobltot, respuesta.ninpsbenifi12a17poblindig, respuesta.status " +
-						"from tbl_respuestas respuesta, tbl_informes informe, tbl_entidata_secretaria entidad, tbl_lineasaccion linea, tbl_estrategias estrategia, tbl_objetivos objetivo " +
-						"where  respuesta.id_informe like '"+ idInforme + "'"+
-						" and respuesta.id_informe = informe.id_informe " +
-						"and entidad.id_secretaria = informe.id_secretaria " +
-						"and linea.id_lineaaccion = respuesta.id_lineaaccion " +
-						"and estrategia.id_estrategia = linea.id_estrategia " +
-						"and objetivo.id_objetivo = estrategia.id_objetivo";						
+//				 query = "select informe.periodo, informe.id_informe, " +
+//						"entidad.nombre_entidadsece, entidad.siglas_entidad, " +
+//						"objetivo.id_objetivo, objetivo.nombre_objetivo, objetivo.descripcion_obj, " +
+//						"estrategia.id_estrategia, estrategia.nombre_estrategia, estrategia.descripcion, " +
+//						"linea.id_estrategia, linea.nombre_linea, linea.descripcion as descripcionlinea, " +
+//						"respuesta.id_respuesta, respuesta.id_informe, respuesta.dependentsist,respuesta.activicumpla, respuesta.tipoactivi,respuesta.fechainactv, respuesta.fechatermactv, respuesta.producto, respuesta.tipoproduc, respuesta.linkproducto, respuesta.metaprgmdlinacc, respuesta.unidadmedlinacc, respuesta.periodometaprglinacc, respuesta.metaproglinacc, respuesta.metaprogactv, respuesta.periodometaprgactiv, respuesta.avance, respuesta.explicacionavance, respuesta.observaciones, respuesta.otrasinsticolaboran, respuesta.presupuesto, respuesta.fuentefinacia, respuesta.noserviciosotrg, respuesta.totalpoblbenfm, respuesta.poblabenfmujing, respuesta.totalpoblbenfh, respuesta.poblabenfhombing, respuesta.ninasbenifi0a12pobltot, respuesta.ninasbenifi0a12poblindig, respuesta.ninasbenifi12a17pobltot, respuesta.ninasbenifi12a17poblindig, respuesta.ninosbenifi0a12pobltot, respuesta.ninosbenifi0a12poblindig, respuesta.ninosbenifi12a17pobltot, respuesta.ninpsbenifi12a17poblindig, respuesta.status " +
+//						"from tbl_respuestas respuesta, tbl_informes informe, tbl_entidata_secretaria entidad, tbl_lineasaccion linea, tbl_estrategias estrategia, tbl_objetivos objetivo " +
+//						"where  respuesta.id_informe like '"+ idInforme + "'"+
+//						" and respuesta.id_informe = informe.id_informe " +
+//						"and entidad.id_secretaria = informe.id_secretaria " +
+//						"and linea.id_lineaaccion = respuesta.id_lineaaccion " +
+//						"and estrategia.id_estrategia = linea.id_estrategia " +
+//						"and objetivo.id_objetivo = estrategia.id_objetivo";	
+				 query="select informe.id_informe,informe.periodo,informe.ano, informe.fecha_captura, informe.fecha_nodifi,"
+					 		+ "entidad.id_secretaria,entidad.nombre_entidadsece, entidad.siglas_entidad,"
+					 		+ "objetivo.id_objetivo, objetivo.nombre_objetivo, objetivo.descripcion_obj,"
+					 		+ "estrategia.id_estrategia, estrategia.nombre_estrategia, estrategia.descripcion,"
+					 		+ "linea.id_estrategia, linea.nombre_linea, linea.descripcion as descripcionlinea,"
+					 		+ "respuesta.id_respuesta, respuesta.id_informe, respuesta.dependentsist,respuesta.activicumpla, respuesta.otroactivicumpla, respuesta.descripactivida, respuesta.tipoactivi, respuesta.otrotipoactivi,respuesta.fechainactv, respuesta.fechatermactv, respuesta.producto, respuesta.tipoproduc, respuesta.linkproducto, respuesta.metaprgmdlinacc, respuesta.otrometaprgmdlinacc, respuesta.unidadmedlinacc, respuesta.periodometaprglinacc, respuesta.metaproglinacc, respuesta.metaprogactv, respuesta.periodometaprgactiv, respuesta.avance, respuesta.explicacionavance, respuesta.observaciones, respuesta.otrasinsticolaboran, respuesta.presupuesto, respuesta.fuentefinacia, respuesta.otrofuentefinancia, respuesta.noserviciosotrg, respuesta.totalpoblbenfm, respuesta.poblabenfmujing, respuesta.totalpoblbenfh, respuesta.poblabenfhombing, respuesta.ninasbenifi0a12pobltot, respuesta.ninasbenifi0a12poblindig, respuesta.ninasbenifi12a17pobltot, respuesta.ninasbenifi12a17poblindig, respuesta.ninosbenifi0a12pobltot, respuesta.ninosbenifi0a12poblindig, respuesta.ninosbenifi12a17pobltot, respuesta.ninpsbenifi12a17poblindig, respuesta.status "
+					 		+ "from tbl_respuestas respuesta, tbl_informes informe, tbl_entidata_secretaria entidad, tbl_lineasaccion linea, tbl_estrategias estrategia, tbl_objetivos objetivo "
+					 		+ "where respuesta.id_informe like '"+ idInforme + "'"
+					 		+ "and entidad.id_secretaria = informe.id_secretaria "
+					 		+ "and linea.id_lineaaccion = respuesta.id_lineaaccion "
+					 		+ "and estrate"
+					 		+ "gia.id_estrategia = linea.id_estrategia "
+					 		+ "and objetivo.id_objetivo = estrategia.id_objetivo "
+					 		+ "order by informe.id_informe, linea.id_lineaaccion";
 				}
 			consulta = getConnection().prepareStatement(query);
 			System.out.println("query export" + query);
