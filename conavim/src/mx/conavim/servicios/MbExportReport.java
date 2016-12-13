@@ -394,30 +394,160 @@ public class MbExportReport {
 						Paragraph textDescripcionLinea = new Paragraph("Linea " + oTblRespuesta.getDescripcionLinea(), fontBasicInfo);
 						textDescripcionLinea.setAlignment(Element.ALIGN_JUSTIFIED);
 						document.add(textDescripcionLinea);
-						Paragraph textRespuesta1 = new Paragraph("1. Dependencia/ Entidad/ Sistema: R." + oTbl_reportDAO.getoEntidadSecre().getNombre_entidadsec(), fontBasicInfo);
+						Paragraph textRespuesta1 = new Paragraph("1. Dependencia/ Entidad/ Sistema: R. " 
+						+ oTbl_reportDAO.getoEntidadSecre().getNombre_entidadsec(), fontBasicInfo);
 						textRespuesta1.setAlignment(Element.ALIGN_JUSTIFIED);
 						document.add(textRespuesta1);
 						
-						Paragraph textRespuesta2 = new Paragraph("2. Actividades para el Cumplimiento de la línea de acción: R." + oTblRespuesta.getActivicumpla(), fontBasicInfo);
+						Paragraph textRespuesta2 = new Paragraph("2. Actividades para el Cumplimiento de la línea de acción: R. " 
+						+ oTblRespuesta.getActivicumpla() + oTblRespuesta.getOtroactivicumpla() + ", Detalles: "+oTblRespuesta.getDescripactivida(), fontBasicInfo);
 						textRespuesta2.setAlignment(Element.ALIGN_JUSTIFIED);
 						document.add(textRespuesta2);
 						
-						Paragraph textRespuesta3 = new Paragraph("3. Tipo de actividad: R." + oTblRespuesta.getTipoactivi(), fontBasicInfo);
+						Paragraph textRespuesta3 = new Paragraph("3. Tipo de actividad: R. " 
+						+ (oTblRespuesta.getTipoactivi().equals(null) ? "" :oTblRespuesta.getTipoactivi() + oTblRespuesta.getOtrotipoactivi() !=null ? ", "+ oTblRespuesta.getOtrotipoactivi() :"" ), fontBasicInfo);
 						textRespuesta3.setAlignment(Element.ALIGN_JUSTIFIED);
 						document.add(textRespuesta3);
 						
-						Paragraph textRespuesta4 = new Paragraph("4. Fecha de inicio de actividades: R." + oTblRespuesta.getFechainactv(), fontBasicInfo);
+						Paragraph textRespuesta4 = new Paragraph("4. Fecha de inicio de actividades: R. " +
+						(oTblRespuesta.getFechainactv()==null? " ":oTblRespuesta.getFechainactv()), fontBasicInfo);
 						textRespuesta4.setAlignment(Element.ALIGN_JUSTIFIED);
 						document.add(textRespuesta4);
 						
-						Paragraph textRespuesta5 = new Paragraph("5. Fecha de termino de actividades: R." + oTblRespuesta.getFechatermactv(), fontBasicInfo);
+						Paragraph textRespuesta5 = new Paragraph("5. Fecha de termino de actividades: R. " + 
+						(oTblRespuesta.getFechatermactv()==null ? " ": oTblRespuesta.getFechatermactv()), fontBasicInfo);
 						textRespuesta5.setAlignment(Element.ALIGN_JUSTIFIED);
 						document.add(textRespuesta5);
 						
-						document.add(new Paragraph(" "));
-						Paragraph textRespuesta6 = new Paragraph(".....después aquí van a aparecer el resto de las preguntas con sus respuestas. " , fontBasicTitulo);
+						Paragraph textRespuesta6 = new Paragraph("6. Productos generados y/o evidencias (documento probatorio, liga o hipervínculo): R. " +
+						(oTblRespuesta.getProducto()==null ? "":oTblRespuesta.getProducto()) + oTblRespuesta.getLinkproducto(), fontBasicInfo);
 						textRespuesta6.setAlignment(Element.ALIGN_JUSTIFIED);
 						document.add(textRespuesta6);
+						
+						Paragraph textRespuesta7 = new Paragraph("7. Meta programada para la línea de acción: R. " +
+						(oTblRespuesta.getMetaprgmdlinacc()==null ? "":oTblRespuesta.getMetaprgmdlinacc() + oTblRespuesta.getOtrometaprgmdlinacc() !=null ? ", "+oTblRespuesta.getOtrometaprgmdlinacc() :""), fontBasicInfo);
+						textRespuesta7.setAlignment(Element.ALIGN_JUSTIFIED);
+						document.add(textRespuesta7);
+						
+						Paragraph textRespuesta8 = new Paragraph("8. Unidad de medida de la Meta: R. " +
+						(oTblRespuesta.getUnidadmedinacc()==null ? "":oTblRespuesta.getUnidadmedinacc()), fontBasicInfo);
+						textRespuesta8.setAlignment(Element.ALIGN_JUSTIFIED);
+						document.add(textRespuesta8);
+						
+						Paragraph textRespuesta9 = new Paragraph("9. Periodicidad de la Meta programada para línea de acción: R. " + 
+						(oTblRespuesta.getPeriodometaprglinacc()==null ? " ":oTblRespuesta.getPeriodometaprglinacc() ), fontBasicInfo);
+						textRespuesta9.setAlignment(Element.ALIGN_JUSTIFIED);
+						document.add(textRespuesta9);
+						
+						Paragraph textRespuesta10 = new Paragraph("10. Meta Programada para línea de acción: R. " +
+						(oTblRespuesta.getMetaproglinacc()==null ? " " :oTblRespuesta.getMetaproglinacc()), fontBasicInfo);
+						textRespuesta10.setAlignment(Element.ALIGN_JUSTIFIED);
+						document.add(textRespuesta10);
+
+						Paragraph textRespuesta11 = new Paragraph("11. Meta Programada para actividades: R. " +
+						(oTblRespuesta.getMetaprogactv()!=null ? oTblRespuesta.getMetaprogactv() :""), fontBasicInfo);
+						textRespuesta11.setAlignment(Element.ALIGN_JUSTIFIED);
+						document.add(textRespuesta11);
+						
+						Paragraph textRespuesta12 = new Paragraph("12. Periodicidad de la Meta programada para actividade: R. " +
+						(oTblRespuesta.getPeriodometaprgactiv() !=null ? oTblRespuesta.getPeriodometaprgactiv() : ""), fontBasicInfo);
+						textRespuesta12.setAlignment(Element.ALIGN_JUSTIFIED);
+						document.add(textRespuesta12);
+						
+						Paragraph textRespuesta13 = new Paragraph("13. Avance (enero - diciembre): R. " + oTblRespuesta.getAvance(), fontBasicInfo);
+						textRespuesta13.setAlignment(Element.ALIGN_JUSTIFIED);
+						document.add(textRespuesta13);
+						
+						Paragraph textRespuesta14 = new Paragraph("14. Explicación de la variación y/o justificación en caso que el cumplimiento no sea satisfactorio (100%): R. " +
+						(oTblRespuesta.getExplicacionavance() != null ? oTblRespuesta.getExplicacionavance():"" ), fontBasicInfo);
+						textRespuesta14.setAlignment(Element.ALIGN_JUSTIFIED);
+						document.add(textRespuesta14);
+						
+						Paragraph textRespuesta15 = new Paragraph("15. Observaciones: R. " +( oTblRespuesta.getObservaciones() !=null ? oTblRespuesta.getObservaciones() :"" ), fontBasicInfo);
+						textRespuesta15.setAlignment(Element.ALIGN_JUSTIFIED);
+						document.add(textRespuesta15);
+						
+						Paragraph textRespuesta16 = new Paragraph("16. ¿Otras instituciones colaboraron con ustedes para el cumplimiento de la línea de acción?: R. " + 
+						(oTblRespuesta.getOtrasinsticolaboran() !=null ? oTblRespuesta.getOtrasinsticolaboran():""), fontBasicInfo);
+						textRespuesta16.setAlignment(Element.ALIGN_JUSTIFIED);
+						document.add(textRespuesta16);
+						
+						Paragraph textRespuesta17 = new Paragraph("17. Presupuesto destinado a estas actividades o línea de acción: R. " + 
+						oTblRespuesta.getPresupuesto(), fontBasicInfo);
+						textRespuesta17.setAlignment(Element.ALIGN_JUSTIFIED);
+						document.add(textRespuesta17);
+						
+						Paragraph textRespuesta18 = new Paragraph("18. Fuente de financiamiento: R. " +
+						concatRespCombos(oTblRespuesta.getFuentefinacia())	+ (oTblRespuesta.getOtrofuentefinacia()!=null ? ", "+ oTblRespuesta.getOtrofuentefinacia():"" ), fontBasicInfo );
+						textRespuesta18.setAlignment(Element.ALIGN_JUSTIFIED);
+						document.add(textRespuesta18);
+						
+						Paragraph textRespuesta19 = new Paragraph("19. Número de Servicios otorgados mediante estas actividades o acciones: R. " 
+						+ oTblRespuesta.getNoserviciootrg(), fontBasicInfo);
+						textRespuesta19.setAlignment(Element.ALIGN_JUSTIFIED);
+						document.add(textRespuesta19);
+						
+						Paragraph textRespuesta20 = new Paragraph("20. Número de personas beneficiadas con estas actividades o acciones (sólo registrar beneficiarias/os de 18 años y más y para el periodo correspondiente):", fontBasicInfo);
+						textRespuesta20.setAlignment(Element.ALIGN_JUSTIFIED);
+						document.add(textRespuesta20);		
+						
+						Paragraph textMsjMujeres = new Paragraph("Mujeres", fontBasicInfo);
+						textMsjMujeres.setAlignment(Element.ALIGN_CENTER);
+						document.add(textMsjMujeres);
+						
+						Paragraph textRespuesta27 = new Paragraph("20.1. Población beneficiaria total: R. " + oTblRespuesta.getTotalpoblbenfm(), fontBasicInfo);
+						textRespuesta27.setAlignment(Element.ALIGN_JUSTIFIED);
+						document.add(textRespuesta27);
+						
+						Paragraph textRespuesta28 = new Paragraph("20.2. Población beneficiaria indígena (1): R. " + oTblRespuesta.getPoblabenfmujing(), fontBasicInfo);
+						textRespuesta28.setAlignment(Element.ALIGN_JUSTIFIED);
+						document.add(textRespuesta28);
+						
+						Paragraph textMsjHombres = new Paragraph("Hombres", fontBasicInfo);
+						textMsjHombres.setAlignment(Element.ALIGN_CENTER);
+						document.add(textMsjHombres);						
+												
+						Paragraph textRespuesta29 = new Paragraph("20.3. Población beneficiaria total (1): R. " + oTblRespuesta.getTotalpoblbenfh(), fontBasicInfo);
+						textRespuesta29.setAlignment(Element.ALIGN_JUSTIFIED);
+						document.add(textRespuesta29);
+						
+						Paragraph textRespuestaC = new Paragraph("20.4. Población beneficiaria indígena: R. " + oTblRespuesta.getPoblabenfhobing(),  fontBasicInfo);
+						textRespuestaC.setAlignment(Element.ALIGN_JUSTIFIED);
+						document.add(textRespuestaC);
+						
+						Paragraph textRespuesta21 = new Paragraph("21. Niñas, niños y adolescentes beneficiadas(os) (sólo registrar para el periodo correspondiente):" , fontBasicInfo);
+						textRespuesta21.setAlignment(Element.ALIGN_JUSTIFIED);
+						document.add(textRespuesta21);
+
+						document.add(textMsjMujeres);
+						
+						Paragraph textRespuesta22 = new Paragraph("De 0 meses hasta 11 años con 11 meses de edad (un día antes de cumplir los 12 años ): R.  Población total " + 
+						oTblRespuesta.getNinasbenifi0a12pobltot() + ", Población indígena "+ oTblRespuesta.getNinasbenifi0a12poblindig(), fontBasicInfo);
+						textRespuesta22.setAlignment(Element.ALIGN_JUSTIFIED);
+						document.add(textRespuesta22);
+						
+						Paragraph textRespuesta23 = new Paragraph("De 12 años cumplidos hasta 17 años con 11 meses de edad (un día antes de cumplir los 18 años ): R.  Población total " + 
+						oTblRespuesta.getNinasbenifi12a17pobltot()+ ", Población indígena "+ + oTblRespuesta.getNinasbenifi12a17poblingdig(), fontBasicInfo);
+						textRespuesta23.setAlignment(Element.ALIGN_JUSTIFIED);
+						document.add(textRespuesta23);
+						
+
+						document.add(textMsjHombres);						
+						
+						Paragraph textRespuesta24 = new Paragraph("De 0 meses hasta 11 años con 11 meses de edad (un día antes de cumplir los 12 años ): R.  Población total " +
+						oTblRespuesta.getNinosbenifi0a12pobltot() + ", Población indígena "+ oTblRespuesta.getNinosbenifi0a12poblingid(), fontBasicInfo);
+						textRespuesta24.setAlignment(Element.ALIGN_JUSTIFIED);
+						document.add(textRespuesta24);
+						
+						Paragraph textRespuesta25 = new Paragraph("De 12 años cumplidos hasta 17 años con 11 meses de edad (un día antes de cumplir los 18 años ): R.  Población total " +
+						oTblRespuesta.getNinosbenifi12a17pobltot() + ", Población indígena "+ oTblRespuesta.getNinpsbenifi12a17poblindig(), fontBasicInfo);
+						textRespuesta25.setAlignment(Element.ALIGN_JUSTIFIED);
+						document.add(textRespuesta25);
+						
+;
+						
+
+
 						document.add(new Paragraph(" "));
 						
 						
@@ -469,9 +599,9 @@ public class MbExportReport {
 		String reponsePath = "";
 		reponsePath = new File(fullPath).getPath() + File.separatorChar;
 		
-		//reponsePath = reponsePath + "eclipseApps\\conavim\\temp\\";//comentar
-		reponsePath = reponsePath + "eclipseApps\\temp\\";//comentar
-		//reponsePath = reponsePath + "applications\\conavim\\temp\\";//descomentar
+		//reponsePath = reponsePath + "eclipseApps\\conavim\\";
+		//reponsePath = reponsePath + "eclipseApps\\temp\\";//comentar
+		reponsePath = reponsePath + "applications\\conavim\\temp\\";//descomentar
 		
 		return reponsePath;
 	}
