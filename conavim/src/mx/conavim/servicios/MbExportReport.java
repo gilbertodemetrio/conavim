@@ -175,27 +175,149 @@ public class MbExportReport {
 					HSSFRow      headerRow    = sheet.createRow( rowIndex++ );					
 					//creamos nombre del pdf
 					nombreDocumentoDownload = "ReporteTotal.xls";
-//					if (oTbl_reportDAO.getoEntidadSecre().getNombre_entidadsec().length() > 60)
-//						nombreDocumentoDownload = oTbl_reportDAO.getoEntidadSecre().getNombre_entidadsec().substring(0, 59)+".xls";
-//					else
-//						nombreDocumentoDownload = oTbl_reportDAO.getoEntidadSecre().getNombre_entidadsec()+".xls";
-//					nombreDocumentoDownload = nombreDocumentoDownload.replaceAll("[\r\n\t]", " ").trim();
 					
 					//lista de header
 					List<String> headerValues = getHeaders();
-					
+					rowIndex+=3;
 					HSSFCell headerCell = null;
 					for (int i = 0; i < headerValues.size(); i++) {
-						headerCell = headerRow.createCell(i);
+						
 							
-							if(i==34){
-								headerCell.setCellValue( headerValues.get(i) );
-								sheet.addMergedRegion(new org.apache.poi.ss.util.CellRangeAddress(rowIndex, rowIndex, i, i++));
-							}else{								
-								headerCell.setCellValue( headerValues.get(i) );
+							if(i==35){
+								//preunta 20
+								headerCell = headerRow.createCell(i);
+								headerCell.setCellValue( headerValues.get(i) );								
+								sheet.addMergedRegion( new org.apache.poi.ss.util.CellRangeAddress(rowIndex-4, rowIndex-4, i, (i=i+3)));
+								headerCell.setCellStyle(headerStyle);
 								sheet.autoSizeColumn(i);
+								
+								HSSFRow      headerRow1    = sheet.createRow( 1 );	
+								headerCell = headerRow1.createCell(i-3);
+								headerCell.setCellValue("Mujeres");
+								sheet.addMergedRegion( new org.apache.poi.ss.util.CellRangeAddress(1, 1, 35,36 ));
+								headerCell.setCellStyle(headerStyle);
+								
+								headerCell = headerRow1.createCell(i-1);
+								headerCell.setCellValue("Hombres");
+								sheet.addMergedRegion( new org.apache.poi.ss.util.CellRangeAddress(1, 1, 37,38 ));
+								headerCell.setCellStyle(headerStyle);
+								sheet.autoSizeColumn(37);
+								
+								HSSFRow      headerRow2    = sheet.createRow( 2 );	
+								headerCell = headerRow2.createCell(i-3);
+								headerCell.setCellValue("20.1. Población beneficiaria total (1)");
+								headerCell.setCellStyle(headerStyle);
+								sheet.autoSizeColumn(i-3);
+								
+								headerCell = headerRow2.createCell(i-2);								
+								headerCell.setCellValue("20.2. Población beneficiaria indígena (1)");							
+								headerCell.setCellStyle(headerStyle);
+								sheet.autoSizeColumn(i-2);
+								
+								headerCell = headerRow2.createCell(i-1);
+								headerCell.setCellValue("20.3. Población beneficiaria total (1)");	
+								headerCell.setCellStyle(headerStyle);
+								sheet.autoSizeColumn(i-1);
+								
+								headerCell = headerRow2.createCell(i);								
+								headerCell.setCellValue("20.4. Población beneficiaria indígena (1)");
+								sheet.autoSizeColumn(i);
+								headerCell.setCellStyle(headerStyle);
+								
+//								//pregunta 21
+								headerCell = headerRow.createCell(i+1);
+								headerCell.setCellValue( "21. Niñas, niños y adolescentes beneficiadas(os) (sólo registrar para el periodo correspondiente) Mujeres");								
+								sheet.addMergedRegion( new org.apache.poi.ss.util.CellRangeAddress(rowIndex-4, rowIndex-4, ++i, (i=i+7)));
+								headerCell.setCellStyle(headerStyle);
+								sheet.autoSizeColumn(39);
+								
+								headerCell = headerRow1.createCell(i-7);
+								headerCell.setCellValue("Mujeres");
+								sheet.addMergedRegion( new org.apache.poi.ss.util.CellRangeAddress(1, 1, 39,42 ));
+								headerCell.setCellStyle(headerStyle);
+								sheet.autoSizeColumn(i-7);
+								
+								headerCell = headerRow1.createCell(i-3);
+								headerCell.setCellValue("Hombres");
+								sheet.addMergedRegion( new org.apache.poi.ss.util.CellRangeAddress(1, 1, 43,46 ));
+								headerCell.setCellStyle(headerStyle);
+								sheet.autoSizeColumn(i-3);
+								
+								headerCell = headerRow2.createCell(i-7);
+								headerCell.setCellValue("De 0 meses hasta 11 años con 11 meses de edad (un día antes de cumplir los 12 años)");
+								sheet.addMergedRegion( new org.apache.poi.ss.util.CellRangeAddress(2, 2, 39,40 ));
+								headerCell.setCellStyle(headerStyle);
+								sheet.autoSizeColumn(39);
+								
+								headerCell = headerRow2.createCell(i-5);
+								headerCell.setCellValue("De 12 años cumplidos hasta 17 años con 11 meses de edad (un día antes de cumplir los 18 años )");
+								sheet.addMergedRegion( new org.apache.poi.ss.util.CellRangeAddress(2, 2, 41,42 ));
+								headerCell.setCellStyle(headerStyle);
+								sheet.autoSizeColumn(41);
+//								
+								headerCell = headerRow2.createCell(i-3);
+								headerCell.setCellValue("De 0 meses hasta 11 años con 11 meses de edad (un día antes de cumplir los 12 años )");
+								sheet.addMergedRegion( new org.apache.poi.ss.util.CellRangeAddress(2, 2, 43,44 ));
+								headerCell.setCellStyle(headerStyle);
+								sheet.autoSizeColumn(43);
+								
+								headerCell = headerRow2.createCell(i-1);
+								headerCell.setCellValue("De 12 años cumplidos hasta 17 años con 11 meses de edad (un día antes de cumplir los 18 años )");
+								sheet.addMergedRegion( new org.apache.poi.ss.util.CellRangeAddress(2, 2, 45,46 ));
+								headerCell.setCellStyle(headerStyle);
+								sheet.autoSizeColumn(45);
+								
+								HSSFRow      headerRow3    = sheet.createRow(3);	
+								headerCell = headerRow3.createCell(i-7);
+								headerCell.setCellValue("21.1. Población total");								
+								headerCell.setCellStyle(headerStyle);
+								sheet.autoSizeColumn(i-7);
+								
+								headerCell = headerRow3.createCell(i-6);
+								headerCell.setCellValue("21.2 Población indígena ");								
+								headerCell.setCellStyle(headerStyle);
+								sheet.autoSizeColumn(i-6);
+								
+								headerCell = headerRow3.createCell(i-5);
+								headerCell.setCellValue("21.3. Población total");								
+								headerCell.setCellStyle(headerStyle);
+								sheet.autoSizeColumn(i-5);
+								
+								headerCell = headerRow3.createCell(i-4);
+								headerCell.setCellValue("21.4 Población indígena");								
+								headerCell.setCellStyle(headerStyle);
+								sheet.autoSizeColumn(i-4);
+								
+								headerCell = headerRow3.createCell(i-3);
+								headerCell.setCellValue("21.5. Población total ");								
+								headerCell.setCellStyle(headerStyle);
+								sheet.autoSizeColumn(i-3);
+								
+								headerCell = headerRow3.createCell(i-2);
+								headerCell.setCellValue("21.6 Población indígena ");								
+								headerCell.setCellStyle(headerStyle);
+								sheet.autoSizeColumn(i-2);
+								
+								headerCell = headerRow3.createCell(i-1);
+								headerCell.setCellValue("21.7. Población total ");								
+								headerCell.setCellStyle(headerStyle);
+								sheet.autoSizeColumn(i-1);
+								
+								headerCell = headerRow3.createCell(i);
+								headerCell.setCellValue("21.8 Población indígena ");								
+								headerCell.setCellStyle(headerStyle);
+								sheet.autoSizeColumn(i);
+								
+							}else if(i<35){	
+								headerCell = headerRow.createCell(i);
+								headerCell.setCellValue( headerValues.get(i) );	
+								//sheet.addMergedRegion( new org.apache.poi.ss.util.CellRangeAddress(0, 3, i, i));
+								//if(1!=0)
+									sheet.autoSizeColumn(i);
+								headerCell.setCellStyle(headerStyle);															
+								
 							}
-							headerCell.setCellStyle(headerStyle);
+							
 					}
 					
 					// Table content
@@ -319,8 +441,55 @@ public class MbExportReport {
 							contentCell = contentRow.createCell(posicionCelda++);
 							contentCell.setCellValue(lstTblRespuesta.get(i).getNoserviciootrg());
 							sheet.autoSizeColumn(posicionCelda);
+							//preunta 20
+							contentCell = contentRow.createCell(posicionCelda++);
+							contentCell.setCellValue(lstTblRespuesta.get(i).getTotalpoblbenfm());
+							sheet.autoSizeColumn(posicionCelda);
 							
+							contentCell = contentRow.createCell(posicionCelda++);
+							contentCell.setCellValue(lstTblRespuesta.get(i).getPoblabenfmujing());
+							sheet.autoSizeColumn(posicionCelda);
 							
+							contentCell = contentRow.createCell(posicionCelda++);
+							contentCell.setCellValue(lstTblRespuesta.get(i).getTotalpoblbenfh());
+							sheet.autoSizeColumn(posicionCelda);
+							
+							contentCell = contentRow.createCell(posicionCelda++);
+							contentCell.setCellValue(lstTblRespuesta.get(i).getPoblabenfhobing());
+							sheet.autoSizeColumn(posicionCelda);
+							
+							//preunta 21
+							contentCell = contentRow.createCell(posicionCelda++);
+							contentCell.setCellValue(lstTblRespuesta.get(i).getNinasbenifi0a12pobltot());
+							sheet.autoSizeColumn(posicionCelda);
+							
+							contentCell = contentRow.createCell(posicionCelda++);
+							contentCell.setCellValue(lstTblRespuesta.get(i).getNinasbenifi0a12poblindig());
+							sheet.autoSizeColumn(posicionCelda);
+							
+							contentCell = contentRow.createCell(posicionCelda++);
+							contentCell.setCellValue(lstTblRespuesta.get(i).getNinasbenifi12a17pobltot());
+							sheet.autoSizeColumn(posicionCelda);
+							
+							contentCell = contentRow.createCell(posicionCelda++);
+							contentCell.setCellValue(lstTblRespuesta.get(i).getNinasbenifi12a17poblingdig());
+							sheet.autoSizeColumn(posicionCelda);
+							
+							contentCell = contentRow.createCell(posicionCelda++);
+							contentCell.setCellValue(lstTblRespuesta.get(i).getNinosbenifi0a12pobltot());
+							sheet.autoSizeColumn(posicionCelda);
+							
+							contentCell = contentRow.createCell(posicionCelda++);
+							contentCell.setCellValue(lstTblRespuesta.get(i).getNinosbenifi0a12poblingid());
+							sheet.autoSizeColumn(posicionCelda);
+							
+							contentCell = contentRow.createCell(posicionCelda++);
+							contentCell.setCellValue(lstTblRespuesta.get(i).getNinosbenifi12a17pobltot());
+							sheet.autoSizeColumn(posicionCelda);
+							
+							contentCell = contentRow.createCell(posicionCelda++);
+							contentCell.setCellValue(lstTblRespuesta.get(i).getNinpsbenifi12a17poblindig());
+							sheet.autoSizeColumn(posicionCelda);
 							//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 					}																					
 					
