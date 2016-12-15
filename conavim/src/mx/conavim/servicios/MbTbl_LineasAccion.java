@@ -1,6 +1,14 @@
 package mx.conavim.servicios;
 
+import java.awt.Image;
 import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,8 +21,12 @@ import java.util.logging.SimpleFormatter;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.imageio.ImageIO;
 
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.TabChangeEvent;
+import org.primefaces.model.UploadedFile;
 
 import mx.conavim.control.TblActividadDAO;
 import mx.conavim.control.Tbl_lineasaccionDAO;
@@ -40,9 +52,10 @@ public class MbTbl_LineasAccion {
 	private String idInforme;
 	TblRespuesta otblRespuesta;
 	private int iteamActivo=0;
-	private String mensaje="Hola";
+	private String mensaje="";
 	private Tbl_Informes selInforme;
 	private TblActividadDAO oTblActividadDAO;
+	UploadedFile file;
 	
 	
 	public Tbl_Informes getSelInforme() {
@@ -150,6 +163,10 @@ public class MbTbl_LineasAccion {
 	
 	public void cargarDatos(){
 		objetivo = 1;
+		estrategia=1;
+		idLinea=1;
+		iteamActivo=0;
+		
 		if(otblRespuesta ==null){
 			//System.out.println("inicializando TblRespuesta");
 			otblRespuesta=new TblRespuesta();
@@ -298,7 +315,7 @@ public class MbTbl_LineasAccion {
 		 //otblRespuesta=new TblRespuesta();		
 	     //Realizamos la consulta
 		 consultas=new Tbl_lineasaccionDAO();
-		 System.out.println("INSERTANDO REGISTRO");
+		 //System.out.println("INSERTANDO REGISTRO");
 		 //otblRespuesta.setFechainactv(validarFecha(otblRespuesta.getFechainactv()));
 		 //otblRespuesta.setFechatermactv(validarFecha(otblRespuesta.getFechatermactv()));		 
 		 otblRespuesta.setId_lineaaccion(idLinea);
@@ -307,9 +324,19 @@ public class MbTbl_LineasAccion {
 		 //System.out.println("valor pintarBotones:->"+pintarBotones);
 		 if(pintarBotones){
 		 	consultas.insertarRespuestas(otblRespuesta);
+		 	mensaje=consultas.getMensaje();	
+		 	notificacionMessage();
 		 	pintarBotones=false;
-		 }else{
-			 otblRespuesta=consultas.actualizarRespuestas(otblRespuesta, selInforme.getId_informe(), idLinea);			 
+		 	if(file!=null){
+		 		upload(file);
+		 	}
+		 }else{			 
+			 otblRespuesta=consultas.actualizarRespuestas(otblRespuesta, selInforme.getId_informe(), idLinea);
+			 mensaje=consultas.getMensaje();
+			 notificacionMessage();
+			 if(file!=null){
+			 		upload(file);
+			 }
 		 }
 		 consultas.dispose();		 	     
 		 
@@ -339,11 +366,13 @@ public class MbTbl_LineasAccion {
 		 if(otblRespuesta.getId_informe()!=null){
 			 pintarBotones=false;
 			 //System.out.println("actualizar");
-			 mensaje="Registro Actualizado Exitosamente";
+			 //mensaje=consultas.getMensaje();
+			 
 		 }else{
 			 //System.out.println("Insertar");
 			 pintarBotones=true;
-			 mensaje="Registro Insertado Exitosamente";
+			 //mensaje=consultas.getMensaje();
+			 //mensaje=consultas.getMensaje();
 		 }
 	 }
 	 
@@ -352,4 +381,91 @@ public class MbTbl_LineasAccion {
 	        context.addMessage(null, new FacesMessage("COMPLETADO",  "" + mensaje) );
 	    }
 	 
+	 public void handleFileUpload(FileUploadEvent event) {
+	        //upload(event.getFile());
+		 	this.file=event.getFile();
+		 	mensaje="Archivo Subido";
+		 	notificacionMessage();
+	        System.out.println("cachando archivo--->!!!");
+	 }	 	 
+	 
+	 public UploadedFile getFile() {
+		return file;
+	}
+
+	public void setFile(UploadedFile file) {
+		this.file = file;
+		//System.out.println("cachando archivo--->!!!");
+	}
+
+	public void upload(UploadedFile file) {
+						
+		      
+			try
+			{				
+				      if(file != null) 
+				      {			        	
+			           // String subPath=("C:\\ficheros\\data\\archivos\\"+selInforme.getId_informe()+"\\"+idLinea+"\\");			             
+				    	String subPath=("data\\archivos\\"+selInforme.getId_informe()+"\\"+idLinea+"\\");
+		                File theDir = new File(subPath);
+
+		                if (!theDir.exists())
+		                	theDir.mkdirs();
+		                else{
+		                	theDir.delete();			                
+			                File prueba= new File(subPath); 
+			                File[] ficheros =prueba.listFiles(); 
+			                File f=null; 
+			                if(prueba.exists()){ 
+			                	for (int x=0;x<ficheros.length;x++) { 
+			                			f= new File(ficheros[x].toString()); 
+			                			//System.out.println(x+"-->"+ficheros[x].toString());
+			                			f.delete(); 
+			                	} 
+			                } 			                		                
+		                }
+		                
+		                if(file != null) 
+					      {
+				            InputStream uploadedInputStream = file.getInputstream();
+					  		String uploadFileLocation=subPath+ file.getFileName();
+					  		OutputStream out = null;
+					  		try{
+					  		   int read=0;
+					  		   byte[] bytes=new byte[1024];
+					  	       out= new FileOutputStream(new File(uploadFileLocation));
+					  		   out=new FileOutputStream(new File(uploadFileLocation));
+					  		   while((read=uploadedInputStream.read(bytes))!=-1)
+					  		    {
+					  		      out.write(bytes, 0, read);
+					  		    }
+					  		   out.flush();
+					  		   out.close();
+					  		   
+					  		   uploadedInputStream.close();
+					  		   		System.out.println("Cargado correctamente!!:.");
+					  		   		//mensaje+="<br/> Archivo cargado Correctamente!";
+					  		   this.otblRespuesta.setLinkproducto(uploadFileLocation);	
+					  		  }catch(IOException execption){
+					  			  execption.printStackTrace(); 
+					  		   		mensaje+="<br/> Error al cargar archivo";
+					  		  }finally{
+					  		   out.close();
+					  		   uploadedInputStream.close();
+					  		  }
+				           
+																							    					    
+				        }
+																						    					    
+			        }
+			}
+			catch(Exception ex)
+			{				 
+				ex.printStackTrace();
+			}
+		}
+	 
+
+	 
+	
 }
