@@ -84,8 +84,19 @@
  					<h:panelGroup >
  						<h:outputLabel id="ligaEtiqueta" value="Liga o Hipervinculo" style="display:#{mbTbl_LineasAccion.otblRespuesta.tipoproduct=='Liga o Hipervinculo'?'block':'none'};"/>
 						<h:inputText id="liga" style="display:#{mbTbl_LineasAccion.otblRespuesta.tipoproduct=='Liga o Hipervinculo'?'block':'none'};"  value="#{mbTbl_LineasAccion.otblRespuesta.linkproducto}" />
-						<h:outputLabel id="archivoEtiqueta" value="Documento Probatorio" style="display:#{mbTbl_LineasAccion.otblRespuesta.tipoproduct=='Documento Probatorio'?'block':'none'};"/>
-						<p:fileUpload id="archivo" style="display:#{mbTbl_LineasAccion.otblRespuesta.tipoproduct=='Documento Probatorio'?'block':'none'};" value="#{mbTbl_LineasAccion.otblRespuesta.linkproducto}" mode="simple" skinSimple="true"/>
+						<h:outputLabel id="archivoEtiqueta" value="Documento Probatorio : " style="display:#{mbTbl_LineasAccion.otblRespuesta.tipoproduct=='Documento Probatorio'?'block':'none'};"/>
+						<p:fileUpload id="archivo" 
+									  style="display:#{mbTbl_LineasAccion.otblRespuesta.tipoproduct=='Documento Probatorio'?'block':'none'};
+									  		 width:80%;" 	
+									  update=":formObjetivos:growl"
+									  label="Selecciona Archivo"	
+									  uploadLabel="Subir Archivo"
+									  cancelLabel="Cancelar"
+									  fileLimit="1"							  
+									  mode="advanced" 
+									  skinSimple="true"
+									  fileUploadListener="#{mbTbl_LineasAccion.handleFileUpload}"
+									  />
 					</h:panelGroup>
 					
 					<h:panelGroup layout="block">
@@ -300,11 +311,11 @@
 					<br/><br/>	
 				 	<h:panelGroup id="botones">							
 						<h:panelGroup  rendered="#{mbTbl_LineasAccion.pintarBotones==true}">
-							<p:commandButton id="insertar" value="Insertar" actionListener="#{mbTbl_LineasAccion.notificacionMessage()}"  action="#{mbTbl_LineasAccion.guardarLinea('')}" update=":formObjetivos:growl :formObjetivos:objetivos:botones">				
+							<p:commandButton id="insertar" value="Insertar"   action="#{mbTbl_LineasAccion.guardarLinea('')}" update=":formObjetivos:growl :formObjetivos:objetivos:botones :formObjetivos:objetivos:archivo :formObjetivos:objetivos:archivoEtiqueta">				
 							</p:commandButton>
 						</h:panelGroup>
 						<h:panelGroup  rendered="#{mbTbl_LineasAccion.pintarBotones==false}">
-							<p:commandButton id="actualizar" value="Actualizar" actionListener="#{mbTbl_LineasAccion.notificacionMessage()}"  action="#{mbTbl_LineasAccion.guardarLinea('')}" update=":formObjetivos:growl">											
+							<p:commandButton id="actualizar" value="Actualizar"   action="#{mbTbl_LineasAccion.guardarLinea('')}" update=":formObjetivos:growl :formObjetivos:objetivos:archivo :formObjetivos:objetivos:archivoEtiqueta">											
 							</p:commandButton>
 						</h:panelGroup>
 					</h:panelGroup>
