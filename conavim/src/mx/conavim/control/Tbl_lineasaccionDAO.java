@@ -22,6 +22,7 @@ public class Tbl_lineasaccionDAO extends Conexion {
 	
 	String []tempArreglo;
 	String tempVar="";
+	private String mensaje="";
 	
 	public List<String> getProductos() {
 		// List<Tbl_Productos> productos = new ArrayList<Tbl_Productos>();
@@ -232,9 +233,11 @@ public class Tbl_lineasaccionDAO extends Conexion {
 					consulta.setInt(41, oTblRespuesta.getStatus());
 			consulta.executeUpdate();
 			System.out.println("\n\n\nREGISTRO INSERTADO CON EXITO!!!");
+			mensaje="REGISTRO INSERTADO CON EXITO!";
 			consulta.close();
 		} catch (SQLException e) {
 			System.out.println("NO SE PUDO INSERTAR REGISTRO\n" + e.getMessage());
+			mensaje="NO SE PUDO INSERTAR REGISTRO";
 			desconectar();
 		} finally {
 			try {
@@ -321,9 +324,11 @@ public class Tbl_lineasaccionDAO extends Conexion {
 					consulta.setInt(39, oTblRespuesta.getStatus());
 			consulta.executeUpdate();
 			System.out.println("\n\n\nREGISTRO ACTUALIZADO CON EXITO!!!");
+			mensaje="REGISTRO ACTUALIZADO CON EXITO!";
 			consulta.close();
 		} catch (SQLException e) {
 			System.out.println("NO SE PUDO ACTUALIZAR REGISTRO\n" + e);
+			mensaje="NO SE PUDO ACTUALIZAR REGISTRO!";
 			desconectar();
 		} finally {
 			try {
@@ -445,6 +450,14 @@ public class Tbl_lineasaccionDAO extends Conexion {
 		
 	public void dispose() {
 		desconectar();
+	}
+
+	public String getMensaje() {
+		return mensaje;
+	}
+
+	public void setMensaje(String mensaje) {
+		this.mensaje = mensaje;
 	}
 	
 	
