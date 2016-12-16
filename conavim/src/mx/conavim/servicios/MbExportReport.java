@@ -769,8 +769,8 @@ public class MbExportReport {
 		reponsePath = new File(fullPath).getPath() + File.separatorChar;
 		
 		//reponsePath = reponsePath + "eclipseApps\\conavim\\";
-		//reponsePath = reponsePath + "eclipseApps\\temp\\";//comentar
-		reponsePath = reponsePath + "applications\\conavim\\temp\\";//descomentar
+		reponsePath = reponsePath + "eclipseApps\\conavim\\temp\\";//comentar
+		//reponsePath = reponsePath + "applications\\conavim\\temp\\";//descomentar
 		
 		return reponsePath;
 	}
