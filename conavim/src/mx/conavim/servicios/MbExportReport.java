@@ -540,7 +540,7 @@ public class MbExportReport {
 				textPeriodo.setAlignment(Element.ALIGN_RIGHT);
 				document.add(textPeriodo);
 				
-				Paragraph textNombreEntidad = new Paragraph(oTbl_reportDAO.getoEntidadSecre().getNombre_entidadsec() + " - " + oTbl_reportDAO.getoEntidadSecre().getSiglas_entidad(), fontTitulo);
+				Paragraph textNombreEntidad = new Paragraph(oTbl_reportDAO.getoEntidadSecre().getNombre_entidadsec() , fontTitulo);
 				textNombreEntidad.setAlignment(Element.ALIGN_CENTER);				
 				document.add(textNombreEntidad);
 				
