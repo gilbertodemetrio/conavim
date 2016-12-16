@@ -405,8 +405,8 @@ public class MbTbl_LineasAccion {
 			{				
 				      if(file != null) 
 				      {			        	
-			           // String subPath=("C:\\ficheros\\data\\archivos\\"+selInforme.getId_informe()+"\\"+idLinea+"\\");			             
-				    	String subPath=("data\\archivos\\"+selInforme.getId_informe()+"\\"+idLinea+"\\");
+			            //String subPath=("C:\\ficheros\\data\\archivos\\"+selInforme.getId_informe()+"\\"+idLinea+"\\");			             
+				    	String subPath=("/data/archivos/"+selInforme.getId_informe()+"/"+idLinea+"/");
 		                File theDir = new File(subPath);
 
 		                if (!theDir.exists())
