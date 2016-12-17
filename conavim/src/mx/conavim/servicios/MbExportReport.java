@@ -26,6 +26,7 @@ import org.apache.poi.hssf.util.CellRangeAddress;
 import org.apache.poi.hssf.util.HSSFColor;
 
 import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
@@ -531,6 +532,7 @@ public class MbExportReport {
 				
 				Font fontTitulo = FontFactory.getFont(FontFactory.HELVETICA, 12, Font.BOLD, new BaseColor(4, 4, 4));
 				Font fontBasicTitulo = FontFactory.getFont(FontFactory.HELVETICA, 10, Font.BOLD, new BaseColor(65, 65, 65));
+				Font fontNumerosLinea = FontFactory.getFont(FontFactory.HELVETICA, 12, Font.BOLD, new BaseColor(65, 65, 65));
 				Font fontBasicInfo = FontFactory.getFont(FontFactory.HELVETICA, 10, Font.NORMAL, new BaseColor(65, 65, 65));
 				
 				PdfWriter.getInstance(document, new FileOutputStream(tempFile));
@@ -560,7 +562,19 @@ public class MbExportReport {
 						textEstrategia.setAlignment(Element.ALIGN_JUSTIFIED);
 						document.add(textEstrategia);
 						document.add(new Paragraph(""));
-						Paragraph textDescripcionLinea = new Paragraph("Linea " + oTblRespuesta.getDescripcionLinea(), fontBasicInfo);
+						
+						String[] descripcionLinea = oTblRespuesta.getDescripcionLinea().split(" ", 2);
+						String descripcionNumero = "";
+						String descripcionTexto = "";
+						if(descripcionLinea[0] != null)
+							descripcionNumero = descripcionLinea[0];
+						if(descripcionLinea[1] != null)
+							descripcionTexto = descripcionLinea[1];
+						
+						Paragraph textDescripcionLinea = new Paragraph();
+						textDescripcionLinea.add(new Chunk("Linea ", fontBasicInfo));
+						textDescripcionLinea.add(new Chunk(descripcionNumero, fontNumerosLinea));
+						textDescripcionLinea.add(new Chunk(" "+descripcionTexto, fontBasicInfo));												
 						textDescripcionLinea.setAlignment(Element.ALIGN_JUSTIFIED);
 						document.add(textDescripcionLinea);
 						Paragraph textRespuesta1 = new Paragraph("1. Dependencia/ Entidad/ Sistema: R. " 
