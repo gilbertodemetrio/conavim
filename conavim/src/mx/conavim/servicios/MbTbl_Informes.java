@@ -88,6 +88,7 @@ public class MbTbl_Informes {
 				if(insert==true){
 					mensaje="Formato agregado";
 					tipoMensaje=1;
+					allInformes();
 					}
 				else
 					mensaje="No se pudo agregar correctamente el formato, verifique que no exista en la lista";
@@ -96,10 +97,11 @@ public class MbTbl_Informes {
 				} catch (SQLException e) {
 				consultas.dispose();
 					e.printStackTrace();
-			}			
-		}
-		restValores();
-		consultas.dispose();
+			}finally{
+				restValores();
+				consultas.dispose();
+			}
+		}		
 	}
 	private void obtNomSiglasEnt() {
 		if(listaEntidades.size()> 0 && listaInformes.size()>0){
@@ -166,13 +168,13 @@ public class MbTbl_Informes {
 	}
 	public List<Tbl_Informes> getListaInformes() throws SQLException {
 		
-		if(listaInformes!=null)		{
-
-			consultas= new ConsultasDAO();
-			allInformes();
-			consultas.dispose();
-		}
-		
+//		if(listaInformes==null)		{
+//
+//			consultas= new ConsultasDAO();
+//			allInformes();
+//			consultas.dispose();
+//		}
+//		
 		return listaInformes;
 	}
 	public void setListaInformes(List<Tbl_Informes> listaInformes) {
