@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URLDecoder;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -405,21 +406,34 @@ public class MbTbl_LineasAccion {
 			{				
 				      if(file != null) 
 				      {			        	
-			            //String subPath=("C:\\ficheros\\data\\archivos\\"+selInforme.getId_informe()+"\\"+idLinea+"\\");			             
-				    	String subPath=("/data/archivos/"+selInforme.getId_informe()+"/"+idLinea+"/");
-		                File theDir = new File(subPath);
+			            //String subPath=("C:\\ficheros\\data\\archivos\\"+selInforme.getId_informe()+"\\"+idLinea+"\\");
+				    	String path = this.getClass().getClassLoader().getResource("").getPath();				    	
+				  		String fullPath = URLDecoder.decode(path, "UTF-8");
+						System.out.println("pathFULLArchivos a subir: " + fullPath);
 
+				  		String pathArr[] = fullPath.split("lib/classes/");
+				  		fullPath = pathArr[0];
+				  		
+				  		String reponsePath = "";
+				  		reponsePath = new File(fullPath).getPath() + File.separatorChar+selInforme.getId_informe()+"/"+idLinea+"/";
+				    	//String subPath=("/data/archivos/"+selInforme.getId_informe()+"/"+idLinea+"/");
+				  		System.out.println("ruta para subir archivo: "+reponsePath);
+		                
+
+		                //String subPath=("/opt/shared/glassfish/domains/domain1/data/");
+		                //System.out.println("subpath para guardar archivos de pregunta 6: " + subPath);
+		                File theDir = new File(reponsePath);
 		                if (!theDir.exists())
 		                	theDir.mkdirs();
 		                else{
 		                	theDir.delete();			                
-			                File prueba= new File(subPath); 
+			                File prueba= new File(reponsePath); 
 			                File[] ficheros =prueba.listFiles(); 
 			                File f=null; 
 			                if(prueba.exists()){ 
 			                	for (int x=0;x<ficheros.length;x++) { 
 			                			f= new File(ficheros[x].toString()); 
-			                			//System.out.println(x+"-->"+ficheros[x].toString());
+			                			System.out.println(x+"-->"+ficheros[x].toString());
 			                			f.delete(); 
 			                	} 
 			                } 			                		                
@@ -428,7 +442,7 @@ public class MbTbl_LineasAccion {
 		                if(file != null) 
 					      {
 				            InputStream uploadedInputStream = file.getInputstream();
-					  		String uploadFileLocation=subPath+ file.getFileName();
+					  		String uploadFileLocation=reponsePath+ file.getFileName();
 					  		OutputStream out = null;
 					  		try{
 					  		   int read=0;
