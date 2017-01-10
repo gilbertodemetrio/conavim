@@ -4,6 +4,7 @@ import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -155,15 +156,16 @@ public class MbExportReport {
 		int rowIndex = 0;
 		HSSFFont headerFont;
 		HSSFCellStyle headerStyle;
+		String nombre="temp.xls";				
+		String nombreDocumentoDownload=  "";
+		String tempFile;
+		OutputStream out = null;
 		
 		try{
 				
-				
-				String nombre="temp.xls";				
-				String nombreDocumentoDownload=  "";
-				String tempFile = getPath() + nombre;
-				OutputStream out = new FileOutputStream(tempFile);
-				
+			tempFile = getPath() + nombre;
+			out = new FileOutputStream(tempFile);
+								
 				if(oTbl_reportDAO.findEntidades(idInforme,true))
 				{
 					workbook = new HSSFWorkbook();
@@ -498,6 +500,7 @@ public class MbExportReport {
 					//((Closeable) workbook).close();
 					out.flush();
 					out.close();
+					workbook=null;
 					downloadFile(tempFile, nombreDocumentoDownload);
 				}else{
 					
@@ -505,6 +508,14 @@ public class MbExportReport {
 				
 		}catch(Exception exception){
 			exception.printStackTrace();
+		}finally{
+			
+			try {
+				out.close();
+				out.flush();
+			} catch (IOException e) {
+				
+			}
 		}
 	}
 	
