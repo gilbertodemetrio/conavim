@@ -56,8 +56,9 @@ public class MbTbl_LineasAccion {
 	private String mensaje="";
 	private Tbl_Informes selInforme;
 	private TblActividadDAO oTblActividadDAO;
-	UploadedFile file;
+	private UploadedFile file;
 	
+	String uploadFileLocation;
 	
 	public Tbl_Informes getSelInforme() {
 		return selInforme;
@@ -324,20 +325,21 @@ public class MbTbl_LineasAccion {
 		 //System.out.println("Valor de informe-->"+idInforme);
 		 //System.out.println("valor pintarBotones:->"+pintarBotones);
 		 if(pintarBotones){
+			 if(file!=null)
+			 		upload(file);
+			 
 		 	consultas.insertarRespuestas(otblRespuesta);
 		 	mensaje=consultas.getMensaje();	
 		 	notificacionMessage();
 		 	pintarBotones=false;
-		 	if(file!=null){
-		 		upload(file);
-		 	}
-		 }else{			 
+		 	
+		 }else{	
+			 if(file!=null)
+			 		upload(file);
+			 		
 			 otblRespuesta=consultas.actualizarRespuestas(otblRespuesta, selInforme.getId_informe(), idLinea);
 			 mensaje=consultas.getMensaje();
-			 notificacionMessage();
-			 if(file!=null){
-			 		upload(file);
-			 }
+			 notificacionMessage();			 
 		 }
 		 consultas.dispose();		 	     
 		 
@@ -442,7 +444,7 @@ public class MbTbl_LineasAccion {
 		                if(file != null) 
 					      {
 				            InputStream uploadedInputStream = file.getInputstream();
-					  		String uploadFileLocation=reponsePath+ file.getFileName();
+					  		this.uploadFileLocation=reponsePath+ file.getFileName();
 					  		OutputStream out = null;
 					  		try{
 					  		   int read=0;
@@ -459,7 +461,7 @@ public class MbTbl_LineasAccion {
 					  		   uploadedInputStream.close();
 					  		   		System.out.println("Cargado correctamente!!:.");
 					  		   		//mensaje+="<br/> Archivo cargado Correctamente!";
-					  		   this.otblRespuesta.setLinkproducto(uploadFileLocation);	
+					  		   		this.otblRespuesta.setLinkproducto(uploadFileLocation);	
 					  		  }catch(IOException execption){
 					  			  execption.printStackTrace(); 
 					  		   		mensaje+="<br/> Error al cargar archivo";
@@ -472,6 +474,7 @@ public class MbTbl_LineasAccion {
 				        }
 																						    					    
 			        }
+				    this.file=null;
 			}
 			catch(Exception ex)
 			{				 
