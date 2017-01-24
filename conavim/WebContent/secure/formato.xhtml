@@ -16,17 +16,35 @@
 				<script type="text/javascript">
 					
 					function validacionPregunta6(seleccion){	
+						
 						if(seleccion==='Documento Probatorio'){
 							document.getElementById("formObjetivos:objetivos:liga").style.display='none';
 							document.getElementById("formObjetivos:objetivos:ligaEtiqueta").style.display='none';
 							document.getElementById("formObjetivos:objetivos:archivo").style.display='block';
 							document.getElementById("formObjetivos:objetivos:archivoEtiqueta").style.display='block';
+							document.getElementById("formObjetivos:objetivos:otro").style.display='none';
+							document.getElementById("formObjetivos:objetivos:otroEtiqueta").style.display='none';
 						}else if(seleccion==='Liga o Hipervinculo'){
 							document.getElementById("formObjetivos:objetivos:liga").style.display='block';
 							document.getElementById("formObjetivos:objetivos:ligaEtiqueta").style.display='block';
 							document.getElementById("formObjetivos:objetivos:archivo").style.display='none';
 							document.getElementById("formObjetivos:objetivos:archivoEtiqueta").style.display='none';
-						}				
+							document.getElementById("formObjetivos:objetivos:otro").style.display='none';
+							document.getElementById("formObjetivos:objetivos:otroEtiqueta").style.display='none';
+						}		
+						else if(seleccion==='Otros (específique)'){
+							document.getElementById("formObjetivos:objetivos:liga").style.display='none';
+							document.getElementById("formObjetivos:objetivos:ligaEtiqueta").style.display='none';
+							document.getElementById("formObjetivos:objetivos:archivo").style.display='none';
+							document.getElementById("formObjetivos:objetivos:archivoEtiqueta").style.display='none';
+							document.getElementById("formObjetivos:objetivos:otro").style.display='block';
+							document.getElementById("formObjetivos:objetivos:otroEtiqueta").style.display='block';
+							document.getElementById("formObjetivos:objetivos:pregunta6").style.display='none';
+						}else{
+							document.getElementById("formObjetivos:objetivos:pregunta6").style.display='';
+							document.getElementById("formObjetivos:objetivos:otro").style.display='none';
+							document.getElementById("formObjetivos:objetivos:otroEtiqueta").style.display='none';
+						}
 					}
 					
 					function validacionPregunta7(seleccion){

@@ -70,7 +70,7 @@
 					<h:panelGroup layout="block">
 						<h:outputLabel styleClass="preguntas" value="6. Productos generados y/o evidencias (documento probatorio, liga o hipervínculo)"/>						
 						<br/>
-						<p:selectOneMenu id="producto" value="#{mbTbl_LineasAccion.otblRespuesta.producto}" style="width:30%;">
+						<p:selectOneMenu id="producto" onchange="validacionPregunta6(this.value)" value="#{mbTbl_LineasAccion.otblRespuesta.producto}" style="width:30%;">
 				            <f:selectItem itemLabel="Seleccione una Opcion" itemValue="" />				            
 				            <f:selectItems value="#{mbTbl_LineasAccion.productos}" var="prod" itemLabel="#{prod}" itemValue="#{prod}"/>
 				        </p:selectOneMenu>
@@ -97,6 +97,8 @@
 									  skinSimple="true"
 									  fileUploadListener="#{mbTbl_LineasAccion.handleFileUpload}"
 									  />
+						<h:outputLabel id="otroEtiqueta" value="Otros (específique)" style="display:#{mbTbl_LineasAccion.otblRespuesta.tipoproduct=='Otros (específique)'?'block':'none'};"/>
+						<p:inputTextarea id="otro" style="display:#{mbTbl_LineasAccion.otblRespuesta.tipoproduct=='Otros (específique)'?'block':'none'};"  value="#{mbTbl_LineasAccion.otblRespuesta.linkproducto}" />
 					</h:panelGroup>
 					
 					<h:panelGroup layout="block">
