@@ -1,6 +1,5 @@
 package mx.conavim.servicios;
 
-import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -786,6 +785,7 @@ public class MbExportReport {
 	public String getPath() throws UnsupportedEncodingException 
 	{
 		String path = this.getClass().getClassLoader().getResource("").getPath();
+		System.out.println("pathFULL: " + path);
 		String fullPath = URLDecoder.decode(path, "UTF-8");
 		String pathArr[] = fullPath.split("lib/classes/");
 		fullPath = pathArr[0];
@@ -793,9 +793,8 @@ public class MbExportReport {
 		String reponsePath = "";
 		reponsePath = new File(fullPath).getPath() + File.separatorChar;
 		
-		//reponsePath = reponsePath + "eclipseApps\\conavim\\";
-		reponsePath = reponsePath + "eclipseApps\\conavim\\temp\\";//comentar
-		//reponsePath = reponsePath + "applications\\conavim\\temp\\";//descomentar
+		//reponsePath = reponsePath + "eclipseApps\\conavim\\temp\\";//descomentar para desarrollo
+		reponsePath = reponsePath + "applications\\conavim\\temp\\";//descomentar producción
 		
 		return reponsePath;
 	}
