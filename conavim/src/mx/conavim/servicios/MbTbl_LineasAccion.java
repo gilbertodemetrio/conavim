@@ -410,14 +410,9 @@ public class MbTbl_LineasAccion {
 				      {			        	
 			            //String subPath=("C:\\ficheros\\data\\archivos\\"+selInforme.getId_informe()+"\\"+idLinea+"\\");
 				    	String path = this.getClass().getClassLoader().getResource("").getPath();				    	
-				  		String fullPath = URLDecoder.decode(path, "UTF-8");
-						System.out.println("pathFULLArchivos a subir: " + fullPath);
-
-				  		String pathArr[] = fullPath.split("lib/classes/");
-				  		fullPath = pathArr[0];
-				  		
+				  		String fullPath = "/opt/shared/glassfish/domains/domain1/img/";
 				  		String reponsePath = "";
-				  		reponsePath = new File(fullPath).getPath() + File.separatorChar+selInforme.getId_informe()+"/"+idLinea+"/";
+				  		reponsePath = fullPath +selInforme.getId_informe()+"/"+idLinea+"/";
 				    	//String subPath=("/data/archivos/"+selInforme.getId_informe()+"/"+idLinea+"/");
 				  		System.out.println("ruta para subir archivo: "+reponsePath);
 		                
