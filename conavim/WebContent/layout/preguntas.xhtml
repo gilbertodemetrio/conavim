@@ -11,8 +11,7 @@
 					
 					<h:panelGroup layout="block" id="panelPreg" style="padding-left: 25px;">
 <!-- 						<f:param name="idInforme" value="#{mbTbl_Informes.idInforme}"/> -->
-
-											
+										
 					<h:panelGrid columns="2" style="" >
 						
 							<h:panelGroup layout="block" >
@@ -32,9 +31,10 @@
 						        <h:panelGroup id="preg2Otro" style="display:#{mbTbl_LineasAccion.otblRespuesta.activicumpla=='Otro (especifique)'?'block':'none'};">
 							        <h:outputLabel value="Otro:  "/>
 							        <h:inputText style="width:74%;" value="#{mbTbl_LineasAccion.otblRespuesta.otroactivicumpla}"/><br/>
-							    </h:panelGroup>
+							    </h:panelGroup>							    
 						        <h:outputLabel value="Detalles:  " /><br/>
-								<h:inputTextarea required="true" requiredMessage="Valor de pregunta 2 necesario" style="width:80%;resize: none;" value="#{mbTbl_LineasAccion.otblRespuesta.descripactivida}"/>
+						        <h:outputText id="display4" />	
+								<p:inputTextarea required="true" counter=":formObjetivos:objetivos:display4" counterTemplate="{0} Caracteres restantes." maxlength="500" requiredMessage="Valor de pregunta 2 necesario" style="width:80%;resize: none;" value="#{mbTbl_LineasAccion.otblRespuesta.descripactivida}"/>
 							</h:panelGroup>					
 					
 					<h:panelGroup layout="block">
@@ -85,6 +85,8 @@
  						<h:outputLabel id="ligaEtiqueta" value="Liga o Hipervinculo" style="display:#{mbTbl_LineasAccion.otblRespuesta.tipoproduct=='Liga o Hipervinculo'?'block':'none'};"/>
 						<h:inputText id="liga" style="display:#{mbTbl_LineasAccion.otblRespuesta.tipoproduct=='Liga o Hipervinculo'?'block':'none'};"  value="#{mbTbl_LineasAccion.otblRespuesta.linkproducto}" />
 						<h:outputLabel id="archivoEtiqueta" value="Documento Probatorio : " style="display:#{mbTbl_LineasAccion.otblRespuesta.tipoproduct=='Documento Probatorio'?'block':'none'};"/>
+						
+						
 						<p:fileUpload id="archivo" 
 									  style="display:#{mbTbl_LineasAccion.otblRespuesta.tipoproduct=='Documento Probatorio'?'block':'none'};
 									  		 width:80%;" 	
@@ -92,13 +94,16 @@
 									  label="Selecciona Archivo"	
 									  uploadLabel="Subir Archivo"
 									  cancelLabel="Cancelar"
-									  fileLimit="1"							  
+									  fileLimit="3"							  
 									  mode="advanced" 
 									  skinSimple="true"
-									  fileUploadListener="#{mbTbl_LineasAccion.handleFileUpload}"
+									  multiple="true"
+									  fileUploadListener="#{mbTbl_LineasAccion.handleFileUpload}"									  
 									  />
+                  									
 						<h:outputLabel id="otroEtiqueta" value="Otros (específique)" style="display:#{mbTbl_LineasAccion.otblRespuesta.tipoproduct=='Otros (específique)'?'block':'none'};"/>
 						<p:inputTextarea id="otro" style="display:#{mbTbl_LineasAccion.otblRespuesta.tipoproduct=='Otros (específique)'?'block':'none'};"  value="#{mbTbl_LineasAccion.otblRespuesta.linkproducto}" />
+						
 					</h:panelGroup>
 					
 					<h:panelGroup layout="block">
@@ -170,15 +175,16 @@
 						<h:panelGroup layout="block">
 							<h:outputLabel styleClass="preguntas"  value="15. Observaciones"/>
 							<br/>
-							<p:inputTextarea  style="width:90%;" value="#{mbTbl_LineasAccion.otblRespuesta.observaciones}" rows="5" autoResize="false" />
-    						<h:outputText id="display"/>			
+							<h:outputText id="display"/>
+							<p:inputTextarea  style="width:90%;" counter=":formObjetivos:objetivos:display" counterTemplate="{0} Caracteres restantes." maxlength="500" value="#{mbTbl_LineasAccion.otblRespuesta.observaciones}" rows="5" autoResize="false"/>
+    									
 						</h:panelGroup>
 						
 						<h:panelGroup layout="block">
 							<h:outputLabel styleClass="preguntas" value="16. ¿Otras instituciones colaboraron con ustedes para el cumplimiento de la línea de acción?"/>
-							<br/>						
-    						<p:inputTextarea style="width:90%;" styleClass="input-text-preguntas" value="#{mbTbl_LineasAccion.otblRespuesta.otrasinsticolaboran}" rows="5" autoResize="false" />
-    						<h:outputText id="display1" />	
+							<br/>
+							<h:outputText id="display1" />							
+    						<p:inputTextarea style="width:90%;" counter=":formObjetivos:objetivos:display1" counterTemplate="{0} Caracteres restantes." maxlength="500" styleClass="input-text-preguntas" value="#{mbTbl_LineasAccion.otblRespuesta.otrasinsticolaboran}" rows="5" autoResize="false" />    						
 						</h:panelGroup>
 						
 						<h:panelGroup layout="block">
