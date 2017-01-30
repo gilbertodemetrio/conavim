@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.Date;
 import java.text.ParseException;
@@ -57,17 +58,53 @@ public class MbTbl_LineasAccion {
 	private Tbl_Informes selInforme;
 	private TblActividadDAO oTblActividadDAO;
 	private UploadedFile file;
+	private String rutaImagen="";
+	private String nombreImagen="";
 	
 	String uploadFileLocation;
 	
+	
+	
+	public String getNombreImagen() {
+		return nombreImagen;
+	}
+
+	public void setNombreImagen(String nombreImagen) {				
+		this.nombreImagen = nombreImagen;
+	}
+	
+	public void armarImagen(String imagen){
+		System.out.println("Armando ruta-->"+rutaImagen);
+		rutaImagen="/programaintegral/images/"+selInforme.getId_informe()+"/"+idLinea+"/"+imagen;
+//		rutaImagen="/opt/shared/glassfish/domains/domain1/img/"+selInforme.getId_informe()+"/"+idLinea+"/"+imagen;
+		
+	}
+
+	public String getRutaImagen() {
+		return rutaImagen;
+	}
+
+	public void setRutaImagen(String rutaImagen) {
+		this.rutaImagen = rutaImagen;
+	}
+
 	public Tbl_Informes getSelInforme() {
 		return selInforme;
+	}
+
+	public List<String> getListFiles() {
+		return listFiles;
+	}
+
+	public void setListFiles(List<String> listFiles) {
+		this.listFiles = listFiles;
 	}
 
 	public void setSelInforme(Tbl_Informes selInforme) {
 		//System.out.println("nombre_entidad->"+selInforme.getNombreEntidad());
 		this.selInforme = selInforme;
 		cargarDatos();
+		obtenerImages();
 	}
 
 	public int getIteamActivo() {
@@ -279,6 +316,7 @@ public class MbTbl_LineasAccion {
         otblRespuesta = consultas.verificarExisteLinea(selInforme.getId_informe(),idLinea);
 		validarBotones(otblRespuesta);
 		consultas.dispose();
+		obtenerImages();
     }
 	
 	public void onTabChangeObjetivo(TabChangeEvent event) {		
@@ -292,6 +330,7 @@ public class MbTbl_LineasAccion {
         otblRespuesta = consultas.verificarExisteLinea(selInforme.getId_informe(),idLinea);
 		validarBotones(otblRespuesta);
 		consultas.dispose();
+		obtenerImages();
         //System.out.println("Linea-->"+idLinea);
     }
 	
@@ -305,6 +344,7 @@ public class MbTbl_LineasAccion {
         otblRespuesta = consultas.verificarExisteLinea(selInforme.getId_informe(),idLinea);
 		validarBotones(otblRespuesta);
 		consultas.dispose();
+		obtenerImages();
     }
 
 	public void insertarRespuesta(){		
@@ -386,20 +426,48 @@ public class MbTbl_LineasAccion {
 	 
 	 public void handleFileUpload(FileUploadEvent event) {
 	        //upload(event.getFile());
-		 	this.file=event.getFile();
+		 	//this.file=event.getFile();
+		 	upload(event.getFile());
 		 	mensaje="Archivo Subido";
 		 	notificacionMessage();
 	        System.out.println("cachando archivo--->!!!");
+	        event=null;
+	        obtenerImages();
 	 }	 	 
 	 
-	 public UploadedFile getFile() {
-		return file;
-	}
+	 private List<String> listFiles = new ArrayList<>();
+	 
+	 public void obtenerImages(){
+	    	
+	  		try {
+	  			listFiles.clear();
+	  			String path = this.getClass().getClassLoader().getResource("").getPath();				    	
+	  			String fullPath = "/opt/shared/glassfish/domains/domain1/img/";
+		  		String reponsePath = "";
+		  		reponsePath = fullPath +selInforme.getId_informe()+"/"+idLinea+"/";		  		
+	            File theDir = new File(reponsePath);
+	            if (theDir.exists()){            	
+	                File prueba= new File(reponsePath); 
+	                File[] ficheros =prueba.listFiles(); 
+	                File f=null; 
+	                if(prueba.exists()){ 
+	                	for (int x=0;x<ficheros.length;x++) { 
+	                			f= new File(ficheros[x].toString());
+	                			listFiles.add(f.getName().toString());
+	                			System.out.println(x+"-->"+ficheros[x].toString());                			
+	                	}                  			                		               
+	                }
+	            }else{
+	            	System.out.println("No exise archivos->"+reponsePath);
+	            }
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	 
 
-	public void setFile(UploadedFile file) {
-		this.file = file;
-		//System.out.println("cachando archivo--->!!!");
-	}
 
 	public void upload(UploadedFile file) {
 						
@@ -409,7 +477,7 @@ public class MbTbl_LineasAccion {
 				      if(file != null) 
 				      {			        	
 			            //String subPath=("C:\\ficheros\\data\\archivos\\"+selInforme.getId_informe()+"\\"+idLinea+"\\");
-				    	String path = this.getClass().getClassLoader().getResource("").getPath();				    	
+//				    	String path = this.getClass().getClassLoader().getResource("").getPath();				    	
 				  		String fullPath = "/opt/shared/glassfish/domains/domain1/img/";
 				  		String reponsePath = "";
 				  		reponsePath = fullPath +selInforme.getId_informe()+"/"+idLinea+"/";
@@ -422,19 +490,19 @@ public class MbTbl_LineasAccion {
 		                File theDir = new File(reponsePath);
 		                if (!theDir.exists())
 		                	theDir.mkdirs();
-		                else{
-		                	theDir.delete();			                
-			                File prueba= new File(reponsePath); 
-			                File[] ficheros =prueba.listFiles(); 
-			                File f=null; 
-			                if(prueba.exists()){ 
-			                	for (int x=0;x<ficheros.length;x++) { 
-			                			f= new File(ficheros[x].toString()); 
-			                			System.out.println(x+"-->"+ficheros[x].toString());
-			                			f.delete(); 
-			                	} 
-			                } 			                		                
-		                }
+//		                else{
+//		                	theDir.delete();			                
+//			                File prueba= new File(reponsePath); 
+//			                File[] ficheros =prueba.listFiles(); 
+//			                File f=null; 
+//			                if(prueba.exists()){ 
+//			                	for (int x=0;x<ficheros.length;x++) { 
+//			                			f= new File(ficheros[x].toString()); 
+//			                			System.out.println(x+"-->"+ficheros[x].toString());
+//			                			f.delete(); 
+//			                	} 
+//			                } 			                		                
+//		                }
 		                
 		                if(file != null) 
 					      {
@@ -452,17 +520,21 @@ public class MbTbl_LineasAccion {
 					  		    }
 					  		   out.flush();
 					  		   out.close();
-					  		   
+					  		   out=null;
 					  		   uploadedInputStream.close();
 					  		   		System.out.println("Cargado correctamente!!:.");
 					  		   		//mensaje+="<br/> Archivo cargado Correctamente!";
-					  		   		this.otblRespuesta.setLinkproducto(uploadFileLocation);	
+					  		   		//this.otblRespuesta.setLinkproducto(uploadFileLocation);	
 					  		  }catch(IOException execption){
 					  			  execption.printStackTrace(); 
 					  		   		mensaje+="<br/> Error al cargar archivo";
 					  		  }finally{
-					  		   out.close();
+					  		   //out.close();					  		   
 					  		   uploadedInputStream.close();
+					  		   file=null;
+					  		   this.file=null;
+					  		   uploadedInputStream=null;
+					  		   theDir=null;
 					  		  }
 				           
 																							    					    
@@ -470,6 +542,8 @@ public class MbTbl_LineasAccion {
 																						    					    
 			        }
 				    this.file=null;
+				    uploadFileLocation=null;
+				    file=null;
 			}
 			catch(Exception ex)
 			{				 
