@@ -72,10 +72,21 @@ public class MbTbl_LineasAccion {
 	public void setNombreImagen(String nombreImagen) {				
 		this.nombreImagen = nombreImagen;
 	}
+	private String extension;
 	
-	public void armarImagen(String imagen){
-		System.out.println("Armando ruta-->"+rutaImagen);
+	public String getExtension() {
+		return extension;
+	}
+
+	public void setExtension(String extension) {
+		this.extension = extension;
+	}
+
+	public void armarImagen(String imagen){		
 		rutaImagen="/programaintegral/images/"+selInforme.getId_informe()+"/"+idLinea+"/"+imagen;
+		extension=rutaImagen.substring(rutaImagen.length()-3, rutaImagen.length());
+		System.out.println("Armando ruta-->"+rutaImagen+"\nExtension->"+extension);
+		
 //		rutaImagen="/opt/shared/glassfish/domains/domain1/img/"+selInforme.getId_informe()+"/"+idLinea+"/"+imagen;
 		
 	}
@@ -454,7 +465,7 @@ public class MbTbl_LineasAccion {
 	                	for (int x=0;x<ficheros.length;x++) { 
 	                			f= new File(ficheros[x].toString());
 	                			listFiles.add(f.getName().toString());
-	                			System.out.println(x+"-->"+ficheros[x].toString());                			
+//	                			System.out.println(x+"-->"+ficheros[x].toString());                			
 	                	}                  			                		               
 	                }
 	            }else{
@@ -512,8 +523,7 @@ public class MbTbl_LineasAccion {
 					  		try{
 					  		   int read=0;
 					  		   byte[] bytes=new byte[1024];
-					  	       out= new FileOutputStream(new File(uploadFileLocation));
-					  		   out=new FileOutputStream(new File(uploadFileLocation));
+					  	       out= new FileOutputStream(new File(uploadFileLocation));					  		   
 					  		   while((read=uploadedInputStream.read(bytes))!=-1)
 					  		    {
 					  		      out.write(bytes, 0, read);
