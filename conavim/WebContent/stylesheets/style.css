@@ -129,3 +129,7 @@ border-bottom-color: #1c84c6 !important; border-color: #1c84c6 !important; color
 /*     margin-top: -50px !important; */
 /*     margin-left: -80px !important; */
   }
+  
+  .ui-fileupload-upload{
+  	background-color: #B4EAAD !important;
+  }
