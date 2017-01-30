@@ -118,3 +118,14 @@ border-bottom-color: #1c84c6 !important; border-color: #1c84c6 !important; color
 	background: white !important; 
 	border: none !important;
 }
+
+.ui-dialog1{
+    position: fixed;
+    top: 10% !important;
+    left: 10% !important;
+    width: 80% !important;
+    height: 80% !important;
+    text-align: center;
+/*     margin-top: -50px !important; */
+/*     margin-left: -80px !important; */
+  }
