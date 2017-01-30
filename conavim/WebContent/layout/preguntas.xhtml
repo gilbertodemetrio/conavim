@@ -1,15 +1,21 @@
  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">   
-<f:view
+<ui:composition
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns="http://www.w3.org/1999/xhtml"		
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"				
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
-	layout="block">		
-					
-					<h:panelGroup layout="block" id="panelPreg" style="padding-left: 25px;">
+	layout="block">											 		 						        					        		    		 		    				 		 						        					        		    			   
+		 		    		 				 
+			<p:dialog id="dialog2" header="Modal Dialog" widgetVar="dlg2" modal="true"  dynamic="true"  styleClass="ui-dialog1" >
+			    <h:outputText value="Imagen" /><br/>
+<!-- 			    <h:outputText value="ruta Imagen -> #{mbTbl_LineasAccion.rutaImagen}"/><br/> -->
+			    <p:graphicImage value="#{mbTbl_LineasAccion.rutaImagen}" height="80%" width="100%"/> 
+			</p:dialog>   		 				 		 		
+		 
+					<h:panelGroup layout="block" id="panelPreg" style="padding-left: 25px;z-index:0;position:relative;	">
 <!-- 						<f:param name="idInforme" value="#{mbTbl_Informes.idInforme}"/> -->
 										
 					<h:panelGrid columns="2" style="" >
@@ -90,7 +96,7 @@
 						<p:fileUpload id="archivo" 
 									  style="display:#{mbTbl_LineasAccion.otblRespuesta.tipoproduct=='Documento Probatorio'?'block':'none'};
 									  		 width:80%;" 	
-									  update=":formObjetivos:growl"
+									  update=":formObjetivos:growl :formObjetivos:objetivos:verImagen"
 									  label="Selecciona Archivo"	
 									  uploadLabel="Subir Archivo"
 									  cancelLabel="Cancelar"
@@ -100,7 +106,17 @@
 									  multiple="true"
 									  fileUploadListener="#{mbTbl_LineasAccion.handleFileUpload}"									  
 									  />
-                  									
+                  		<h:panelGroup id="verImagen"  layout="block" style="" rendered="#{mbTbl_LineasAccion.listFiles!=null}">
+                  				
+<!--                   				<h:panelGrid columns="2"> -->
+                  					<ui:repeat var="file" value="#{mbTbl_LineasAccion.listFiles}">
+                  						<h:outputText value="#{file}  "/>
+                  						<p:commandButton value="Ver Imagen" oncomplete="PF('dlg2').show();" actionListener="#{mbTbl_LineasAccion.armarImagen(file)}" update=":formObjetivos:objetivos:dialog2">
+										</p:commandButton>
+										<br/>
+									</ui:repeat>										
+<!--                   				</h:panelGrid> -->
+                  		</h:panelGroup>							
 						<h:outputLabel id="otroEtiqueta" value="Otros (específique)" style="display:#{mbTbl_LineasAccion.otblRespuesta.tipoproduct=='Otros (específique)'?'block':'none'};"/>
 						<p:inputTextarea id="otro" style="display:#{mbTbl_LineasAccion.otblRespuesta.tipoproduct=='Otros (específique)'?'block':'none'};"  value="#{mbTbl_LineasAccion.otblRespuesta.linkproducto}" />
 						
@@ -329,4 +345,4 @@
 					</h:panelGroup>
 			</h:panelGroup>	
 
-</f:view>	
+</ui:composition>	
