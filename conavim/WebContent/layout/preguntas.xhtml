@@ -9,10 +9,12 @@
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
 	layout="block">											 		 						        					        		    		 		    				 		 						        					        		    			   
 		 		    		 				 
-			<p:dialog id="dialog2" header="Modal Dialog" widgetVar="dlg2" modal="true"  dynamic="true"  styleClass="ui-dialog1" >
-			    <h:outputText value="Imagen" /><br/>
-<!-- 			    <h:outputText value="ruta Imagen -> #{mbTbl_LineasAccion.rutaImagen}"/><br/> -->
-			    <p:graphicImage value="#{mbTbl_LineasAccion.rutaImagen}" height="80%" width="100%"/> 
+			<p:dialog  id="dialog2" header="Modal Dialog" widgetVar="dlg2" modal="true"  dynamic="true"  styleClass="ui-dialog1" >
+			    <h:outputText value="Archivo" /><br/>
+			    <p:graphicImage rendered="#{mbTbl_LineasAccion.extension !='pdf'}" value="#{mbTbl_LineasAccion.rutaImagen}" height="80%" width="100%"/>
+			    <h:panelGroup rendered="#{mbTbl_LineasAccion.extension=='pdf'}"> 
+				    <p:media value="#{mbTbl_LineasAccion.rutaImagen}" width="80%" height="80%" player="pdf" />
+			    </h:panelGroup>
 			</p:dialog>   		 				 		 		
 		 
 					<h:panelGroup layout="block" id="panelPreg" style="padding-left: 25px;z-index:0;position:relative;	">
@@ -100,11 +102,14 @@
 									  label="Selecciona Archivo"	
 									  uploadLabel="Subir Archivo"
 									  cancelLabel="Cancelar"
-									  fileLimit="3"							  
+									  fileLimit="10"							  
 									  mode="advanced" 
 									  skinSimple="true"
 									  multiple="true"
-									  fileUploadListener="#{mbTbl_LineasAccion.handleFileUpload}"									  
+									  allowTypes="/(\.|\/)(gif|jpe?g|png|pdf)$/"
+									  fileUploadListener="#{mbTbl_LineasAccion.handleFileUpload}"		
+									  invalidFileMessage="Archivo no permitido"
+									  styleClass="ui-fileupload-upload"						  
 									  />
                   		<h:panelGroup id="verImagen"  layout="block" style="" rendered="#{mbTbl_LineasAccion.listFiles!=null}">
                   				
