@@ -12,7 +12,7 @@ public class TblRespuesta {
 	
 	private int id_respuesta;
 	private String estrategia;
-	private String objetivo; 
+	private String objetivo;
 	private String descripcionLinea;
 	private String descripcionObjetivo;
 	private String descripcionEstrategia;
@@ -28,7 +28,6 @@ public class TblRespuesta {
 	private Date fechainactv;
 	private Date fechatermactv;
 	private String producto ;
-	private String otroProducto6;
 	private String tipoproduct ;
 	private String linkproducto ;
 	private String metaprgmdlinacc ;
@@ -42,7 +41,7 @@ public class TblRespuesta {
 	private String explicacionavance ;
 	private String observaciones ;
 	private String otrasinsticolaboran ;
-	private int presupuesto; 
+	private int presupuesto;
 	private String [] fuentefinacia;
 	private String otrofuentefinacia;
 	private int noserviciootrg;
@@ -60,17 +59,14 @@ public class TblRespuesta {
 	private int ninpsbenifi12a17poblindig;
 	private int status=1;
 	
-	//obtener seleccion manyCheckbox 
+	//obtener seleccion manyCheckbox
 	private String[] seleCheckPregunta3;
 	
 	
 	
-	public String getOtroProducto6() {
-		return otroProducto6;
-	}
-	public void setOtroProducto6(String otroProducto6) {
-		this.otroProducto6 = otroProducto6;
-	}
+
+	
+	
 	public String getOtroactivicumpla() {
 		return otroactivicumpla;
 	}
@@ -157,9 +153,9 @@ public class TblRespuesta {
 	public String getLinkproducto() {
 		return linkproducto;
 	}
-	public void setLinkproducto(String linkproducto) {		
+	public void setLinkproducto(String linkproducto) {
 		this.linkproducto = linkproducto;
-	} 
+	}
 	public String getMetaprgmdlinacc() {
 		return metaprgmdlinacc;
 	}

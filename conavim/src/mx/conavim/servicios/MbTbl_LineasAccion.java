@@ -83,7 +83,7 @@ public class MbTbl_LineasAccion {
 	}
 
 	public void armarImagen(String imagen){		
-		rutaImagen="/programaintegral/images/"+selInforme.getId_informe()+"/"+idLinea+"/"+imagen;
+		rutaImagen="/images/"+selInforme.getId_informe()+"/"+idLinea+"/"+imagen;
 		extension=rutaImagen.substring(rutaImagen.length()-3, rutaImagen.length());
 		System.out.println("Armando ruta-->"+rutaImagen+"\nExtension->"+extension);
 		
