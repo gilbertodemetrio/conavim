@@ -42,7 +42,7 @@ public class TblRespuesta {
 	private String explicacionavance ;
 	private String observaciones ;
 	private String otrasinsticolaboran ;
-	private int presupuesto;
+	private int presupuesto; 
 	private String [] fuentefinacia;
 	private String otrofuentefinacia;
 	private int noserviciootrg;
