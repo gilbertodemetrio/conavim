@@ -60,7 +60,7 @@ public class TblRespuesta {
 	private int ninpsbenifi12a17poblindig;
 	private int status=1;
 	
-	//obtener seleccion manyCheckbox
+	//obtener seleccion manyCheckbox 
 	private String[] seleCheckPregunta3;
 	
 	
