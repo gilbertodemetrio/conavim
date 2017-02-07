@@ -10,10 +10,18 @@
 	layout="block">											 		 						        					        		    		 		    				 		 						        					        		    			   
 		 		    		 				 
 			<p:dialog  id="dialog2" header="Modal Dialog" widgetVar="dlg2" modal="true"  dynamic="true"  styleClass="ui-dialog1" >
-			    <h:outputText value="Archivo" /><br/>
-			    <p:graphicImage rendered="#{mbTbl_LineasAccion.extension !='pdf'}" value="#{mbTbl_LineasAccion.rutaImagen}" height="80%" width="100%"/>
+			    <h:outputText value="Archivo #{mbTbl_LineasAccion.nombreArch}" /><br/>
+			    <p:graphicImage rendered="#{mbTbl_LineasAccion.extension !='pdf' and mbTbl_LineasAccion.extension !='docx'}" value="#{mbTbl_LineasAccion.rutaImagen}" height="80%" width="100%"/>
 			    <h:panelGroup rendered="#{mbTbl_LineasAccion.extension=='pdf'}"> 
 				    <p:media value="#{mbTbl_LineasAccion.rutaImagen}" width="80%" height="80%" player="pdf" />
+			    </h:panelGroup >
+			    <h:panelGroup rendered="#{mbTbl_LineasAccion.extension=='docx'}">
+<!-- 			    	<h:outputLink target="_blank" value="#{mbTbl_LineasAccion.rutaImagen}"> -->
+<!-- 			    		Ver Documento -->
+<!-- 			    	</h:outputLink> -->
+			    	<p:commandButton value="Download" ajax="false" icon="ui-icon-arrowthick-1-s">
+				        <p:fileDownload value="#{mbTbl_LineasAccion.fileD}"/>
+				    </p:commandButton>				    						
 			    </h:panelGroup>
 			</p:dialog>   		 				 		 		
 		 
@@ -42,7 +50,7 @@
 							    </h:panelGroup>							    
 						        <h:outputLabel value="Detalles:  " /><br/>
 						        <h:outputText id="display4" />	
-								<p:inputTextarea required="true" counter=":formObjetivos:objetivos:display4" counterTemplate="{0} Caracteres restantes." maxlength="500" requiredMessage="Valor de pregunta 2 necesario" style="width:80%;resize: none;" value="#{mbTbl_LineasAccion.otblRespuesta.descripactivida}"/>
+								<p:inputTextarea required="true" counter=":formObjetivos:objetivos:display4" counterTemplate="{0} Caracteres restantes." maxlength="5000" requiredMessage="Valor de pregunta 2 necesario" style="width:80%;resize: none;" value="#{mbTbl_LineasAccion.otblRespuesta.descripactivida}"/>
 							</h:panelGroup>					
 					
 					<h:panelGroup layout="block">
@@ -78,9 +86,10 @@
 					<h:panelGroup layout="block">
 						<h:outputLabel styleClass="preguntas" value="6. Productos generados y/o evidencias (documento probatorio, liga o hipervínculo)"/>						
 						<br/>
-						<p:selectOneMenu id="producto" onchange="validacionPregunta6(this.value)" value="#{mbTbl_LineasAccion.otblRespuesta.producto}" style="width:30%;">
+						<p:selectOneMenu  id="producto" onchange="validacionPregunta6(this.value)" value="#{mbTbl_LineasAccion.selProducto}" style="width:30%;">
 				            <f:selectItem itemLabel="Seleccione una Opcion" itemValue="" />				            
 				            <f:selectItems value="#{mbTbl_LineasAccion.productos}" var="prod" itemLabel="#{prod}" itemValue="#{prod}"/>
+				            <p:ajax listener="#{mbTbl_LineasAccion.asignarProductoAr}"/>
 				        </p:selectOneMenu>
 				        <p:selectOneMenu id="pregunta6"  onchange="validacionPregunta6(this.value)" value="#{mbTbl_LineasAccion.otblRespuesta.tipoproduct}" style="width:30%;">				        				          
 				            <f:selectItem  itemLabel="Tipo" itemValue=""/>
@@ -93,40 +102,55 @@
  						<h:outputLabel id="ligaEtiqueta" value="Liga o Hipervinculo" style="display:#{mbTbl_LineasAccion.otblRespuesta.tipoproduct=='Liga o Hipervinculo'?'block':'none'};"/>
 						<h:inputText id="liga" style="display:#{mbTbl_LineasAccion.otblRespuesta.tipoproduct=='Liga o Hipervinculo'?'block':'none'};"  value="#{mbTbl_LineasAccion.otblRespuesta.linkproducto}" />
 						<h:outputLabel id="archivoEtiqueta" value="Documento Probatorio : " style="display:#{mbTbl_LineasAccion.otblRespuesta.tipoproduct=='Documento Probatorio'?'block':'none'};"/>
-						
-						
+						<h:outputLabel id="aviso" style="color: green; display:#{mbTbl_LineasAccion.otblRespuesta.tipoproduct=='Documento Probatorio'?'block':'none'}" value="Al Finalizar la Carga de Archivos no olvides Actualizar o Insertar la Linea"/>
 						<p:fileUpload id="archivo" 
 									  style="display:#{mbTbl_LineasAccion.otblRespuesta.tipoproduct=='Documento Probatorio'?'block':'none'};
 									  		 width:80%;" 	
-									  update=":formObjetivos:growl :formObjetivos:objetivos:verImagen"
-									  label="Selecciona Archivo"	
+									  update=":formObjetivos:growl :formObjetivos:objetivos:verImagen :formObjetivos:objetivos:botones"
+									  label="Selecciona Archivo"  	
 									  uploadLabel="Subir Archivo"
 									  cancelLabel="Cancelar"
 									  fileLimit="10"							  
 									  mode="advanced" 
-									  skinSimple="true"
+									  skinSimple="true"									  
 									  multiple="true"
-									  allowTypes="/(\.|\/)(gif|jpe?g|png|pdf)$/"
-									  fileUploadListener="#{mbTbl_LineasAccion.handleFileUpload}"		
+									  allowTypes="/(\.|\/)(gif|jpe?g|png|pdf|docx)$/"
+									  fileUploadListener="#{mbTbl_LineasAccion.handleFileUpload}"									  									  
 									  invalidFileMessage="Archivo no permitido"
-									  styleClass="ui-fileupload-upload"						  
-									  />
-                  		<h:panelGroup id="verImagen"  layout="block" style="" rendered="#{mbTbl_LineasAccion.listFiles!=null}">
-                  				
-<!--                   				<h:panelGrid columns="2"> -->
+									  styleClass="ui-fileupload-upload"										  
+									  >									  
+									  
+						</p:fileUpload>						
+							                  								
+						<h:outputLabel id="otroEtiqueta" value="Otros (específique)" style="display:#{mbTbl_LineasAccion.otblRespuesta.tipoproduct=='Otros (específique)'?'block':'none'};"/>
+						<p:inputTextarea id="otro" style="display:#{mbTbl_LineasAccion.otblRespuesta.tipoproduct=='Otros (específique)'?'block':'none'};"  value="#{mbTbl_LineasAccion.otblRespuesta.otroProducto6}" />
+						
+					</h:panelGroup>
+										
+					
+						<h:panelGroup id="verImagen"  layout="block" style="width:80%;" rendered="#{mbTbl_LineasAccion.listFiles!=null}">
+						<!--archivos suvidos  -->                  				
+									<h:outputLabel value="Archivos Subidos: " style="text-align: center;font-size: 14px;color: black;" rendered="#{mbTbl_LineasAccion.listFiles.size()>0}"/>
+									<br/>
                   					<ui:repeat var="file" value="#{mbTbl_LineasAccion.listFiles}">
                   						<h:outputText value="#{file}  "/>
-                  						<p:commandButton value="Ver Imagen" oncomplete="PF('dlg2').show();" actionListener="#{mbTbl_LineasAccion.armarImagen(file)}" update=":formObjetivos:objetivos:dialog2">
+                  						<p:commandButton value="Ver Archivo" oncomplete="PF('dlg2').show();" ajax="true" action="#{mbTbl_LineasAccion.armarImagen(file)}" update=":formObjetivos:objetivos:dialog2">
 										</p:commandButton>
 										<br/>
 									</ui:repeat>										
 <!--                   				</h:panelGrid> -->
-                  		</h:panelGroup>							
-						<h:outputLabel id="otroEtiqueta" value="Otros (específique)" style="display:#{mbTbl_LineasAccion.otblRespuesta.tipoproduct=='Otros (específique)'?'block':'none'};"/>
-						<p:inputTextarea id="otro" style="display:#{mbTbl_LineasAccion.otblRespuesta.tipoproduct=='Otros (específique)'?'block':'none'};"  value="#{mbTbl_LineasAccion.otblRespuesta.linkproducto}" />
-						
-					</h:panelGroup>
+                  		</h:panelGroup>					
 					
+					<h:panelGroup layout="block">
+						<!-- ligas -->
+						<h:outputLabel value="Liga : " style="text-align: center;font-size: 14px;color: black;display: #{mbTbl_LineasAccion.otblRespuesta.linkproducto.length()>0?'':'none'}"/>
+						<br/>
+						<h:panelGroup style="display: #{mbTbl_LineasAccion.otblRespuesta.linkproducto.length()>0?'':'none'}">							
+							<h:outputLink target="_blank"  >
+								<h:outputText value="#{mbTbl_LineasAccion.otblRespuesta.linkproducto}"/>
+							</h:outputLink>						
+						</h:panelGroup>					
+					</h:panelGroup>
 					<h:panelGroup layout="block">
 						<br/>
 						<p:outputLabel for="pregunta7" styleClass="preguntas" value="7. Meta programada para la línea de acción" />
@@ -340,11 +364,11 @@
 					<br/><br/>	
 				 	<h:panelGroup id="botones">							
 						<h:panelGroup  rendered="#{mbTbl_LineasAccion.pintarBotones==true}">
-							<p:commandButton id="insertar" value="Insertar"   action="#{mbTbl_LineasAccion.guardarLinea('')}" update=":formObjetivos:growl :formObjetivos:objetivos:botones :formObjetivos:objetivos:archivo :formObjetivos:objetivos:archivoEtiqueta">				
+							<p:commandButton id="insertar" value="Insertar"   action="#{mbTbl_LineasAccion.guardarLinea('')}" update=":formObjetivos:growl :formObjetivos:objetivos:botones :formObjetivos:objetivos:archivo :formObjetivos:objetivos:archivoEtiqueta :formObjetivos:objetivos:producto">				
 							</p:commandButton>
 						</h:panelGroup>
 						<h:panelGroup  rendered="#{mbTbl_LineasAccion.pintarBotones==false}">
-							<p:commandButton id="actualizar" value="Actualizar"   action="#{mbTbl_LineasAccion.guardarLinea('')}" update=":formObjetivos:growl :formObjetivos:objetivos:archivo :formObjetivos:objetivos:archivoEtiqueta">											
+							<p:commandButton id="actualizar" value="Actualizar"   action="#{mbTbl_LineasAccion.guardarLinea('')}" update=":formObjetivos:growl :formObjetivos:objetivos:archivo :formObjetivos:objetivos:archivoEtiqueta :formObjetivos:objetivos:producto">											
 							</p:commandButton>
 						</h:panelGroup>
 					</h:panelGroup>

@@ -28,6 +28,8 @@ import javax.imageio.ImageIO;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.TabChangeEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
 import mx.conavim.control.TblActividadDAO;
@@ -61,10 +63,10 @@ public class MbTbl_LineasAccion {
 	private String rutaImagen="";
 	private String nombreImagen="";
 	
+	private StreamedContent fileD;
+	private String nombreArch;
 	String uploadFileLocation;
-	
-	
-	
+
 	public String getNombreImagen() {
 		return nombreImagen;
 	}
@@ -77,18 +79,38 @@ public class MbTbl_LineasAccion {
 	public String getExtension() {
 		return extension;
 	}
+    
+	
+	
+	public String getNombreArch() {
+		return nombreArch;
+	}
 
 	public void setExtension(String extension) {
 		this.extension = extension;
 	}
 
-	public void armarImagen(String imagen){		
-		rutaImagen="/images/"+selInforme.getId_informe()+"/"+idLinea+"/"+imagen;
-		extension=rutaImagen.substring(rutaImagen.length()-3, rutaImagen.length());
-		System.out.println("Armando ruta-->"+rutaImagen+"\nExtension->"+extension);
-		
-//		rutaImagen="/opt/shared/glassfish/domains/domain1/img/"+selInforme.getId_informe()+"/"+idLinea+"/"+imagen;
-		
+	public void armarImagen(String imagen){			
+		String tempSepIm[] = imagen.split("=");
+		nombreArch=tempSepIm[0];
+		String temp[]=tempSepIm[0].split("\\.");
+		extension=temp[temp.length-1];
+		//if(!extension.equals("docx")){
+			rutaImagen="/images/"+selInforme.getId_informe()+"/"+idLinea+"/"+tempSepIm[0];					
+			System.out.println("Armando ruta-->"+rutaImagen+"\nExtension->"+extension);		
+		//}else{
+			
+//		}
+			
+	}
+	
+	
+	
+	public StreamedContent getFileD() {
+		InputStream stream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream(rutaImagen);
+        fileD = new DefaultStreamedContent(stream,"", nombreArch);
+		System.out.println("obteniendo file para descarga->");
+		return fileD;
 	}
 
 	public String getRutaImagen() {
@@ -216,16 +238,12 @@ public class MbTbl_LineasAccion {
 		estrategia=1;
 		idLinea=1;
 		iteamActivo=0;
-		
+		prodSubidos="";
 		if(otblRespuesta ==null){
 			//System.out.println("inicializando TblRespuesta");
 			otblRespuesta=new TblRespuesta();
 		}
 		 //Obtenemos idInforme
-//		 FacesContext fc = FacesContext.getCurrentInstance();
-//	     Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
-//	     this.idInforme =  params.get("idInforme");
-//	     System.out.println("Metodo init-->");
 	     System.out.println("id informe en cargar datos-->"+selInforme.getId_informe());
 		consultas=new Tbl_lineasaccionDAO();
 		tempLineas=consultas.getLineasAccion();
@@ -236,35 +254,13 @@ public class MbTbl_LineasAccion {
 		llenarEstrategias(1);
 		//verificando si existe linea con id informe
 		otblRespuesta = consultas.verificarExisteLinea(selInforme.getId_informe(),idLinea);
+		//recuperamos archivos subidos
+		if(otblRespuesta.getId_informe()!=null){prodSubidos=otblRespuesta.getProducto();}
 		validarBotones(otblRespuesta);
 		//System.out.println("Valor de id Informe-->"+idInforme);
 		consultas.dispose();
 	}
 
-//	@PostConstruct
-//	public void init() {
-//		if(otblRespuesta ==null){
-//			//System.out.println("inicializando TblRespuesta");
-//			otblRespuesta=new TblRespuesta();
-//		}
-//		 //Obtenemos idInforme
-//		 FacesContext fc = FacesContext.getCurrentInstance();
-//	     Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
-//	     this.idInforme =  params.get("idInforme");
-//	     System.out.println("Metodo init-->");
-//	     System.out.println("id informe-->"+idInforme);
-//		consultas=new Tbl_lineasaccionDAO();
-//		tempLineas=consultas.getLineasAccion();
-//		productos = consultas.getProductos();
-//		tempEstrategias = consultas.getEstrategias();
-//		llenarEstrategias(1);
-//		//verificando si existe linea con id informe
-//		otblRespuesta = consultas.verificarExisteLinea(idInforme,idLinea);
-//		validarBotones(otblRespuesta);
-//		//System.out.println("Valor de id Informe-->"+idInforme);
-//		consultas.dispose();
-//	}
-	
 	
 	public List<Tbl_Estrategia> getEstrategias() {
 		return estrategias;
@@ -325,6 +321,8 @@ public class MbTbl_LineasAccion {
         iteamActivo=0;
         consultas=new Tbl_lineasaccionDAO();
         otblRespuesta = consultas.verificarExisteLinea(selInforme.getId_informe(),idLinea);
+//        recuperamos archivos subidos
+		if(otblRespuesta.getId_informe()!=null){prodSubidos=otblRespuesta.getProducto();}
 		validarBotones(otblRespuesta);
 		consultas.dispose();
 		obtenerImages();
@@ -339,6 +337,8 @@ public class MbTbl_LineasAccion {
         iteamActivo=0;
         consultas=new Tbl_lineasaccionDAO();
         otblRespuesta = consultas.verificarExisteLinea(selInforme.getId_informe(),idLinea);
+//        recuperamos archivos subidos
+		if(otblRespuesta.getId_informe()!=null){prodSubidos=otblRespuesta.getProducto();}
 		validarBotones(otblRespuesta);
 		consultas.dispose();
 		obtenerImages();
@@ -353,6 +353,8 @@ public class MbTbl_LineasAccion {
         
         consultas=new Tbl_lineasaccionDAO();
         otblRespuesta = consultas.verificarExisteLinea(selInforme.getId_informe(),idLinea);
+//        recuperamos archivos subidos
+		if(otblRespuesta.getId_informe()!=null){prodSubidos=otblRespuesta.getProducto();}
 		validarBotones(otblRespuesta);
 		consultas.dispose();
 		obtenerImages();
@@ -368,30 +370,33 @@ public class MbTbl_LineasAccion {
 		 //otblRespuesta=new TblRespuesta();		
 	     //Realizamos la consulta
 		 consultas=new Tbl_lineasaccionDAO();
-		 //System.out.println("INSERTANDO REGISTRO");
-		 //otblRespuesta.setFechainactv(validarFecha(otblRespuesta.getFechainactv()));
-		 //otblRespuesta.setFechatermactv(validarFecha(otblRespuesta.getFechatermactv()));		 
 		 otblRespuesta.setId_lineaaccion(idLinea);
-		 otblRespuesta.setId_informe(selInforme.getId_informe());		 
+		 otblRespuesta.setId_informe(selInforme.getId_informe());	
+		 
+		 //actualiza base de datos de acuerdo a archivos encontrados en el directorio
+		 if(listFiles!=null){
+			 String temp="";
+			 for(String val:listFiles)
+				 temp+=val+">>>";
+			 otblRespuesta.setProducto(temp);
+		 }
 		 //System.out.println("Valor de informe-->"+idInforme);
 		 //System.out.println("valor pintarBotones:->"+pintarBotones);
-		 if(pintarBotones){
-			 if(file!=null)
-			 		upload(file);
-			 
+		 if(pintarBotones){			 
 		 	consultas.insertarRespuestas(otblRespuesta);
 		 	mensaje=consultas.getMensaje();	
 		 	notificacionMessage();
 		 	pintarBotones=false;
 		 	
 		 }else{	
-			 if(file!=null)
-			 		upload(file);
-			 		
 			 otblRespuesta=consultas.actualizarRespuestas(otblRespuesta, selInforme.getId_informe(), idLinea);
 			 mensaje=consultas.getMensaje();
 			 notificacionMessage();			 
 		 }
+		 
+		 //borramos variables
+		 selProducto=null;
+		 //prodSubidos="";
 		 consultas.dispose();		 	     
 		 
 	    }
@@ -418,15 +423,10 @@ public class MbTbl_LineasAccion {
 		}
 	 public void validarBotones(TblRespuesta otblRespuesta){
 		 if(otblRespuesta.getId_informe()!=null){
-			 pintarBotones=false;
-			 //System.out.println("actualizar");
-			 //mensaje=consultas.getMensaje();
-			 
+			 pintarBotones=false;			 
 		 }else{
 			 //System.out.println("Insertar");
 			 pintarBotones=true;
-			 //mensaje=consultas.getMensaje();
-			 //mensaje=consultas.getMensaje();
 		 }
 	 }
 	 
@@ -435,15 +435,38 @@ public class MbTbl_LineasAccion {
 	        context.addMessage(null, new FacesMessage("COMPLETADO",  "" + mensaje) );
 	    }
 	 
-	 public void handleFileUpload(FileUploadEvent event) {
+	 private String selProducto;
+	 private String prodSubidos="";
+	 
+	 
+	 public String getSelProducto() {
+		return selProducto;
+	}
+
+	public void setSelProducto(String selProducto) {
+		this.selProducto = selProducto;
+	}
+
+	public void asignarProductoAr(){
+		System.out.println("->"+selProducto);
+	}
+		
+	public void handleFileUpload(FileUploadEvent event) throws ParseException {
 	        //upload(event.getFile());
-		 	//this.file=event.getFile();
-		 	upload(event.getFile());
-		 	mensaje="Archivo Subido";
-		 	notificacionMessage();
-	        System.out.println("cachando archivo--->!!!");
-	        event=null;
-	        obtenerImages();
+		 	//this.file=event.getFile();	
+			if(selProducto!=null){
+				upload(event.getFile());			
+				prodSubidos+=event.getFile().getFileName()+"="+selProducto+">>>";
+			 	mensaje="Archivo Subido No olvides Insertar o Actualizar al finalizar La carga de Archivos";
+			 	notificacionMessage();
+		        System.out.println("cachando archivo--->!!!  "+prodSubidos);
+		        event=null;
+		        obtenerImages();	
+			}else{
+				mensaje="Especifica un producto";
+				notificacionMessage();
+			}
+	        
 	 }	 	 
 	 
 	 private List<String> listFiles = new ArrayList<>();
@@ -458,13 +481,21 @@ public class MbTbl_LineasAccion {
 		  		reponsePath = fullPath +selInforme.getId_informe()+"/"+idLinea+"/";		  		
 	            File theDir = new File(reponsePath);
 	            if (theDir.exists()){            	
+	            	String archivosSubidos[]=prodSubidos.split(">>>");
 	                File prueba= new File(reponsePath); 
 	                File[] ficheros =prueba.listFiles(); 
 	                File f=null; 
 	                if(prueba.exists()){ 
 	                	for (int x=0;x<ficheros.length;x++) { 
 	                			f= new File(ficheros[x].toString());
-	                			listFiles.add(f.getName().toString());
+	                			for(int j=0;j<archivosSubidos.length;j++){
+//	                				String temp[] = val.split("-");
+	                				if(archivosSubidos[j].contains(f.getName().toString())){
+	                					listFiles.add(archivosSubidos[j]);
+	                					archivosSubidos[j]="";
+	                				}
+	                			}
+//	                			listFiles.add(f.getName().toString());
 //	                			System.out.println(x+"-->"+ficheros[x].toString());                			
 	                	}                  			                		               
 	                }

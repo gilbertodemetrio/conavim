@@ -23,12 +23,14 @@
 							document.getElementById("formObjetivos:objetivos:archivo").style.display='block';
 							document.getElementById("formObjetivos:objetivos:archivoEtiqueta").style.display='block';
 							document.getElementById("formObjetivos:objetivos:otro").style.display='none';
-							document.getElementById("formObjetivos:objetivos:otroEtiqueta").style.display='none';
+							document.getElementById("formObjetivos:objetivos:otroEtiqueta").style.display='none'; 
+							document.getElementById("formObjetivos:objetivos:aviso").style.display='block';							
 						}else if(seleccion==='Liga o Hipervinculo'){
 							document.getElementById("formObjetivos:objetivos:liga").style.display='block';
 							document.getElementById("formObjetivos:objetivos:ligaEtiqueta").style.display='block';
 							document.getElementById("formObjetivos:objetivos:archivo").style.display='none';
 							document.getElementById("formObjetivos:objetivos:archivoEtiqueta").style.display='none';
+							document.getElementById("formObjetivos:objetivos:aviso").style.display='none';
 							document.getElementById("formObjetivos:objetivos:otro").style.display='none';
 							document.getElementById("formObjetivos:objetivos:otroEtiqueta").style.display='none';
 						}		
@@ -37,6 +39,7 @@
 							document.getElementById("formObjetivos:objetivos:ligaEtiqueta").style.display='none';
 							document.getElementById("formObjetivos:objetivos:archivo").style.display='none';
 							document.getElementById("formObjetivos:objetivos:archivoEtiqueta").style.display='none';
+							document.getElementById("formObjetivos:objetivos:aviso").style.display='none';
 							document.getElementById("formObjetivos:objetivos:otro").style.display='block';
 							document.getElementById("formObjetivos:objetivos:otroEtiqueta").style.display='block';
 							document.getElementById("formObjetivos:objetivos:pregunta6").style.display='none';
@@ -107,7 +110,7 @@
 			</h:panelGroup>
 		
 		<h:form id="formObjetivos" style="width: 100%;margin: 0 auto;" >
-			<p:growl id="growl" showDetail="true" life="3000" />
+			<p:growl id="growl" showDetail="true" life="7000" />
 			<p:tabView id="objetivos" style="top: 45px;padding-left:3%; border:none"  >
 				<p:ajax event="tabChange" listener="#{mbTbl_LineasAccion.onTabChangeObjetivo}" update=":formObjetivos:objetivos "/>
 					        <p:tab   title="Objetivo 1" titleStyleClass="tabEditInfor">

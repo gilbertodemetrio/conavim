@@ -163,7 +163,7 @@ public class Tbl_lineasaccionDAO extends Conexion {
 				+ "poblabenfhombing, ninasbenifi0a12pobltot, ninasbenifi0a12poblindig, "
 				+ "ninasbenifi12a17pobltot, ninasbenifi12a17poblindig, ninosbenifi0a12pobltot, "
 				+ "ninosbenifi0a12poblindig, ninosbenifi12a17pobltot, ninpsbenifi12a17poblindig, "
-				+ "status)"
+				+ "status,otroprod6)"
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, "
 				+ "?, ?, ?, ?, ?, "
 				+ "?, ?, ?, ?, "
@@ -173,7 +173,7 @@ public class Tbl_lineasaccionDAO extends Conexion {
 				+ "?, ?, ?, "
 				+ "?, ?, ?, "
 				+ "?, ?, ?, "
-				+ "?)";
+				+ "?,?)";
 		
 		try {
 			
@@ -231,6 +231,7 @@ public class Tbl_lineasaccionDAO extends Conexion {
 					consulta.setInt(39, oTblRespuesta.getNinosbenifi12a17pobltot());
 					consulta.setInt(40, oTblRespuesta.getNinpsbenifi12a17poblindig());
 					consulta.setInt(41, oTblRespuesta.getStatus());
+					consulta.setString(42, oTblRespuesta.getOtroProducto6());
 			consulta.executeUpdate();
 			System.out.println("\n\n\nREGISTRO INSERTADO CON EXITO!!!");
 			mensaje="REGISTRO INSERTADO CON EXITO!";
@@ -273,10 +274,9 @@ public class Tbl_lineasaccionDAO extends Conexion {
 				+ "observaciones=?, otrasinsticolaboran=?, presupuesto=?, fuentefinacia=?, otrofuentefinancia=?, "
 				+ "noserviciosotrg=?, totalpoblbenfm=?, poblabenfmujing=?, totalpoblbenfh=?, "
 				+ "poblabenfhombing=?, ninasbenifi0a12pobltot=?, ninasbenifi0a12poblindig=?, "				
-				+ "ninasbenifi12a17pobltot=?, ninasbenifi12a17poblindig=?, ninosbenifi0a12pobltot=?, "
-				
+				+ "ninasbenifi12a17pobltot=?, ninasbenifi12a17poblindig=?, ninosbenifi0a12pobltot=?, "				
 				+ "ninosbenifi0a12poblindig=?, ninosbenifi12a17pobltot=?, ninpsbenifi12a17poblindig=?, "
-				+ "status=? WHERE id_informe='"+idInforme+"' and id_lineaaccion="+idLinea+";";
+				+ "status=?, otroprod6=? WHERE id_informe='"+idInforme+"' and id_lineaaccion="+idLinea+";";
 		
 		try {
 
@@ -322,6 +322,7 @@ public class Tbl_lineasaccionDAO extends Conexion {
 					consulta.setInt(37, oTblRespuesta.getNinosbenifi12a17pobltot());//ninosbenifi12a17pobltot
 					consulta.setInt(38, oTblRespuesta.getNinpsbenifi12a17poblindig());//ninpsbenifi12a17poblindig
 					consulta.setInt(39, oTblRespuesta.getStatus());
+					consulta.setString(40, oTblRespuesta.getOtroProducto6());
 			consulta.executeUpdate();
 			System.out.println("\n\n\nREGISTRO ACTUALIZADO CON EXITO!!!");
 			mensaje="REGISTRO ACTUALIZADO CON EXITO!";
@@ -432,7 +433,8 @@ public class Tbl_lineasaccionDAO extends Conexion {
 				oTblRespuesta.setNinosbenifi0a12pobltot(res.getInt("ninosbenifi0a12pobltot"));
 				oTblRespuesta.setNinosbenifi0a12poblingid(res.getInt("ninosbenifi0a12poblindig"));
 				oTblRespuesta.setNinosbenifi12a17pobltot(res.getInt("ninosbenifi12a17pobltot"));
-				oTblRespuesta.setNinpsbenifi12a17poblindig(res.getInt("ninpsbenifi12a17poblindig"));				
+				oTblRespuesta.setNinpsbenifi12a17poblindig(res.getInt("ninpsbenifi12a17poblindig"));	
+				oTblRespuesta.setOtroProducto6(res.getString("otroprod6"));
 			}
 		} catch (Exception e) {
 			System.out.println("no se pudo buscar Linea No se encontro\n" + e);
