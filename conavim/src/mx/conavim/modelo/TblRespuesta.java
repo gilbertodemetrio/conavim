@@ -159,7 +159,7 @@ public class TblRespuesta {
 	}
 	public void setLinkproducto(String linkproducto) {		
 		this.linkproducto = linkproducto;
-	}
+	} 
 	public String getMetaprgmdlinacc() {
 		return metaprgmdlinacc;
 	}
