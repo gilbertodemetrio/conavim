@@ -28,6 +28,7 @@ public class TblRespuesta {
 	private Date fechainactv;
 	private Date fechatermactv;
 	private String producto ;
+	private String otroProducto6;
 	private String tipoproduct ;
 	private String linkproducto ;
 	private String metaprgmdlinacc ;
@@ -64,9 +65,12 @@ public class TblRespuesta {
 	
 	
 	
-
-	
-	
+	public String getOtroProducto6() {
+		return otroProducto6;
+	}
+	public void setOtroProducto6(String otroProducto6) {
+		this.otroProducto6 = otroProducto6;
+	}
 	public String getOtroactivicumpla() {
 		return otroactivicumpla;
 	}
@@ -153,7 +157,7 @@ public class TblRespuesta {
 	public String getLinkproducto() {
 		return linkproducto;
 	}
-	public void setLinkproducto(String linkproducto) {
+	public void setLinkproducto(String linkproducto) {		
 		this.linkproducto = linkproducto;
 	}
 	public String getMetaprgmdlinacc() {
