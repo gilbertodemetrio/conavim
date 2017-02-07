@@ -12,7 +12,7 @@ public class TblRespuesta {
 	
 	private int id_respuesta;
 	private String estrategia;
-	private String objetivo;
+	private String objetivo; 
 	private String descripcionLinea;
 	private String descripcionObjetivo;
 	private String descripcionEstrategia;
