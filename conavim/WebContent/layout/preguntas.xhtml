@@ -11,7 +11,7 @@
 		 		    		 				 
 			<p:dialog  id="dialog2" header="Modal Dialog" widgetVar="dlg2" modal="true"  dynamic="true"  styleClass="ui-dialog1" >
 			    <h:outputText value="Archivo #{mbTbl_LineasAccion.nombreArch}" /><br/>
-			    <p:graphicImage rendered="#{mbTbl_LineasAccion.extension !='pdf' and mbTbl_LineasAccion.extension !='docx'}" value="#{mbTbl_LineasAccion.rutaImagen}" height="80%" width="100%"/>
+			    <p:graphicImage rendered="#{mbTbl_LineasAccion.extension !='pdf' and mbTbl_LineasAccion.extension !='docx'  and mbTbl_LineasAccion.extension !='xlsx'}" value="#{mbTbl_LineasAccion.rutaImagen}" height="80%" width="100%"/>
 			    <h:panelGroup rendered="#{mbTbl_LineasAccion.extension=='pdf'}"> 
 				    <p:media value="#{mbTbl_LineasAccion.rutaImagen}" width="80%" height="80%" player="pdf" />
 			    </h:panelGroup >
@@ -19,7 +19,15 @@
 <!-- 			    	<h:outputLink target="_blank" value="#{mbTbl_LineasAccion.rutaImagen}"> -->
 <!-- 			    		Ver Documento -->
 <!-- 			    	</h:outputLink> -->
-			    	<p:commandButton value="Download" ajax="false" icon="ui-icon-arrowthick-1-s">
+			    	<p:commandButton value="Download Word" ajax="false" icon="ui-icon-arrowthick-1-s">
+				        <p:fileDownload value="#{mbTbl_LineasAccion.fileD}"/>
+				    </p:commandButton>				    						
+			    </h:panelGroup>
+			     <h:panelGroup rendered="#{mbTbl_LineasAccion.extension=='xlsx'}">
+<!-- 			    	<h:outputLink target="_blank" value="#{mbTbl_LineasAccion.rutaImagen}"> -->
+<!-- 			    		Ver Documento -->
+<!-- 			    	</h:outputLink> -->
+			    	<p:commandButton value="Download Excel" ajax="false" icon="ui-icon-arrowthick-1-s">
 				        <p:fileDownload value="#{mbTbl_LineasAccion.fileD}"/>
 				    </p:commandButton>				    						
 			    </h:panelGroup>
